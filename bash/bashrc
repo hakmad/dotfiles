@@ -1,0 +1,19 @@
+# ~/.bashrc
+# Run whenever a new bash process is made (e.g. new terminal emulator, etc.).
+
+# If not running interactively, don't do anything.
+[[ $- != *i* ]] && return
+
+# Set prompts.
+PS1="> "
+PS2="? "
+PS3="# "
+PS4="! "
+PROMPT_COMMAND=""
+
+# Aliases.
+alias ls="ls --color=auto -v"
+alias du="du -h"
+alias df="df -h"
+alias tree="tree -v"
+alias zathura="zathura --fork"

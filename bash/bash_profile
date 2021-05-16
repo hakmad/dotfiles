@@ -1,0 +1,14 @@
+# ~/.bash_profile
+# Run when I login.
+
+# Source ~/.bashrc if it exists.
+[[ -f ~/.bashrc ]] && . ~/.bashrc
+
+# Add ~/.bin to PATH variable.
+export PATH=$PATH:~/.bin
+
+# Export vim as the editor.
+export EDITOR=vim
+
+# Run startx (silently) when I log in.
+[[ $(fgconsole 2>/dev/null) == 1 ]] && startx -- vt1 &> /dev/null
