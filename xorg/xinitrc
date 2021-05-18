@@ -1,0 +1,5 @@
+# ~/.xinitrc
+# Run when X starts.
+
+# Start BSPWM.
+exec bspwm
