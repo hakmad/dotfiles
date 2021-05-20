@@ -1,0 +1,8 @@
+/* ~/.config/gtk-3.0/gtk.css */
+/* Configuration file for GTK. */
+
+/* Settings for termite (and other VTE terminals). */
+VteTerminal, vte-terminal {
+	/* 20px padding top and bottom, 40px padding on the sides.*/
+	padding: 20px 40px;
+}
