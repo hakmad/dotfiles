@@ -1,0 +1,95 @@
+# ~/.config/sxhkd/sxhkdrc
+# Configuration file for SXHKD.
+
+# SXHKD keybinds.
+# Reload sxhkdrc.
+super + Escape
+	pkill -USR1 -x sxhkd
+
+# BSPWM keybinds.
+# Quit/restart BSPWM.
+super + ctrl + {_,shift + } + q
+	pkill -x notify.sh; bspc {quit,wm -r}
+# Close/kill window.
+super + {_,shift + }q
+	bspc node -{c,k}
+# Set window state.
+super + {u,i,p}
+	bspc node -t {floating,tiled,fullscreen}
+# Focus in direction.
+super + {h,j,k,l}
+	bspc node -f {west,south,north,east}
+# Focus on workspace.
+super + {1-9,0}
+	goto.sh "^{1-9,10}"
+# Send window to workspace.
+super + shift + {1-9,0}
+	move.sh "^{1-9,10}"
+# Expand a window.
+super + ctrl + {h,j,k,l}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+# Contract a window.
+super + ctrl + shift + {h,j,k,l}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+# Move a floating window.
+super + shift + {h,j,k,l}
+	bspc node -v {-20 0,0 20,0 -20,20 0}
+# Preselection direction.
+super + alt + {h,j,k,l}
+	bspc node -p {west,south,north,east}
+# Preselection ratio.
+super + alt + {1-9}
+	bspc node -o 0.{1-9}
+# Cancel preselection.
+super + alt + space
+	bspc node -p cancel
+
+# Program launcher.
+super + space
+	run.sh
+# University module notes.
+super + m
+	modules.sh
+
+# Terminal emulator.
+super + Return
+	termite
+
+# Audio control.
+# Change volume.
+XF86Audio{Raise,Lower}Volume
+	amixer set Master 2%{+,-}; \
+	popup.sh -w 100 -m " $(get-audio.sh --volume)"
+# Toggle mute.
+XF86AudioMute
+	amixer set Master toggle; \
+	popup.sh -w 100 -m " $(get-audio.sh --status)"
+
+# Backlight control.
+XF86MonBrightness{Up,Down}
+	xbacklight {-inc,-dec} 2; \
+	popup.sh -w 150 -m " $(get-backlight.sh)"
+
+# Screenshots.
+{_,super} + Print
+	screenshot.sh {--all,--single}
+
+# Show backlight.
+super + x
+	popup.sh -w 150 -m " $(get-backlight.sh)"
+
+# Show date and time.
+super + c
+	popup.sh -w 150 -d 5 -m " $(date "+%a %d/%m/%Y %H:%M")"
+
+# Show volume information.
+super + v
+	popup.sh -w 150 -d 2 -m " $(get-audio.sh --all)"
+
+# Show battery information.
+super + b
+	popup.sh -w 250 -d 3 -m " $(get-battery.sh --all)"
+
+# Show current network.
+super + n
+	popup.sh -w 240 -m " $(get-network.sh)"
