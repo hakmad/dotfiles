@@ -1,0 +1,18 @@
+" ~/.vimrc
+" Configuration file for vim.
+
+" Enable plugins based on filetype.
+filetype indent plugin on
+
+" Enable syntax highlighting.
+syntax on
+
+" Enable auto indentation.
+set autoindent
+" Enable numbers on the side.
+set number
+" Enable incsearch.
+set incsearch
+
+" Colourscheme.
+colorscheme greyscale
