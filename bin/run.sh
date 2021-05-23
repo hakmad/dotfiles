@@ -6,7 +6,7 @@
 . style.sh
 
 # Different desktop programs to select from.
-OPTIONS="blender\ndiscord\nfirefox\ngodot\nobs\npulseUi\
+OPTIONS="alacritty\nblender\ndiscord\nfirefox\ngodot\nobs\npulseUi\
 	\nqutebrowser\ntermite\nvirtualbox\nzathura"
 
 # Echo different options and pipe to dmenu, then run the selected option
