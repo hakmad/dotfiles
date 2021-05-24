@@ -95,7 +95,7 @@ echo "Done." >> setup.log
 # Install desktop applications.
 echo "Installing desktop applications..." >> setup.log
 sudo pacman -S --noconfirm termite termite-terminfo qutebrowser firefox \
-	zathura zathura-pdf-mupdf discord mpv feh obs-studio blender
+	zathura zathura-pdf-mupdf discord mpv feh obs-studio blender alacritty
 install_aur godot-bin
 echo "Done." >> setup.log
 
