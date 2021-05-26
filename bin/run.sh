@@ -7,7 +7,7 @@
 
 # Different desktop programs to select from.
 OPTIONS="alacritty\nblender\ndiscord\nfirefox\ngodot\nobs\npulseUi\
-	\nqutebrowser\ntermite\nvirtualbox\nzathura"
+	\nqutebrowser\nvirtualbox\nzathura"
 
 # Echo different options and pipe to dmenu, then run the selected option
 # using the shell.
