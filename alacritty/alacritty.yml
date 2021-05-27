@@ -4,8 +4,8 @@
 # Window options.
 window:
   padding:
-    x: 40
-    y: 20
+    x: 30
+    y: 15
 
   dynamic_padding: false
 
