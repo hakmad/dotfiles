@@ -4,8 +4,10 @@
 # Window options.
 window:
   padding:
-    x: 30
-    y: 15
+    x: 40
+    y: 20
+
+  dynamic_padding: false
 
 # Cursor options.
 cursor:
