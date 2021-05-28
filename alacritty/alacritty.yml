@@ -3,6 +3,10 @@
 
 # Window options.
 window:
+  dimensions:
+    columns: 80
+    lines: 24
+
   padding:
     x: 30
     y: 15
