@@ -1,6 +1,11 @@
 # ~/.config/alacritty/alacritty.yml
 # Configuration file for alacritty.
 
+# Environment variables (DPI scaling).
+env:
+  WINIT_X11_SCALE_FACTOR: "1"
+  WINIT_HIDPI_FACTOR: "1"
+
 # Window options.
 window:
   dimensions:
