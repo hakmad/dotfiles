@@ -26,7 +26,7 @@ if [[ -z $CHOICE ]]; then
 	exit
 else
 	cd $MODULE_DIRECTORY$CHOICE
-	termite -e "vim 'notes.tex'" &
+	alacritty -e "vim 'notes.tex'" &
 	sleep 0.1
 	zathura "notes.pdf" &
 fi
