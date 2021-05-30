@@ -115,15 +115,6 @@ sudo pacman -S --noconfirm virtualbox virtualbox-host-modules-arch \
 install_aur virtualbox-ext-oracle
 echo "Done." >> setup.log
 
-# Install Pulse Secure VPN (and dependencies).
-echo "Installing dependencies for Pulse Secure VPN..." >> setup.log
-install_aur webkitgtk-bin
-install_aur icu64
-echo "Done." >> setup.log
-echo "Installing Pulse Secure VPN..." >> setup.log
-install_aur pulse-secure
-echo "Done." >> setup.log
-
 # Push dotfiles to their locations.
 echo "Pushing dotfiles..." >> setup.log
 # Temporary disable failure system again because I can't be bothered to
