@@ -10,5 +10,8 @@ export PATH=$PATH:~/.bin
 # Export vim as the editor.
 export EDITOR=vim
 
+# Set the number of lines for the history file to 1000.
+export HISTFILESIZE=1000
+
 # Run startx (silently) when I log in.
 [[ $(fgconsole 2>/dev/null) == 1 ]] && startx -- vt1 &> /dev/null
