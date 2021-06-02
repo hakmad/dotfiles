@@ -103,7 +103,7 @@ echo "Done." >> setup.log
 echo "Installing extra utilities and miscellaneous packages..." >> setup.log
 sudo pacman -S --noconfirm acpi tree ntfs-3g htop wireless_tools python \
 	python-pip texlive-most youtube-dl zip unzip p7zip cronie slock \
-	xss-lock
+	xss-lock imagemagick
 sudo systemctl enable cronie
 sudo systemctl start cronie
 echo "Done." >> setup.log
