@@ -13,5 +13,8 @@ export EDITOR=vim
 # Set the number of lines for the history file to 1000.
 export HISTFILESIZE=1000
 
+# Ignore duplicates and spaces in history file.
+export HISTCONTROL=ignoredps:ignorespace
+
 # Run startx (silently) when I log in.
 [[ $(fgconsole 2>/dev/null) == 1 ]] && startx -- vt1 &> /dev/null
