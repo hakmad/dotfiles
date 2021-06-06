@@ -16,5 +16,8 @@ export HISTFILESIZE=1000
 # Ignore duplicates and spaces in history file.
 export HISTCONTROL=ignoredps:ignorespace
 
+# Add timestamps to output for history.
+export HISTTIMEFORMAT="%d/%m/%Y %H:%M:%S"
+
 # Run startx (silently) when I log in.
 [[ $(fgconsole 2>/dev/null) == 1 ]] && startx -- vt1 &> /dev/null
