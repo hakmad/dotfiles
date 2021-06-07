@@ -19,5 +19,8 @@ export HISTCONTROL=ignoredps:ignorespace
 # Add timestamps to output for history.
 export HISTTIMEFORMAT="%d/%m/%Y %H:%M:%S"
 
+# Disable autocomplete on empty input.
+shopt -s no_empty_cmd_completion
+
 # Run startx (silently) when I log in.
 [[ $(fgconsole 2>/dev/null) == 1 ]] && startx -- vt1 &> /dev/null
