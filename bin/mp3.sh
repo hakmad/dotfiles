@@ -18,11 +18,12 @@ FILENAME=$2
 youtube-dl --extract-audio --audio-format mp3\
 	--output "$FILENAME".%\(ext\)s $URL
 
-# If not on Android (Termux)...
-if [[ -z $ANDROID_ROOT ]]; then
+# If on desktop...
+if [[ $OSTYPE == "linux-gnu" ]]; then
 	# Move file to ~/media/music.
 	mv "$FILENAME".mp3 ~/media/music
-else
+# If on mobile (Android).
+elif [[ $OSTYPE == "linux-android" ]]; then
 	# Move file to ~/storage/music.
 	mv "$FILENAME".mp3 ~/storage/music
 fi
