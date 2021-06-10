@@ -10,13 +10,9 @@ export PATH=$PATH:~/.bin
 # Export vim as the editor.
 export EDITOR=vim
 
-# Set the number of lines for the history file to 1000.
+# History related environment variables.
 export HISTFILESIZE=1000
-
-# Ignore duplicates and spaces in history file.
 export HISTCONTROL=ignoredps:ignorespace
-
-# Add timestamps to output for history.
 export HISTTIMEFORMAT="%d/%m/%Y %H:%M:%S"
 
 # Disable autocomplete on empty input.
