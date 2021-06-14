@@ -28,5 +28,5 @@ else
 	cd $MODULE_DIRECTORY$CHOICE
 	alacritty -e vim notes.tex &
 	sleep 0.1
-	zathura "notes.pdf" &
+	doc "notes.pdf" &
 fi
