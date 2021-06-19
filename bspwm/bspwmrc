@@ -11,9 +11,6 @@
 bspc config window_gap			15
 bspc config border_width		5
 
-# Remove gap from the top of laptop monitor.
-bspc config -m 0 top_padding		0
-
 # Set default split ratio.
 bspc config split_ratio          	0.5
 
