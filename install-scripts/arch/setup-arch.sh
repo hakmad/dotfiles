@@ -21,7 +21,7 @@ echo "Setup started at $(date)." >> setup.log
 echo "Creating directories..." >> setup.log
 mkdir -p ~/downloads ~/media/books ~/media/documents \
 	~/media/images/screenshots ~/media/music ~/media/usb ~/media/sd \
-	~/media/videos ~/workspace
+	~/media/videos ~/vms ~/workspace
 echo "Done." >> setup.log
 
 # Connect to the internet.
