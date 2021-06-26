@@ -54,6 +54,9 @@ super + m
 # Terminal emulator.
 super + Return
 	alacritty
+# Floating terminal emulator.
+super + shift + Return
+	alacritty --class floating_alacritty,floating_alacritty
 
 # Audio control.
 # Change volume.
