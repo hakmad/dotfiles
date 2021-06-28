@@ -44,19 +44,22 @@ super + alt + {1-9}
 super + alt + space
 	bspc node -p cancel
 
+# Utilities
 # Program launcher.
 super + space
 	run.sh
-# University module notes.
-super + m
-	modules.sh
-
 # Terminal emulator.
 super + Return
 	alacritty
 # Floating terminal emulator.
 super + shift + Return
 	alacritty --class floating_alacritty,floating_alacritty
+# Screenshots.
+{_,super} + Print
+	screenshot.sh {--all,--single}
+# University module notes.
+super + m
+	modules.sh
 
 # Audio control.
 # Change volume.
@@ -72,10 +75,6 @@ XF86AudioMute
 XF86MonBrightness{Up,Down}
 	xbacklight {-inc,-dec} 2; \
 	popup.sh -w 150 -m " $(get-backlight.sh)"
-
-# Screenshots.
-{_,super} + Print
-	screenshot.sh {--all,--single}
 
 # Display information
 # Show backlight.
