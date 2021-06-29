@@ -57,6 +57,10 @@ super + shift + Return
 # Screenshots.
 {_,super} + Print
 	screenshot.sh {--all,--single}
+# Backlight control.
+XF86MonBrightness{Up,Down}
+	xbacklight {-inc,-dec} 2; \
+	popup.sh -w 150 -m " $(get-backlight.sh)"
 # University module notes.
 super + m
 	modules.sh
@@ -70,11 +74,6 @@ XF86Audio{Raise,Lower}Volume
 XF86AudioMute
 	amixer set Master toggle; \
 	popup.sh -w 100 -m " $(get-audio.sh --status)"
-
-# Backlight control.
-XF86MonBrightness{Up,Down}
-	xbacklight {-inc,-dec} 2; \
-	popup.sh -w 150 -m " $(get-backlight.sh)"
 
 # Display information
 # Show backlight.
