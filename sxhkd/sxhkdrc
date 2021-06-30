@@ -61,6 +61,9 @@ super + shift + Return
 XF86MonBrightness{Up,Down}
 	xbacklight {-inc,-dec} 2; \
 	popup.sh -w 150 -m " $(get-backlight.sh)"
+# NetworkManager.
+super + shift + n
+	alacritty --class floating_alacritty,floating_alacritty --command nmtui
 # University module notes.
 super + m
 	modules.sh
