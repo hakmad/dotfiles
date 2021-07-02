@@ -26,7 +26,7 @@ if [[ -z $CHOICE ]]; then
 	exit
 else
 	cd $MODULE_DIRECTORY$CHOICE
-	alacritty -e vim notes.tex &
+	term --command vim notes.tex &
 	sleep 0.1
 	doc "notes.pdf" &
 fi
