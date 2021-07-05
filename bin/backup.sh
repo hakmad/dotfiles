@@ -12,6 +12,9 @@
 # 	~/workspace
 # 	~/.dotfiles
 
+# Stop if there are errors.
+set -e
+
 # Initial variables.
 VERBOSE=false
 BACKUPDIR=~/.backup/
