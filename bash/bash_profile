@@ -3,3 +3,5 @@
 #
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
+
+PATH=$PATH:~/bin
