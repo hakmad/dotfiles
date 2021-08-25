@@ -1,0 +1,9 @@
+window:
+  padding:
+    x: 20
+    y: 20
+
+cursor:
+  style:
+    shape: Block
+    blinking: Off
