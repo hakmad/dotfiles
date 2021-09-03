@@ -7,3 +7,7 @@
 export PATH=$PATH:~/bin
 
 export EDITOR=vim
+
+export HISTFILESIZE=1000
+export HISCONTROL=ignorespace:ignoredups
+export HISTTIMEFORMAT="%d/%m/%Y %H:%M:%S"
