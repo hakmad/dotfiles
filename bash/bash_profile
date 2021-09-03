@@ -4,4 +4,6 @@
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
-PATH=$PATH:~/bin
+export PATH=$PATH:~/bin
+
+export EDITOR=vim
