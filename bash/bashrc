@@ -5,9 +5,12 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-alias ls="ls --color=auto"
+alias ls="ls --color=auto -v"
 alias du="du -h"
 alias df="df -h"
+alias tree="tree -v"
+alias term="alacritty"
+alias term-floating="alacritty --class floating,floating"
 
 PS1="> "
 PS2="? "
