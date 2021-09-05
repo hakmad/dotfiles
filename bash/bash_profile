@@ -14,3 +14,5 @@ export HISTTIMEFORMAT="%d/%m/%Y %H:%M:%S"
 
 shopt -s no_empty_cmd_completion
 shopt -s histappend
+
+[[ $(fgconsole 2>/dev/null) == 1 ]] && startx -- vt1 &> /dev/null
