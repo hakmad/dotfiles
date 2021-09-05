@@ -3,9 +3,15 @@ env:
   WINIT_HIDPI_FACTOR: "1"
 
 window:
+  dimensions:
+    columns: 86
+    lines: 24
+
   padding:
     x: 20
     y: 20
+
+  dynamic_padding: false
 
 cursor:
   style:
