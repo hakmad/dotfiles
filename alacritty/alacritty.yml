@@ -12,6 +12,8 @@ cursor:
     shape: Block
     blinking: Off
 
+  unfocused_hollow: true
+
 font:
   normal:
     family: Terminus
