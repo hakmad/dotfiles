@@ -12,4 +12,7 @@ bspc config presel_feedback_color "#b9b9b9"
 
 bspc monitor -d 1 2 3 4 5
 
+setxkbmap gb &
+
+picom &
 sxhkd &
