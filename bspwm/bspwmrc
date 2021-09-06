@@ -18,3 +18,5 @@ picom &
 sxhkd &
 
 feh --bg-fill $(find ~/media/images/wallpapers/ | tail -n +2 | shuf -n 1) &
+
+xss-lock -- slock
