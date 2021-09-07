@@ -3,6 +3,5 @@ set guioptions hide
 set recolor "true"
 set recolor-lightcolor "#101010"
 set recolor-darkcolor "#b9b9b9"
-set recolor-keephue true
 
 set font "terminus 9"
