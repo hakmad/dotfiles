@@ -4,12 +4,6 @@ source style.sh
 
 DURATION=1
 
-WIDTH=500
-HEIGHT=30
-
-X=30
-Y=30
-
 while [[ $1 != "" ]]; do
 	case $1 in
 		-w)
