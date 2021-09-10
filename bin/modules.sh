@@ -22,5 +22,5 @@ else
 	cd $RESULT
 	alacritty --command vim notes.tex &
 	sleep 0.1
-	zathura notes.pdf &
+	zathura --fork notes.pdf &
 fi
