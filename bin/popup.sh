@@ -26,4 +26,4 @@ done
 
 (echo " $MESSAGE"; sleep $DURATION) | lemonbar -d -b \
 	-g ${WIDTH}x${HEIGHT}+${X}+${Y} \
-	-F "$FOREGROUND" -B "$BACKGROUND" -f "$FONT"
+	-F $FOREGROUND -B $BACKGROUND -f "$FONT"

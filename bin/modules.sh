@@ -11,8 +11,8 @@ for module in $MODULES_LIST_FULLPATH; do
 	MODULE_LIST="$MODULE_LIST$module\n"
 done
 
-CHOICE=$(echo -e $MODULE_LIST | dmenu -fn $FONT -nb "$BACKGROUND" -nf \
-	"$ACCENT" -sb "$BACKGROUND" -sf "$FOREGROUND" \
+CHOICE=$(echo -e $MODULE_LIST | dmenu -fn $FONT -nb $BACKGROUND -nf \
+	$ACCENT -sb $BACKGROUND -sf $FOREGROUND \
 	-b -x $X -y $Y -w $WIDTH -h $HEIGHT -s 0)
 
 if [[ -z $CHOICE ]]; then
@@ -22,5 +22,5 @@ else
 	cd $RESULT
 	alacritty --command vim notes.tex &
 	sleep 0.1
-	zathura "notes.pdf" &
+	zathura notes.pdf &
 fi
