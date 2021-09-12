@@ -27,7 +27,9 @@ super + alt + space
 	bspc node -p cancel
 
 super + Return
-	alacritty
+	term
+super + shift + Return
+	term-floating
 
 XF86MonBrightness{Up,Down}
 	xbacklight {-inc,-dec} 2
