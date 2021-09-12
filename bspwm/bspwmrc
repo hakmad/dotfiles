@@ -14,6 +14,10 @@ bspc config presel_feedback_color $FOREGROUND
 
 bspc monitor -d 1 2 3 4 5
 
+bspc rule -a feh state=floating
+bspc rule -a mpv state=floating
+bspc rule -a floating state=floating
+
 setxkbmap gb &
 
 picom &
