@@ -36,9 +36,12 @@ super + m
 	modules.sh
 
 XF86MonBrightness{Up,Down}
-	xbacklight {-inc,-dec} 2
+	xbacklight {-inc,-dec} 2; \
+	popup.sh -w 150 -m " $(get-backlight.sh)"
 
 XF86Audio{Raise,Lower}Volume
-	amixer set Master 2%{+,-}
+	amixer set Master 2%{+,-}; \
+	popup.sh -w 100 -m " $(get-audio.sh --volume)"
 XF86AudioMute
-	amixer set Master toggle
+	amixer set Master toggle; \
+	popup.sh -w 100 -m " $(get-audio.sh --status)"
