@@ -48,6 +48,8 @@ XF86AudioMute
 
 super + x
 	popup.sh -w 150 -m " $(get-backlight.sh)"
+super + c
+	popup.sh -w 150 -d 5 -m " $(date "+%a %d/%m/%Y %H:%M")"
 super + v
 	popup.sh -w 150 -m " $(get-audio.sh --all)"
 super + b
