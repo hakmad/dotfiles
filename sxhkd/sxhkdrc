@@ -45,3 +45,12 @@ XF86Audio{Raise,Lower}Volume
 XF86AudioMute
 	amixer set Master toggle; \
 	popup.sh -w 100 -m " $(get-audio.sh --status)"
+
+super + x
+	popup.sh -w 150 -m " $(get-backlight.sh)"
+super + v
+	popup.sh -w 150 -m " $(get-audio.sh --all)"
+super + b
+	popup.sh -w 250 -d 3 -m " $(get-battery.sh --all)"
+super + n
+	popup.sh -w 200 -m " $(get-network.sh)"
