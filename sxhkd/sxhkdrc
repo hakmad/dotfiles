@@ -30,6 +30,10 @@ super + Return
 	term
 super + shift + Return
 	term-floating
+super + space
+	run.sh
+super + m
+	modules.sh
 
 XF86MonBrightness{Up,Down}
 	xbacklight {-inc,-dec} 2
