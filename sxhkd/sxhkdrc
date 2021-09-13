@@ -5,7 +5,7 @@ super + ctrl + {_,shift + } q
 	bspc {quit,wm -r}
 super + {_,shift + } q
 	bspc node -{c,k}
-super + {u,i,p}
+super + {u,i,o}
 	bspc node -t {floating,tiled,fullscreen}
 super + {h,j,k,l}
 	bspc node -f {west,south,north,east}
@@ -34,6 +34,9 @@ super + space
 	run.sh
 super + m
 	modules.sh
+
+super + p
+	slock
 
 XF86MonBrightness{Up,Down}
 	xbacklight {-inc,-dec} 2; \
