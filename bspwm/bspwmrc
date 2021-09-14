@@ -30,6 +30,8 @@ bspc rule -a feh state=floating
 bspc rule -a mpv state=floating
 bspc rule -a floating state=floating
 
+notify.sh &
+
 setxkbmap gb &
 
 picom &
