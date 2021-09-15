@@ -1,14 +1,60 @@
 #!/bin/bash
 
-mkdir ~/backup
-cd ~/backup
+VERBOSE=false
+BACKUP_DIR=~/.backup
+CURRENT_DIR=$(pwd)
+FILENAME="backup.tar.gz"
 
+while [[ $1 != "" ]]; do
+	case $1 in
+		-v | --verbose)
+			VERBOSE=true
+			shift
+			;;
+		-o | --output)
+			shift
+			FILENAME=$1
+			shift
+			;;
+		*)
+			shift
+			;;
+	esac
+done
+
+if [[ $VERBOSE ]]; then
+	log() {
+		echo "$@"
+	}
+else
+	log() {
+		:
+	}
+fi
+
+log "Creating backup directory..."
+rm -rf $BACKUP_DIR
+mkdir -p $BACKUP_DIR
+cd $BACKUP_DIR
+
+log "Copying files..."
+cp -r ~/.dotfiles ./dotfiles
 cp -r ~/downloads .
 cp -r ~/media .
 cp -r ~/workspace .
 
-tar -czf backup.tar.gz *
-mv backup.tar.gz ~/
+log "Creating $FILENAME..."
+if [[ $VERBOSE ]]; then
+	tar -czvf $FILENAME *
+else
+	tar -czf $FILENAME
+fi
 
-cd -
-rm -rf ~/backup
+log "Moving $FILENAME to home directory..."
+mv $FILENAME ~/
+
+log "Cleaning up..."
+cd $CURRENT_DIR
+rm -rf $BACKUP_DIR
+
+echo "Successfully created backup file $FILENAME"
