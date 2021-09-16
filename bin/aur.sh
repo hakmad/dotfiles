@@ -3,10 +3,27 @@
 DOWNLOADS_DIR=~/downloads/.aur/
 mkdir -p $DOWNLOADS_DIR
 
-git clone https://aur.archlinux.org/$1 $DOWNLOADS_DIR$1
+install() {
+	PACKAGE=$1
 
-cd $DOWNLOADS_DIR$1
-makepkg -si
-cd -
+	git clone https://aur.archlinux.org/$PACKAGE $DOWNLOADS_DIR$PACKAGE
 
-rm -rf $DOWNLOADS_DIR$1
+	cd $DOWNLOADS_DIR$PACKAGE
+	makepkg -si
+	cd -
+}
+
+while [[ $1 != "" ]]; do
+	case $1 in
+		-i | --install)
+			shift
+			PACKAGE=$1
+			install $PACKAGE
+			exit
+			;;
+		*)
+			exit 1
+			;;
+	esac
+	break
+done
