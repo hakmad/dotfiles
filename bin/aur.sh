@@ -3,6 +3,12 @@
 DOWNLOADS_DIR=~/downloads/.aur/
 mkdir -p $DOWNLOADS_DIR
 
+clean() {
+	cd $DOWNLOADS_DIR
+	rm -rf *
+	cd -
+}
+
 install() {
 	PACKAGE=$1
 
@@ -15,6 +21,10 @@ install() {
 
 while [[ $1 != "" ]]; do
 	case $1 in
+		-c | --clean)
+			clean
+			exit
+			;;
 		-i | --install)
 			shift
 			PACKAGE=$1
