@@ -1,9 +1,12 @@
 #!/bin/bash
 
-git clone https://aur.archlinux.org/$1 ~/downloads/$1
+DOWNLOADS_DIR=~/downloads/.aur/
+mkdir -p $DOWNLOADS_DIR
 
-cd ~/downloads/$1
+git clone https://aur.archlinux.org/$1 $DOWNLOADS_DIR$1
+
+cd $DOWNLOADS_DIR$1
 makepkg -si
 cd -
 
-rm -rf ~/downloads/$1
+rm -rf $DOWNLOADS_DIR$1
