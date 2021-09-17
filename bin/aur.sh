@@ -3,6 +3,18 @@
 DOWNLOADS_DIR=~/downloads/.aur/
 mkdir -p $DOWNLOADS_DIR
 
+argument_handler() {
+	FUNCTION=$1
+	ARGUMENT=$2
+
+	if [[ -z $ARGUMENT ]]; then
+		echo "Argument not supplied, exiting"
+		exit 1
+	else
+		$FUNCTION $ARGUMENT
+	fi
+}
+
 clean() {
 	cd $DOWNLOADS_DIR
 	rm -rf *
@@ -42,13 +54,13 @@ while [[ $1 != "" ]]; do
 		-i | --install)
 			shift
 			PACKAGE=$1
-			install $PACKAGE
+			argument_handler install $PACKAGE
 			exit
 			;;
 		-s | --search)
 			shift
 			PACKAGE=$1
-			search $PACKAGE
+			argument_handler search $PACKAGE
 			exit
 			;;
 		*)
