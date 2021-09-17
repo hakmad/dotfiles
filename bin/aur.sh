@@ -19,6 +19,20 @@ install() {
 	cd -
 }
 
+search() {
+	PACKAGE=$1
+
+	RESULT=$(curl -s \
+		"https://aur.archlinux.org/rpc/?type=search&arg=$PACKAGE" \
+		| jq -r ".results | .[] | .Name, .Version, .Description")
+
+	while read PACKAGE; read VERSION; read DESCRIPTION
+	do
+		echo "aur/$PACKAGE $VERSION"
+		echo "    $DESCRIPTION"
+	done <<< $RESULT
+}
+
 while [[ $1 != "" ]]; do
 	case $1 in
 		-c | --clean)
@@ -29,6 +43,12 @@ while [[ $1 != "" ]]; do
 			shift
 			PACKAGE=$1
 			install $PACKAGE
+			exit
+			;;
+		-s | --search)
+			shift
+			PACKAGE=$1
+			search $PACKAGE
 			exit
 			;;
 		*)
