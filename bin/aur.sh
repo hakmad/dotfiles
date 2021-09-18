@@ -31,6 +31,10 @@ install() {
 	cd -
 }
 
+list() {
+	pacman -Qm
+}
+
 search() {
 	PACKAGE=$1
 
@@ -55,6 +59,10 @@ while [[ $1 != "" ]]; do
 			shift
 			PACKAGE=$1
 			argument_handler install $PACKAGE
+			exit
+			;;
+		-l | --list)
+			list
 			exit
 			;;
 		-s | --search)
