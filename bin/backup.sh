@@ -2,7 +2,6 @@
 
 VERBOSE=false
 BACKUP_DIR=~/.backup
-CURRENT_DIR=$(pwd)
 FILENAME="backup.tar.gz"
 
 while [[ $1 != "" ]]; do
@@ -54,7 +53,7 @@ log "Moving $FILENAME to home directory..."
 mv $FILENAME ~/
 
 log "Cleaning up..."
-cd $CURRENT_DIR
 rm -rf $BACKUP_DIR
+cd -
 
 echo "Successfully created backup file $FILENAME"
