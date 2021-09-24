@@ -20,14 +20,16 @@ if [[ $(xrandr --query | grep DP1-3 | cut -d " " -f 2) == "connected" ]]; then
 
 	xrandr --output DP1-3 --auto --right-of eDP1
 	bspc monitor DP1-3 -d 6 7 8 9 9 10
-elif [[ $(xrandr --query | grep HDMI1 | \
-	cut -d " " -f 2) == "connected" ]]; then
-	bspc monitor HDMI1 -d Desktop
-	bspc monitor HDMI1 -r
-
-	xrandr --output HDMI1 --auto --same-as eDP1
 else
 	bspc monitor eDP1 -d 1 2 3 4 5
+
+	if [[ $(xrandr --query | grep HDMI1 \
+		cut -d " " -f 2) == "connected" ]]; then
+		xrandr --output HDMI1 --auto --same-as eDP1
+	fi
+
+	bspc monitor HDMI1 -d Desktop
+	bspc monitor HDMI1 -r
 
 	bspc monitor DP1-3 -d 6 7 8 9 10
 	bspc monitor DP1-3 -r
