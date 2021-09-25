@@ -40,6 +40,7 @@ fi
 bspc rule -a feh state=floating
 bspc rule -a mpv state=floating
 bspc rule -a floating state=floating
+bspc rule -a pavucontrol state=floating
 
 notify.sh &
 
