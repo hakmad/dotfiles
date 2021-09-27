@@ -1,7 +1,12 @@
+# ~/.config/alacritty/alacritty.yml
+# Configuration file for alacritty.
+
+# Environment variables for alacritty.
 env:
   WINIT_X11_SCALE_FACTOR: "1"
   WINIT_HIDPI_FACTOR: "1"
 
+# Window settings.
 window:
   dimensions:
     columns: 86
@@ -13,6 +18,7 @@ window:
 
   dynamic_padding: false
 
+# Cursor settings.
 cursor:
   style:
     shape: Block
@@ -20,6 +26,7 @@ cursor:
 
   unfocused_hollow: true
 
+# Font settings.
 font:
   normal:
     family: Terminus
@@ -39,6 +46,7 @@ font:
 
   size: 5
 
+# Colour settings.
 colors:
   primary:
     background: "#101010"
