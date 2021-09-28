@@ -1,18 +1,21 @@
-#
 # ~/.bash_profile
-#
+# Run when user logs in.
 
+# Find and source ~/.bashrc.
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
+# Export environment variables.
 export PATH=$PATH:~/bin
-
 export EDITOR=vim
 
+# History file settings.
 export HISTFILESIZE=1000
 export HISCONTROL=ignorespace:ignoredups
 export HISTTIMEFORMAT="%d/%m/%Y %H:%M:%S"
 
+# Shell options.
 shopt -s no_empty_cmd_completion
 shopt -s histappend
 
+# Run startx silently.
 [[ $(fgconsole 2>/dev/null) == 1 ]] && startx -- vt1 &> /dev/null
