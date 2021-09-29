@@ -1,3 +1,7 @@
+# ~/.gitconfig
+# Configuration file for git.
+
+# Set personal details.
 [user]
 	name = hakmad
 	email = 88987013+hakmad@users.noreply.github.com
