@@ -1,3 +1,6 @@
+# ~/.config/qutebrowser/config.py
+# Configuration file for qutebrowser.
+
 config.load_autoconfig(False)
 
 config.set('content.cookies.accept', 'all', 'chrome-devtools://*')
