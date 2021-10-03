@@ -1,7 +1,7 @@
 #!/bin/bash
 
 NAME=$1
-ORIGIN=~/.dotfiles/$NAME
+ORIGIN=~/.dotfiles/$NAME/
 
 if [[ -d $ORIGIN ]] && [[ -f $ORIGIN/.location ]]; then
 	TARGET=$(cat $ORIGIN/.location)
