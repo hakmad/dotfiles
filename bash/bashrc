@@ -12,8 +12,6 @@ alias ls="ls --color=auto -v"
 alias du="du -h"
 alias df="df -h"
 alias tree="tree -v"
-alias term="alacritty"
-alias term-floating="alacritty --class floating,floating"
 alias ssh="TERM=xterm-256color ssh"
 
 # Prompts.
