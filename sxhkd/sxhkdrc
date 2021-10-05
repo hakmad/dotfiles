@@ -27,9 +27,9 @@ super + alt + space
 	bspc node -p cancel
 
 super + Return
-	term
+	alacritty
 super + shift + Return
-	term-floating
+	alacritty --class ,floating
 super + space
 	run.sh
 super + m
