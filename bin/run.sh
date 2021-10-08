@@ -2,7 +2,7 @@
 
 source style.sh
 
-OPTIONS="discord\nfirefox\nobs\nterm\nterm-floating\nqutebrowser\nvirtualbox"
+OPTIONS="alacritty\ndiscord\nfirefox\nobs\nqutebrowser\nvirtualbox"
 
 echo -e $OPTIONS | dmenu -fn $FONT -nb $BACKGROUND -nf $ACCENT \
 	-sb  $BACKGROUND -sf $FOREGROUND \
