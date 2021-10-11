@@ -13,6 +13,8 @@ alias du="du -h"
 alias df="df -h"
 alias tree="tree -v"
 alias ssh="TERM=xterm-256color ssh"
+alias zathura="zathura --fork"
+alias feh="feh --conversion-timeout 1"
 
 # Prompts.
 PS1="> "
