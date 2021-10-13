@@ -1,6 +1,11 @@
+# ~/.config/sxhkd/sxhkdrc
+# Configuration file for SXHKD.
+
+# SXHKD hotkeys.
 super + Escape
 	pkill -USR1 -x sxhkd
 
+# BSPWM hotkeys.
 super + ctrl + {_,shift + } q
 	bspc {quit,wm -r}; \
 	pkill -x notify.sh
@@ -27,6 +32,7 @@ super + alt + {1-9}
 super + alt + space
 	bspc node -p cancel
 
+# Utilities.
 super + Return
 	alacritty
 super + shift + Return
@@ -36,13 +42,20 @@ super + space
 super + m
 	modules.sh
 
+# Screenlock.
 super + p
 	slock
 
+# Screenshot.
+{_,super} + Print
+	screenshot.sh {--all,--single}
+
+# Brightness.
 XF86MonBrightness{Up,Down}
 	xbacklight {-inc,-dec} 2; \
 	popup.sh -w 150 -m " $(get-backlight.sh)"
 
+# Audio
 XF86Audio{Raise,Lower}Volume
 	amixer set Master 2%{+,-}; \
 	popup.sh -w 100 -m " $(get-audio.sh --volume)"
@@ -50,9 +63,7 @@ XF86AudioMute
 	amixer set Master toggle; \
 	popup.sh -w 100 -m " $(get-audio.sh --status)"
 
-{_,super} + Print
-	screenshot.sh {--all,--single}
-
+# Display information.
 super + x
 	popup.sh -w 150 -m " $(get-backlight.sh)"
 super + c
