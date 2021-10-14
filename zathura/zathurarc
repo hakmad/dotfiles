@@ -2,11 +2,12 @@
 # Configuration file for zathura.
 
 # Hide bar.
-set guioptions hide
+set guioptions 		hide
 
 # Recolouring options.
-set recolor-lightcolor "#101010"
-set recolor-darkcolor "#b9b9b9"
+set recolor-lightcolor	"#101010"
+set recolor-darkcolor 	"#b9b9b9"
+set recolor-keephue 	true
 
 # Font.
-set font "terminus 9"
+set font 		"terminus 9"
