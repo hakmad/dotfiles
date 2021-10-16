@@ -1,8 +1,20 @@
 #!/bin/bash
 
+# Script for installing packages from the AUR.
+# 
+# The usage of this script is as follows:
+# 	aur.sh -i, --install [package]	Install a package.
+# 	aur.sh -s, --search [package]	Search for a package.
+# 	aur.sh -c, --clean		Remove installation files.
+# 	aur.sh -l, --list		List all packages from the AUR.
+# 
+# where [package] is the name of the package to be installed/searched for.
+
+# Directory for installation files.
 DOWNLOADS_DIR=~/downloads/.aur/
 mkdir -p $DOWNLOADS_DIR
 
+# Helper function for passing an argument to a function.
 argument_handler() {
 	FUNCTION=$1
 	ARGUMENT=$2
@@ -15,12 +27,14 @@ argument_handler() {
 	fi
 }
 
+# Clean download directory.
 clean() {
 	cd $DOWNLOADS_DIR
 	rm -rf *
 	cd -
 }
 
+# Install a package.
 install() {
 	PACKAGE=$1
 
@@ -31,10 +45,12 @@ install() {
 	cd -
 }
 
+# List packages from the AUR.
 list() {
 	pacman -Qm
 }
 
+# Search for a package.
 search() {
 	PACKAGE=$1
 
@@ -49,6 +65,7 @@ search() {
 	done <<< $RESULT
 }
 
+# Get command line arguments.
 while [[ $1 != "" ]]; do
 	case $1 in
 		-c | --clean)
