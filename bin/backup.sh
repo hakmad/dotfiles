@@ -43,7 +43,7 @@ cp -r ~/media .
 cp -r ~/workspace .
 
 log "Creating $FILENAME..."
-if [[ $VERBOSE ]]; then
+if [[ $VERBOSE == true ]]; then
 	tar -czvf $FILENAME *
 else
 	tar -czf $FILENAME *
