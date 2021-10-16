@@ -46,7 +46,7 @@ log "Creating $FILENAME..."
 if [[ $VERBOSE ]]; then
 	tar -czvf $FILENAME *
 else
-	tar -czf $FILENAME
+	tar -czf $FILENAME *
 fi
 
 log "Moving $FILENAME to home directory..."
