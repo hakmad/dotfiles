@@ -4,6 +4,8 @@ VERBOSE=false
 BACKUP_DIR=~/.backup
 FILENAME="backup.tar.gz"
 
+WORKING_DIR=$(pwd)
+
 while [[ $1 != "" ]]; do
 	case $1 in
 		-v | --verbose)
@@ -21,7 +23,7 @@ while [[ $1 != "" ]]; do
 	esac
 done
 
-if [[ $VERBOSE ]]; then
+if [[ $VERBOSE == true ]]; then
 	log() {
 		echo "$@"
 	}
@@ -54,6 +56,6 @@ mv $FILENAME ~/
 
 log "Cleaning up..."
 rm -rf $BACKUP_DIR
-cd -
+cd $WORKING_DIR
 
 echo "Successfully created backup file $FILENAME"
