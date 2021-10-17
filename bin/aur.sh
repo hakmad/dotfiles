@@ -65,6 +65,11 @@ search() {
 	done <<< $RESULT
 }
 
+# Show help for this script.
+show_help() {
+	head ~/.bin/aur.sh -n 11 | tail -n 9 | sed 's/# //g'
+}
+
 # Get command line arguments.
 while [[ $1 != "" ]]; do
 	case $1 in
@@ -86,6 +91,10 @@ while [[ $1 != "" ]]; do
 			shift
 			PACKAGE=$1
 			argument_handler search $PACKAGE
+			exit
+			;;
+		-h | --help)
+			show_help
 			exit
 			;;
 		*)
