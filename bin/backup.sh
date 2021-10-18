@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script for creating a backup of the following directories:
-#	~/.dotfiles/
+# 	~/.dotfiles/
 # 	~/downloads/
 # 	~/media/
 # 	~/workspace/
@@ -9,9 +9,9 @@
 # The usage of this script is as follows:
 # 	backup.sh -v, --verbose		Enable verbosity.
 # 	backup.sh -o, --output [file]	Write to [file].
-#
+# 
 # where [file] is the name of the file to write to.
-#
+# 
 # The resulting file is a tarball compressed with gzip.
 
 # Basic variables.
@@ -21,6 +21,11 @@ FILENAME="backup.tar.gz"
 
 # Working directory of the user.
 WORKING_DIR=$(pwd)
+
+# Show help for this script.
+show_help() {
+	head ~/.bin/backup.sh -n 15 | tail -n 13 | sed 's/# //g'
+}
 
 # Get command line arguments.
 while [[ $1 != "" ]]; do
@@ -33,6 +38,10 @@ while [[ $1 != "" ]]; do
 			shift
 			FILENAME=$1
 			shift
+			;;
+		-h | --help)
+			show_help
+			exit
 			;;
 		*)
 			shift
