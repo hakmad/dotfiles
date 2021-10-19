@@ -9,6 +9,7 @@
 # The usage of this script is as follows:
 # 	backup.sh -v, --verbose		Enable verbosity.
 # 	backup.sh -o, --output [file]	Write to [file].
+# 	backup.sh -h, --help		Show this help.
 # 
 # where [file] is the name of the file to write to.
 # 
@@ -24,7 +25,7 @@ WORKING_DIR=$(pwd)
 
 # Show help for this script.
 show_help() {
-	head ~/.bin/backup.sh -n 15 | tail -n 13 | sed 's/# //g'
+	head ~/.bin/backup.sh -n 16 | tail -n 14 | sed 's/# //g'
 }
 
 # Get command line arguments.

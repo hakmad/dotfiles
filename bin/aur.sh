@@ -7,6 +7,7 @@
 # 	aur.sh -s, --search [package]	Search for a package.
 # 	aur.sh -c, --clean		Remove installation files.
 # 	aur.sh -l, --list		List all packages from the AUR.
+# 	aur.sh -h, --help		Show this help.
 # 
 # where [package] is the name of the package to be installed/searched for.
 
@@ -67,7 +68,7 @@ search() {
 
 # Show help for this script.
 show_help() {
-	head ~/.bin/aur.sh -n 11 | tail -n 9 | sed 's/# //g'
+	head ~/.bin/aur.sh -n 12 | tail -n 10 | sed 's/# //g'
 }
 
 # Get command line arguments.
