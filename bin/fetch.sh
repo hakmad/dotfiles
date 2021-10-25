@@ -2,6 +2,7 @@
 
 # Script for showing system information.
 
+# Clear the screen.
 clear
 
 # Colours.
