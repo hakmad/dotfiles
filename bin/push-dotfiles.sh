@@ -1,8 +1,19 @@
 #!/bin/bash
 
+# Script for pushing dotfiles to their location.
+# 
+# The usage of this script is as follows:
+# 	push-dotfiles.sh [package]
+# 
+# where [package] is the name of a directory in ~/.dotfiles.
+# It contains a file called .location which specifies where
+# the dotfiles should be pushed to.
+
+# Basic variables.
 NAME=$1
 ORIGIN=~/.dotfiles/$NAME/
 
+# Check if necessary files/folders exist.
 if [[ -d $ORIGIN ]] && [[ -f $ORIGIN/.location ]]; then
 	TARGET=$(cat $ORIGIN/.location)
 else
@@ -10,6 +21,7 @@ else
 	exit 1
 fi
 
+# Recursive push function.
 push() {
 	local ORIGIN=$1
 	local TARGET=$2
@@ -32,6 +44,6 @@ $TARGET$item"
 	done
 }
 
+# Push the dotfiles.
 push $ORIGIN $TARGET
-
 echo "Pushed dotfiles for $NAME"
