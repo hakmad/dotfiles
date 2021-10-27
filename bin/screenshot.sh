@@ -8,6 +8,9 @@
 # 
 # Screenshots are saved in ~/media/images/screenshots by default.
 
+# Basic variables.
+SCREENSHOT_DIR=~/media/images/screenshots/
+
 # Get command line arguments.
 while [[ $1 != "" ]]; do
 	case $1 in
@@ -34,7 +37,7 @@ elif [[ $SCREENSHOT == "window" ]]; then
 fi
 
 # Move screenshot to screenshot directory.
-mv $FILENAME ~/media/images/screenshots
+mv $FILENAME $SCREENSHOT_DIR
 
 # Create popup.
 popup.sh -w 350 -d 5 -m " Screenshot $FILENAME saved"
