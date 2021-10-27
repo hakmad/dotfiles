@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# Script for taking screenshots.
+# 
+# The usage of this script is as follows:
+# 	screenshot -a, --all		Screenshot the entire screen.
+# 	screenshot -w, --window		Screenshot the focused window.
+# 
+# Screenshots are saved in ~/media/images/screenshots by default.
+
+# Get command line arguments.
 while [[ $1 != "" ]]; do
 	case $1 in
 		-a | --all)
@@ -15,6 +24,7 @@ while [[ $1 != "" ]]; do
 	break
 done
 
+# Take screenshot.
 if [[ $SCREENSHOT == "all" ]]; then
 	FILENAME="$(date "+%Y-%m-%d_%H-%M-%S").png"
 	scrot -p $FILENAME
@@ -23,6 +33,8 @@ elif [[ $SCREENSHOT == "window" ]]; then
 	scrot -u $FILENAME
 fi
 
+# Move screenshot to screenshot directory.
 mv $FILENAME ~/media/images/screenshots
 
+# Create popup.
 popup.sh -w 350 -d 5 -m " Screenshot $FILENAME saved"
