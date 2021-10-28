@@ -16,6 +16,14 @@ ORIGIN=~/.dotfiles/$NAME/
 # Check if necessary files/folders exist.
 if [[ -d $ORIGIN ]] && [[ -f $ORIGIN/.location ]]; then
 	TARGET=$(cat $ORIGIN/.location)
+
+	# Check if on Android (Termux).
+	if [[ -z $ANDROID_ROOT ]]; then
+		:
+	else
+		TARGET="${TARGET/\/home\/hakmad/\
+\/data\/data\/com.termux\/files\/home}"
+	fi
 else
 	echo "Necessary files/folders not found, exiting"
 	exit 1
