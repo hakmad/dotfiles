@@ -6,6 +6,7 @@
 # 	get-audio.sh -a, --all		Get all information.
 # 	get-audio.sh -v, --volume	Get volume information.
 # 	get-audio.sh -s, --status	Get status information.
+# 	get-audio.sh -h, --help		Show this help.
 
 # Get volume.
 return_volume() {
@@ -34,6 +35,11 @@ output_all() {
 	echo "Audio is $(return_status), at $(return_volume)"
 }
 
+# Show help.
+show_help() {
+	head ~/.bin/get-audio.sh -n 9 | tail -n 7 | sed 's/# //g'
+}
+
 # Get command line arguments.
 while [[ $1 != "" ]]; do
 	case $1 in
@@ -47,6 +53,10 @@ while [[ $1 != "" ]]; do
 			;;
 		-s | --status)
 			output_status
+			exit
+			;;
+		-h | --help)
+			show_help
 			exit
 			;;
 		*)
