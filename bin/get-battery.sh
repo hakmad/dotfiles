@@ -7,6 +7,7 @@
 # 	get-battery.sh -p, --percentage	Get battery percentage.
 # 	get-battery.sh -t, --time	Get time remaining.
 # 	get-battery.sh -s, --status	Get status infomation.
+# 	get-battery.sh -h, --help	Show this help.
 
 # Get percentage.
 return_percentage() {
@@ -46,6 +47,11 @@ output_all() {
 	echo "$(return_status), $(return_time) ($(return_percentage))"
 }
 
+# Show help.
+show_help() {
+	head ~/.bin/get-battery.sh -n 10 | tail -n 8 | sed 's/# //g'
+}
+
 # Get command line arguments.
 while [[ $1 != "" ]]; do
 	case $1 in
@@ -63,6 +69,10 @@ while [[ $1 != "" ]]; do
 			;;
 		-s | --status)
 			output_status
+			exit
+			;;
+		-h | --help)
+			show_help
 			exit
 			;;
 		*)
