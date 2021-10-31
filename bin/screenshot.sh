@@ -5,11 +5,17 @@
 # The usage of this script is as follows:
 # 	screenshot -a, --all		Screenshot the entire screen.
 # 	screenshot -w, --window		Screenshot the focused window.
+# 	screenshot -h, --help		Show this help.
 # 
 # Screenshots are saved in ~/media/images/screenshots by default.
 
 # Basic variables.
 SCREENSHOT_DIR=~/media/images/screenshots/
+
+# Show help.
+show_help() {
+	head ~/.bin/screenshot.sh -n 10 | tail -n 8 | sed 's/# //g'
+}
 
 # Get command line arguments.
 while [[ $1 != "" ]]; do
@@ -19,6 +25,10 @@ while [[ $1 != "" ]]; do
 			;;
 		-w | --window)
 			SCREENSHOT="window"
+			;;
+		-h | --help)
+			show_help
+			exit
 			;;
 		*)
 			exit 1
