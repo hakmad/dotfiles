@@ -5,7 +5,9 @@
 [[ $- != *i* ]] && return
 
 # Autocompletion scripts.
-source /usr/share/bash-completion/bash_completion
+if [[ -z $ANDROID_ROOT ]]; then
+	source /usr/share/bash-completion/bash_completion
+fi
 
 # Aliases.
 alias ls="ls --color=auto -v"
