@@ -26,4 +26,4 @@ fi
 mkdir -p $DOWNLOADS_DIR
 mv "$FILENAME".mp3 $DOWNLOADS_DIR
 
-echo "Successfully downloaed $FILENAME using youtube-dl
+echo "Successfully downloaed $FILENAME using youtube-dl"
