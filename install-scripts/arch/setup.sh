@@ -79,4 +79,4 @@ echo "kernel.printk = 3 3 3 3" > /etc/sysctl.d/20-quiet-printk.conf
 
 # Set /etc/issue to clear, /etc/motd to empty.
 clear | sudo tee /etc/issue
-echo "" > thing
+echo "" > /etc/motd
