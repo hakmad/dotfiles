@@ -8,6 +8,9 @@ termux-setup-storage
 # Update packages and refresh package database.
 pkg upgrade
 
+# Install programs.
+pkg install git python vim.
+
 # Install youtube-dl through pip.
 pip install --upgrade pip
 pip install youtube-dl
