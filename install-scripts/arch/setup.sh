@@ -53,7 +53,7 @@ sudo pacman -S --noconfirm alacritty qutebrowser pavucontrol \
 # Install miscellaneous utilities.
 sudo pacman -S --noconfirm acpi tree ntfs-3g htop wireless_tools python \
         python-pip texlive-most youtube-dl zip unzip p7zip slock jq \
-	xss-lock bash-completion
+	xss-lock bash-completion xsel
 
 # Install utilities.
 sudo pacman -S --noconfirm virtualbox virtualbox-host-modules-arch \
