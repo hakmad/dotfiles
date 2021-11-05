@@ -6,7 +6,7 @@
 install_aur() {
 	git clone https://aur.archlinux.org/$1
 	cd $1
-	makepkg -si
+	makepkg -si --noconfirm
 	cd ..
 	rm -rf $1
 }
@@ -21,16 +21,16 @@ nmtui
 sleep 5
 
 # Update packages, refresh package database.
-sudo pacman -Syu --no-confirm
+sudo pacman -Syu --noconfirm
 
 # Set time zone.
 sudo timedatectl set-timezone Europe/London
 
 # Install X and video drivers.
-sudo pacman -S --no-confirm xorg xorg-xinit xf86-video-intel mesa
+sudo pacman -S --noconfirm xorg xorg-xinit xf86-video-intel mesa
 
 # Install audio and setup alsa.
-sudo pacman -S --no-confirm alsa alsa-utils alsa-lib pulseaudio \
+sudo pacman -S --noconfirm alsa alsa-utils alsa-lib pulseaudio \
 	pulseaudio-alsa
 set +e
 sudo alsactl init
@@ -53,7 +53,7 @@ sudo pacman -S --noconfirm alacritty qutebrowser pavucontrol \
 # Install miscellaneous utilities.
 sudo pacman -S --noconfirm acpi tree ntfs-3g htop wireless_tools python \
         python-pip texlive-most youtube-dl zip unzip p7zip slock jq \
-	xss-lock
+	xss-lock bash-completion
 
 # Install utilities.
 sudo pacman -S --noconfirm virtualbox virtualbox-host-modules-arch \
@@ -70,8 +70,8 @@ set -e
 # Extra things.
 # Remove fsck hooks.
 sudo sed -i "s/HOOKS=(base udev autodetect modconf block filesystems \
-	keyboard fsck)/HOOKS=(base udev autodetect modconf block \
-	filesystems keyboard)/g" /etc/mkinitcpio.conf
+keyboard fsck)/HOOKS=(base udev autodetect modconf block filesystems \
+keyboard)/g" /etc/mkinitcpio.conf
 sudo pacman -S --noconfirm linux
 
 # Hide kernel messages on the console.
@@ -79,4 +79,4 @@ echo "kernel.printk = 3 3 3 3" > /etc/sysctl.d/20-quiet-printk.conf
 
 # Set /etc/issue to clear, /etc/motd to empty.
 clear | sudo tee /etc/issue
-echo "" > /etc/motd
+echo "" | sudo tee /etc/motd
