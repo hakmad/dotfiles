@@ -75,7 +75,7 @@ keyboard)/g" /etc/mkinitcpio.conf
 sudo pacman -S --noconfirm linux
 
 # Hide kernel messages on the console.
-echo "kernel.printk = 3 3 3 3" > /etc/sysctl.d/20-quiet-printk.conf
+echo "kernel.printk = 3 3 3 3" | sudo tee /etc/sysctl.d/20-quiet-printk.conf
 
 # Set /etc/issue to clear, /etc/motd to empty.
 clear | sudo tee /etc/issue
