@@ -44,7 +44,7 @@ fi
 bspc rule -a floating 			state=floating
 bspc rule -a feh 			state=floating
 bspc rule -a mpv 			state=floating
-bspc rule -a pavucontrol 		state=floating
+bspc rule -a Pavucontrol 		state=floating
 
 # Run extra things.
 notify.sh &
