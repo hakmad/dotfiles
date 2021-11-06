@@ -47,18 +47,21 @@ install_aur dmenu2
 install_aur lemonbar-xft-git
 
 # Install desktop applications.
-sudo pacman -S --noconfirm alacritty qutebrowser pavucontrol \
-        zathura zathura-pdf-mupdf discord mpv feh obs-studio
+sudo pacman -S --noconfirm alacritty qutebrowser pavucontrol firefox \
+        zathura zathura-pdf-mupdf discord mpv feh obs-studio code
 
 # Install miscellaneous utilities.
 sudo pacman -S --noconfirm acpi tree ntfs-3g htop wireless_tools python \
         python-pip texlive-most youtube-dl zip unzip p7zip slock jq \
 	xss-lock bash-completion xsel
 
-# Install utilities.
+# Install VirtualBox.
 sudo pacman -S --noconfirm virtualbox virtualbox-host-modules-arch \
         virtualbox-guest-iso
 install_aur virtualbox-ext-oracle
+
+# Install Java.
+sudo pacman -S --noconfirm jdk-openjdk jre-openjdk openjdk-doc openjdk-src
 
 # Push dotfiles.
 set +e
