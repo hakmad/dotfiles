@@ -1,7 +1,11 @@
 #!/bin/bash
 
+# Script containing various definitions for fonts, colours and other things.
+
+# Font.
 FONT="terminus(ttf):size=9"
 
+# Colours.
 COLOUR0="#101010"
 COLOUR1="#7c7c7c"
 COLOUR2="#8e8e8e"
@@ -19,12 +23,15 @@ COLOUR13="#747474"
 COLOUR14="#868686"
 COLOUR15="#f7f7f7"
 
+# Common colours.
 BACKGROUND=$COLOUR0
 FOREGROUND=$COLOUR7
 ACCENT=$COLOUR8
 
+# Position for small windows.
 X=30
 Y=30
 
+# Size of small windows.
 WIDTH=500
 HEIGHT=30
