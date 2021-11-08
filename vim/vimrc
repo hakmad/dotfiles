@@ -1,0 +1,13 @@
+" ~/.vimrc
+" Configuration file for vim.
+
+" Enable filetype plugins.
+filetype indent plugin on
+
+" Enable syntax highlighting.
+syntax on
+
+" Other options.
+set autoindent
+set number
+set incsearch
