@@ -1,7 +1,10 @@
 #!/bin/bash
 
+# Script for notifying user of events.
+
 rm /tmp/network
 
+# Get battery information and create popups.
 battery() {
 	PERCENTAGE=$(get-battery.sh --percentage)
 	PERCENTAGE_NUM=$(echo $PERCENTAGE | sed "s/%//g")
@@ -19,6 +22,7 @@ battery() {
 	fi
 }
 
+# Get network information and create popups.
 network() {
 	CURRENT=$(iwgetid -r)
 	PREVIOUS=$(cat /tmp/network)
@@ -30,6 +34,7 @@ network() {
 	fi
 }
 
+# Until killed or otherwise...
 while true; do
 	battery
 	network
