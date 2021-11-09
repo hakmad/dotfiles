@@ -35,4 +35,4 @@ c.tabs.show = 'switching'
 c.colors.webpage.preferred_color_scheme = 'dark'
 
 c.fonts.default_family = 'terminus'
-c.fonts.default_size = '9pt'
+c.fonts.default_size = '5pt'
