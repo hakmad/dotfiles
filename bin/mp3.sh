@@ -7,6 +7,9 @@
 # 
 # where [URL] is the URL and [filename] is the name of the file to save.
 
+# Stop the script if there are errors.
+set -e
+
 # Basic variables.
 URL=$1
 FILENAME=$2
