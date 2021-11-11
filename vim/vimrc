@@ -11,3 +11,6 @@ syntax on
 set autoindent
 set number
 set incsearch
+
+" Colourscheme.
+colorscheme greyscale
