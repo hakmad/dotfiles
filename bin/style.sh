@@ -3,7 +3,7 @@
 # Script containing various definitions for fonts, colours and other things.
 
 # Font.
-FONT="terminus:size=5"
+FONT="terminus(ttf):size=9"
 
 # Colours.
 COLOUR0="#101010"
