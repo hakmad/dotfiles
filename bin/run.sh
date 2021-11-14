@@ -6,7 +6,7 @@
 source style.sh
 
 # List of options.
-OPTIONS="alacritty\ndiscord\nfirefox\nobs\npavucontrol\
+OPTIONS="alacritty\nfirefox\nobs\npavucontrol\
 	\nqutebrowser\nvia-ui\nwireshark"
 
 # Run dmenu with options and run selected option in the shell.
