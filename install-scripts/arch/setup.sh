@@ -83,3 +83,6 @@ echo "kernel.printk = 3 3 3 3" | sudo tee /etc/sysctl.d/20-quiet-printk.conf
 # Set /etc/issue to clear, /etc/motd to empty.
 clear | sudo tee /etc/issue
 echo "" | sudo tee /etc/motd
+
+# Set qutebrowser as the default browser.
+xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop
