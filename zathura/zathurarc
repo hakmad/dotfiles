@@ -11,3 +11,6 @@ set recolor-keephue 	true
 
 # Font.
 set font 		"terminus 9"
+
+# Disable sandbox.
+set sandbox		none
