@@ -50,7 +50,7 @@ super + p
 
 # Screenshot.
 {_,super} + Print
-	screenshot.sh {--all,--single}
+	screenshot.sh {--all,--window}
 
 # Brightness.
 XF86MonBrightness{Up,Down}
