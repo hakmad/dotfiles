@@ -3,9 +3,9 @@
 # Script for taking screenshots.
 # 
 # The usage of this script is as follows:
-# 	screenshot -a, --all		Screenshot the entire screen.
-# 	screenshot -w, --window		Screenshot the focused window.
-# 	screenshot -h, --help		Show this help.
+# 	screenshot.sh -a, --all		Screenshot the entire screen.
+# 	screenshot.sh -w, --window	Screenshot the focused window.
+# 	screenshot.sh -h, --help	Show this help.
 # 
 # Screenshots are saved in ~/media/images/screenshots by default.
 
