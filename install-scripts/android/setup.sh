@@ -9,7 +9,7 @@ termux-setup-storage
 pkg upgrade
 
 # Install programs.
-pkg install ffmpeg git python vim 
+pkg install ffmpeg git python vim man
 
 # Install youtube-dl through pip.
 pip install --upgrade pip
