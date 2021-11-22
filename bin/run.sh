@@ -6,10 +6,15 @@
 source style.sh
 
 # List of options.
-OPTIONS="alacritty\nfirefox\nobs\npavucontrol\
-	\nqutebrowser\nvia-ui\nwireshark"
+OPTIONS="alacritty
+firefox
+obs
+pavucontrol
+qutebrowser
+via-ui
+wireshark"
 
 # Run dmenu with options and run selected option in the shell.
-echo -e $OPTIONS | dmenu -fn $FONT -nb $BACKGROUND -nf $ACCENT \
+echo -e "$OPTIONS" | dmenu -fn $FONT -nb $BACKGROUND -nf $ACCENT \
 	-sb  $BACKGROUND -sf $FOREGROUND \
 	-b -x $X -y $Y -w $WIDTH -h $HEIGHT -s 0 -q | $SHELL &
