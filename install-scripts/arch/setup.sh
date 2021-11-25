@@ -14,7 +14,7 @@ install_aur() {
 # Function for logging.
 log () {
 	echo $@
-	echo $(date "+%Y/%m/%d %H:%M:%S") $@ > setup.log
+	echo $(date "+%Y/%m/%d %H:%M:%S") $@ >> setup.log
 }
 
 # Stop the script if there are errors.

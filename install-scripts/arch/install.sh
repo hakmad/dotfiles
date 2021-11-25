@@ -5,7 +5,7 @@
 # Logging function.
 log () {
 	echo $@
-	echo $(date "+%Y/%m/%d %H:%M%:%S") $@ > install.log
+	echo $(date "+%Y/%m/%d %H:%M%:%S") $@ >> install.log
 }
 
 # Load UK keyboard.
