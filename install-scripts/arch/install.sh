@@ -8,6 +8,9 @@ log () {
 	echo $(date "+%Y/%m/%d %H:%M%:%S") $@ >> install.log
 }
 
+# Stop the script if there are errors.
+set -e
+
 # Load UK keyboard.
 log "Loading UK keyboard..."
 loadkeys uk
