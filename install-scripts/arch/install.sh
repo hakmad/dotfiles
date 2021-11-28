@@ -11,6 +11,10 @@ log () {
 # Stop the script if there are errors.
 set -e
 
+# Remove old log file.
+rm install.log
+log "Installation started!"
+
 # Load UK keyboard.
 log "Loading UK keyboard..."
 loadkeys uk

@@ -20,6 +20,10 @@ log () {
 # Stop the script if there are errors.
 set -e
 
+# Remove old log file.
+rm setup.log
+log "Setup started!"
+
 # Connect to the internet.
 log "Starting NetworkManager service..."
 sudo systemctl enable --now NetworkManager.service
