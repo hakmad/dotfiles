@@ -10,6 +10,7 @@ if [[ -z $ANDROID_ROOT ]]; then
 fi
 
 # Aliases.
+alias cp="cp -r"
 alias ls="ls --color=auto -v"
 alias du="du -h"
 alias df="df -h"
