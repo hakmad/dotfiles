@@ -11,6 +11,7 @@ fi
 
 # Aliases.
 alias cp="cp -r"
+alias scp="scp -r"
 alias ls="ls --color=auto -v"
 alias du="du -h"
 alias df="df -h"
