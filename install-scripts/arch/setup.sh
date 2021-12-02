@@ -68,7 +68,7 @@ install_aur lemonbar-xft-git
 # Install desktop applications.
 log "Installing desktop applications..."
 sudo pacman -S --noconfirm alacritty qutebrowser pavucontrol firefox \
-        zathura zathura-pdf-mupdf discord mpv feh obs-studio code
+        zathura zathura-pdf-mupdf discord mpv feh obs-studio code wireshark
 
 # Install miscellaneous utilities.
 log "Installing miscellaneous utilities..."
@@ -111,6 +111,9 @@ echo "" | sudo tee /etc/motd
 
 # Set qutebrowser as the default browser.
 xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop
+
+# Add user hakmad to group wireshark.
+gpasswd -a hakmad wireshark
 
 # Setup complete.
 log "Setup complete! Please reboot. :)"
