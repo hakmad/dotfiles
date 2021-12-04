@@ -43,6 +43,8 @@ super + shift + n
 	alacritty --class ,floating --command nmtui
 super + m
 	modules.sh
+super + g
+	pat.sh
 
 # Screenlock.
 super + p
