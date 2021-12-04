@@ -22,7 +22,7 @@ youtube-dl --extract-audio --audio-format mp3 \
 if [[ -z $ANDROID_ROOT ]]; then
 	DOWNLOADS_DIR=~/media/music/
 else
-	DOWNLOADS_DIR=~/storage/music
+	DOWNLOADS_DIR=~/storage/music/
 fi
 
 # Move file to music directory.

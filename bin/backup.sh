@@ -17,7 +17,7 @@
 
 # Basic variables.
 VERBOSE=false
-BACKUP_DIR=~/.backup
+BACKUP_DIR=~/.backup/
 FILENAME="backup.tar.gz"
 
 # Working directory of the user.
@@ -69,10 +69,10 @@ cd $BACKUP_DIR
 
 # Copy directories.
 log "Copying files..."
-cp -r ~/.dotfiles ./dotfiles
-cp -r ~/downloads .
-cp -r ~/media .
-cp -r ~/workspace .
+cp -r ~/.dotfiles/ ./dotfiles/
+cp -r ~/downloads/ .
+cp -r ~/media/ .
+cp -r ~/workspace/ .
 
 # Create tarball.
 log "Creating $FILENAME..."
