@@ -12,4 +12,4 @@ OPTIONS="alacritty\ncode\ndiscord\nfirefox\nobs\npavucontrol\nqutebrowser\
 # Run dmenu with options and run selected option in the shell.
 echo -e $OPTIONS | dmenu -fn $FONT -nb $BACKGROUND -nf $ACCENT \
 	-sb  $BACKGROUND -sf $FOREGROUND \
-	-b -x $X -y $Y -w $WIDTH -h $HEIGHT -s 0 | $SHELL &
+	-b -x $X -y $Y -w $WIDTH -h $HEIGHT -s 0 -q | $SHELL &

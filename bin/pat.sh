@@ -19,7 +19,7 @@ done
 # Run dmenu and get choice.
 CHOICE=$(echo -e $PAT_LIST | dmenu -fn $FONT -nb $BACKGROUND -nf \
 	$ACCENT -sb $BACKGROUND -sf $FOREGROUND \
-	-b -x $X -y $Y -w $WIDTH -h $HEIGHT -s 0)
+	-b -x $X -y $Y -w $WIDTH -h $HEIGHT -s 0 -q)
 
 # Get PAT and copy to clipboard.
 if [[ -z $CHOICE ]]; then
