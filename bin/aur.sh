@@ -32,6 +32,7 @@ argument_handler() {
 clean() {
 	cd $DOWNLOADS_DIR
 	rm -rf *
+	echo "Cleaned $DOWNLOADS_DIR"
 	cd -
 }
 
