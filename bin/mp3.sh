@@ -3,20 +3,24 @@
 # Script to download MP3 files with youtube-dl and move them to a location.
 # 
 # The usage of this script is as follows:
-# 	mp3.sh [URL] [filename]
+# 	mp3.sh [URL] [artist] [title]
 # 
-# where [URL] is the URL and [filename] is the name of the file to save.
+# where [URL] is the URL and [artist]/[title] are the relevant tags to apply.
+# The file is saved as [artist]-[title].mp3.
 
 # Stop the script if there are errors.
 set -e
 
 # Basic variables.
 URL=$1
-FILENAME=$2
+ARTIST=$2
+TITLE=$3
+FILENAME=$ARTIST-$TITLE
 
 # Download file.
 youtube-dl --extract-audio --audio-format mp3 \
-	--output "$FILENAME".%\(ext\)s $URL
+	--output "$FILENAME".%\(ext\)s $URL \
+	--postprocessor-args "-metadata artist=$ARTIST title=$TITLE"
 
 # Find music directory.
 if [[ -z $ANDROID_ROOT ]]; then
