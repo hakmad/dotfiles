@@ -20,7 +20,7 @@ FILENAME=$ARTIST-$TITLE
 # Download file.
 youtube-dl --extract-audio --audio-format mp3 \
 	--output "$FILENAME".%\(ext\)s $URL \
-	--postprocessor-args "-metadata artist=$ARTIST title=$TITLE"
+	--postprocessor-args "-metadata artist=\"$ARTIST\" title=\"$TITLE\""
 
 # Find music directory.
 if [[ -z $ANDROID_ROOT ]]; then
