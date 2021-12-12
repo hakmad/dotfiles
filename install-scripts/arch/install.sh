@@ -11,9 +11,6 @@ log () {
 # Stop the script if there are errors.
 set -e
 
-# Hostname, change for different systems.
-HOSTNAME=""
-
 # Remove old log file.
 rm install.log
 log "Installation started!"
@@ -71,6 +68,7 @@ echo "KEYMAP=uk" >> /mnt/etc/vconsole.conf
 echo "FONT=ter-112n" >> /mnt/etc/vconsole.conf
 
 # Set hostname and hosts.
+read -p "Enter hostname: " HOSTNAME
 echo $HOSTNAME >> /mnt/etc/hostname
 echo -e "127.0.0.1\tlocalhost" >> /mnt/etc/hosts
 echo -e "::1\tlocalhost" >> /mnt/etc/hosts
