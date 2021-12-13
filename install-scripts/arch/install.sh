@@ -91,7 +91,7 @@ arch-chroot /mnt chown -R hakmad:hakmad /home/hakmad/.dotfiles
 log "Installing bootloader..."
 arch-chroot /mnt bootctl install --path=/boot
 echo -e "default\tarch.conf" > /mnt/boot/loader/loader.conf
-echo -e "title\tTemporary" >> /mnt/boot/loader/entries/arch.conf
+echo -e "title\tArch Linux" >> /mnt/boot/loader/entries/arch.conf
 echo -e "linux\t/vmlinuz-linux" >> /mnt/boot/loader/entries/arch.conf
 echo -e "initrd\t/initramfs-linux.img" >> /mnt/boot/loader/entries/arch.conf
 echo -e "options\troot=$ROOT rw" >> /mnt/boot/loader/entries/arch.conf
