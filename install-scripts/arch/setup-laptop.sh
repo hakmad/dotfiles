@@ -21,7 +21,7 @@ log () {
 set -e
 
 # Remove old log file.
-rm setup.log
+rm -f setup.log
 log "Setup started!"
 
 # Connect to the internet.
@@ -29,7 +29,7 @@ log "Starting NetworkManager service..."
 sudo systemctl enable --now NetworkManager.service
 sleep 5
 log "Connecting to the internet..."
-nmtui
+sudo nmtui
 sleep 5
 
 # Update packages, refresh package database.
@@ -68,7 +68,7 @@ install_aur lemonbar-xft-git
 # Install desktop applications.
 log "Installing desktop applications..."
 sudo pacman -S --noconfirm alacritty qutebrowser pavucontrol firefox \
-        zathura zathura-pdf-mupdf discord mpv feh obs-studio code wireshark
+        zathura zathura-pdf-mupdf discord mpv feh obs-studio code wireshark-qt
 
 # Install miscellaneous utilities.
 log "Installing miscellaneous utilities..."
@@ -113,7 +113,7 @@ echo "" | sudo tee /etc/motd
 xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop
 
 # Add user hakmad to group wireshark.
-gpasswd -a hakmad wireshark
+sudo gpasswd -a hakmad wireshark
 
 # Setup complete.
 log "Setup complete! Please reboot. :)"

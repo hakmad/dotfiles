@@ -21,7 +21,7 @@ log () {
 set -e
 
 # Remove old log file.
-rm setup.log
+rm -f setup.log
 log "Setup started!"
 
 # Connect to the internet.
@@ -29,7 +29,7 @@ log "Starting NetworkManager service..."
 sudo systemctl enable --now NetworkManager.service
 sleep 5
 log "Connecting to the internet..."
-nmtui
+sudo nmtui
 sleep 5
 
 # Update packages, refresh package database.
