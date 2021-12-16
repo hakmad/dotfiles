@@ -12,7 +12,7 @@ log () {
 set -e
 
 # Remove old log file.
-rm install.log
+rm -f install.log
 log "Installation started!"
 
 # Load UK keyboard.
