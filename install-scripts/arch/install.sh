@@ -28,8 +28,10 @@ log "Partitioning /dev/sda..."
 fdisk /dev/sda
 ESP=$(fdisk /dev/sda -l | awk '/EFI/ {print $1}')
 ROOT=$(fdisk /dev/sda -l | awk '/Linux/ {print $1}')
-log "Formatting root partition as ext4..."
+log "Formatting root partition ($ROOT) as ext4..."
 mkfs.ext4 $ROOT
+log "Formatting boot partition ($ESP) as FAT32..."
+mkfs.fat -F 32 $ESP
 
 # Mount partitions.
 log "Mounting partitions..."
