@@ -45,6 +45,7 @@ log "Installing fonts..."
 sudo pacman -S --noconfirm terminus-font
 
 # Install SSH server.
+log "Installing OpenSSH"
 sudo pacman -S --noconfirm openssh
 sudo systemctl enable sshd.service
 sudo systemctl start sshd.service
