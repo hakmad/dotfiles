@@ -2,6 +2,7 @@
 
 # Script for creating a backup of the following directories:
 # 	~/.dotfiles/
+# 	~/.pat/
 # 	~/downloads/
 # 	~/media/
 # 	~/workspace/
@@ -25,7 +26,7 @@ WORKING_DIR=$(pwd)
 
 # Show help for this script.
 show_help() {
-	head ~/.bin/backup.sh -n 16 | tail -n 14 | sed 's/# //g'
+	head ~/.bin/backup.sh -n 17 | tail -n 15 | sed 's/# //g'
 }
 
 # Get command line arguments.
@@ -70,6 +71,7 @@ cd $BACKUP_DIR
 # Copy directories.
 log "Copying files..."
 cp -r ~/.dotfiles/ ./dotfiles/
+cp -r ~/.pat/ ./pat/
 cp -r ~/downloads/ .
 cp -r ~/media/ .
 cp -r ~/workspace/ .
