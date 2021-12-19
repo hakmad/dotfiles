@@ -30,7 +30,7 @@ ESP=$(fdisk /dev/sda -l | awk '/EFI/ {print $1}')
 ROOT=$(fdisk /dev/sda -l | awk '/Linux/ {print $1}')
 log "Formatting root partition ($ROOT) as ext4..."
 mkfs.ext4 $ROOT
-if [[ $ROOT == "/dev/sda2" ]];
+if [[ $ROOT == "/dev/sda2" ]]; then
 	log "Formatting boot partition ($ESP) as FAT32..."
 	mkfs.fat -F 32 $ESP
 else
