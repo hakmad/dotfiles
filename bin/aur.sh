@@ -12,7 +12,7 @@
 # where [package] is the name of the package to be installed/searched for.
 
 # Directory for installation files.
-DOWNLOADS_DIR=~/downloads/.aur/
+DOWNLOADS_DIR=~/.aur/
 mkdir -p $DOWNLOADS_DIR
 
 # Helper function for passing an argument to a function.
