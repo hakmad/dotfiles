@@ -6,8 +6,8 @@
 source style.sh
 
 # List of options.
-OPTIONS="alacritty\ncode\ndiscord\nfirefox\nobs\npavucontrol\nqutebrowser\
-	\nvirtualbox\nwireshark"
+OPTIONS="alacritty\ndiscord\nfirefox\nobs\npavucontrol\nqutebrowser\
+	\nvia-ui\nvirtualbox\nwireshark"
 
 # Run dmenu with options and run selected option in the shell.
 echo -e $OPTIONS | dmenu -fn $FONT -nb $BACKGROUND -nf $ACCENT \
