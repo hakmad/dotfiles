@@ -17,5 +17,8 @@ export HISTTIMEFORMAT="%d/%m/%Y %H:%M:%S"
 shopt -s no_empty_cmd_completion
 shopt -s histappend
 
+# Java application issue.
+export _JAVA_AWT_WM_NONREPARENTING=1
+
 # Run startx silently.
 [[ $(fgconsole 2>/dev/null) == 1 ]] && startx -- vt1 &> /dev/null
