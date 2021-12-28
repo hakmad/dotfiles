@@ -53,7 +53,7 @@ sudo systemctl start sshd.service
 # Install miscellaneous utilities.
 log "Installing miscellaneous utilities..."
 sudo pacman -S --noconfirm acpi tree ntfs-3g htop wireless_tools python \
-        python-pip texlive-most youtube-dl zip unzip p7zip jq bash-completion
+        python-pip youtube-dl zip unzip p7zip jq bash-completion
 
 # Install VirtualBox.
 log "Installing VirtualBox..."
