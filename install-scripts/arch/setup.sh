@@ -74,8 +74,7 @@ sudo pacman -S --noconfirm alacritty qutebrowser firefox \
 log "Installing miscellaneous utilities..."
 sudo pacman -S --noconfirm acpi tree ntfs-3g htop wireless_tools python \
 	python-pip texlive-most youtube-dl zip unzip p7zip jq \
-	xss-lock bash-completion xsel xdotool openssh bluez bluez-utils \
-	pulseaudio-bluetooth
+	xss-lock bash-completion xsel xdotool openssh
 
 # Push dotfiles.
 log "Pushing dotfiles..."
