@@ -41,7 +41,7 @@ super + space
 	run.sh
 super + shift + n
 	alacritty --class ,floating --command nmtui
-super + Shift + m
+super + shift + m
 	modules.sh
 super + g
 	pat.sh
