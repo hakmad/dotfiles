@@ -39,10 +39,10 @@ done
 
 # Take screenshot.
 if [[ $SCREENSHOT == "all" ]]; then
-	FILENAME="$(date "+%Y-%m-%d_%H-%M-%S").png"
+	FILENAME="$(date "+%Y-%m-%d_%H-%M-%S").jpg"
 	scrot -p $FILENAME
 elif [[ $SCREENSHOT == "window" ]]; then
-	FILENAME="window_$(date "+%Y-%m-%d_%H-%M-%S").png"
+	FILENAME="window_$(date "+%Y-%m-%d_%H-%M-%S").jpg"
 	scrot -u $FILENAME
 fi
 
