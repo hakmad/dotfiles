@@ -10,7 +10,7 @@ export EDITOR=vim
 
 # History file settings.
 export HISTFILESIZE=1000
-export HISCONTROL=ignorespace:ignoredups
+export HISTCONTROL=ignorespace:ignoredups
 export HISTTIMEFORMAT="%d/%m/%Y %H:%M:%S"
 
 # Shell options.
