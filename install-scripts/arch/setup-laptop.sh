@@ -87,7 +87,7 @@ log "Installing Java..."
 sudo pacman -S --noconfirm jdk-openjdk jre-openjdk openjdk-doc openjdk-src
 
 # Push dotfiles.
-log "Installing dotfiles..."
+log "Pushing dotfiles..."
 set +e
 for package in $(ls ~/.dotfiles); do
 	~/.dotfiles/bin/push-dotfiles.sh $package
