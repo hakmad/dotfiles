@@ -68,7 +68,7 @@ install_aur lemonbar-xft-git
 # Install desktop applications.
 log "Installing desktop applications..."
 sudo pacman -S --noconfirm alacritty qutebrowser pavucontrol firefox \
-        zathura zathura-pdf-mupdf discord mpv feh obs-studio code wireshark-qt
+        zathura zathura-pdf-mupdf mpv feh obs-studio wireshark-qt
 
 # Install miscellaneous utilities.
 log "Installing miscellaneous utilities..."
