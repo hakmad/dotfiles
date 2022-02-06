@@ -11,7 +11,7 @@ export EDITOR=vim
 # History file settings.
 export HISTFILESIZE=1000
 export HISTCONTROL=ignorespace:ignoredups
-export HISTTIMEFORMAT="%d/%m/%Y %H:%M:%S"
+export HISTTIMEFORMAT="%d/%m/%Y %H:%M:%S "
 
 # Shell options.
 shopt -s no_empty_cmd_completion
