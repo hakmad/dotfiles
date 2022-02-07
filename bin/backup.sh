@@ -19,7 +19,7 @@
 # Basic variables.
 VERBOSE=false
 BACKUP_DIR=~/.backup/
-FILENAME="backup.tar.gz"
+FILENAME="backup_$(date "+%Y-%m-%d_%H-%M").tar.gz"
 
 # Working directory of the user.
 WORKING_DIR=$(pwd)
