@@ -23,6 +23,7 @@ while [[ $1 != "" ]]; do
 		-w)
 			shift
 			WIDTH=$1
+			WIDTH_SET=true
 			;;
 		-d)
 			shift
@@ -35,6 +36,12 @@ while [[ $1 != "" ]]; do
 	esac
 	shift
 done
+
+# Set width according to length of message to display.
+if [[ ! $WIDTH_SET ]]; then
+	# Don't ask how I know these numbers are correct.
+	WIDTH=$((18 + 6 * ${#MESSAGE}))
+fi
 
 # Run popup.
 (echo " $MESSAGE"; sleep $DURATION) | lemonbar -d -b \
