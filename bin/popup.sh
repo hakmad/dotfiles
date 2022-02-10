@@ -16,6 +16,7 @@ source style.sh
 
 # Basic variables.
 DURATION=1
+MESSAGE=" "
 
 # Get command line arguments.
 while [[ $1 != "" ]]; do
@@ -31,7 +32,7 @@ while [[ $1 != "" ]]; do
 			;;
 		-m)
 			shift
-			MESSAGE=$1
+			MESSAGE+=$1
 			;;
 	esac
 	shift
