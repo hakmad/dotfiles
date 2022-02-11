@@ -50,4 +50,4 @@ fi
 mv $FILENAME $SCREENSHOT_DIR
 
 # Create popup.
-popup.sh -w 350 -d 5 -m " Screenshot $FILENAME saved"
+popup.sh -d 5 -m "Screenshot $FILENAME saved"
