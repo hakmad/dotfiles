@@ -8,4 +8,4 @@
 # where [desktop] is the name of the desktop to move to.
 
 bspc node -d "$@"
-popup.sh -w 150 -m " Moved to workspace ${@#?}"
+popup.sh -m "Moved to workspace ${@#?}"
