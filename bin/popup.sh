@@ -10,13 +10,19 @@
 # 	(defaults to 1).
 # 	[width] is the width (in pixels) for the popup.
 # 	[message] is the message to be shown.
+#
+# If a width isn't supplied, the width of the popup is automatically
+# calculated based on the length of the message.
 
 # Get colours and fonts.
 source style.sh
 
 # Basic variables.
 DURATION=1
-MESSAGE=" "
+MESSAGE="  "
+
+# MESSAGE needs to be prefixed with 2 empty spaces for padding
+# (otherwise it looks a bit odd).
 
 # Get command line arguments.
 while [[ $1 != "" ]]; do
@@ -45,6 +51,6 @@ if [[ ! $WIDTH_SET ]]; then
 fi
 
 # Run popup.
-(echo " $MESSAGE"; sleep $DURATION) | lemonbar -d -b \
+(echo "$MESSAGE"; sleep $DURATION) | lemonbar -d -b \
 	-g ${WIDTH}x${HEIGHT}+${X}+${Y} \
 	-F $FOREGROUND -B $BACKGROUND -f "$FONT"
