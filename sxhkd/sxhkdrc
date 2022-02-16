@@ -57,24 +57,24 @@ super + p
 # Brightness.
 XF86MonBrightness{Up,Down}
 	xbacklight {-inc,-dec} 2; \
-	popup.sh -w 150 -m " $(get-backlight.sh)"
+	popup.sh -m "$(get-backlight.sh)"
 
 # Audio
 XF86Audio{Raise,Lower}Volume
 	amixer set Master 2%{+,-}; \
-	popup.sh -w 100 -m " $(get-audio.sh --volume)"
+	popup.sh -m "$(get-audio.sh --volume)"
 XF86AudioMute
 	amixer set Master toggle; \
-	popup.sh -w 100 -m " $(get-audio.sh --status)"
+	popup.sh -m "$(get-audio.sh --status)"
 
 # Display information.
 super + x
-	popup.sh -w 150 -m " $(get-backlight.sh)"
+	popup.sh -m "$(get-backlight.sh)"
 super + c
-	popup.sh -w 150 -d 5 -m " $(date "+%a %d/%m/%Y %H:%M")"
+	popup.sh -d 5 -m "$(date "+%a %d/%m/%Y %H:%M")"
 super + v
-	popup.sh -w 150 -m " $(get-audio.sh --all)"
+	popup.sh -m "$(get-audio.sh --all)"
 super + b
-	popup.sh -w 250 -d 3 -m " $(get-battery.sh --all)"
+	popup.sh -d 3 -m "$(get-battery.sh --all)"
 super + n
-	popup.sh -w 200 -m " $(get-network.sh)"
+	popup.sh -m "$(get-network.sh)"
