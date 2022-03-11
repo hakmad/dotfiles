@@ -30,7 +30,7 @@ apt upgrade
 
 # Install basic and miscellaneous utilities.
 log "Installing basic and miscellaneous utilities..."
-apt install vim git man-db tree htop python zip unzip p7zip jq \
+apt install vim git man-db acpi tree htop python zip unzip p7zip jq \
 	bash-completion
 
 # Clone dotfiles onto new system and push dotfiles.
