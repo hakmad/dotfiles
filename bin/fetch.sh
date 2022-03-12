@@ -30,4 +30,8 @@ echo -e "$C \bOS:$NC $NAME"
 echo -e "$C \bCPU:$NC $CPU"
 echo -e "$C \bRAM:$NC $USED_RAM / $TOTAL_RAM"
 echo -e "$C \bDisk:$NC $USED_DISK / $TOTAL_DISK"
-echo -e "$C \bBattery:$NC $BATTERY_REMAINING ($BATTERY_STATUS)"
+if [[ -z $BATTERY_REMAINING ]]; then
+	;
+else
+	echo -e "$C \bBattery:$NC $BATTERY_REMAINING ($BATTERY_STATUS)"
+fi
