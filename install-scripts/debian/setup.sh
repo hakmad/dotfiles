@@ -23,6 +23,9 @@ log "Adding new user..."
 useradd -m -G sudo -s /usr/bin/bash hakmad
 passwd hakmad
 
+log "Editing /etc/sudoers..."
+visudo
+
 # Update packages, refresh package database.
 log "Updating..."
 apt update
@@ -30,7 +33,7 @@ apt upgrade
 
 # Install basic and miscellaneous utilities.
 log "Installing basic and miscellaneous utilities..."
-apt install vim git man-db acpi tree htop python zip unzip p7zip jq \
+apt install vim git man-db acpi tree htop python zip unzip p7zip jq file \
 	bash-completion
 
 # Clone dotfiles onto new system and push dotfiles.
