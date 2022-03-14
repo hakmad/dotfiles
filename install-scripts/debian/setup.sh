@@ -41,10 +41,10 @@ log "Cloning dotfiles..."
 git clone https://github.com/hakmad/dotfiles /home/hakmad/.dotfiles
 
 log "Pushing dotfiles..."
-su hakmad -c /home/hakmad/.dotfiles/bin/push-dotfiles.sh bash
-su hakmad -c /home/hakmad/.dotfiles/bin/push-dotfiles.sh bin
-su hakmad -c /home/hakmad/.dotfiles/bin/push-dotfiles.sh vim
-su hakmad -c /home/hakmad/.dotfiles/bin/push-dotfiles.sh git
+su hakmad -c "/home/hakmad/.dotfiles/bin/push-dotfiles.sh bash"
+su hakmad -c "/home/hakmad/.dotfiles/bin/push-dotfiles.sh bin"
+su hakmad -c "/home/hakmad/.dotfiles/bin/push-dotfiles.sh vim"
+su hakmad -c "/home/hakmad/.dotfiles/bin/push-dotfiles.sh git"
 
 # Setup complete.
 log "Setup complete! Please login as hakmad. :)"
