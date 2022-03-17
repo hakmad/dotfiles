@@ -76,12 +76,6 @@ sudo pacman -S --noconfirm acpi tree ntfs-3g htop wireless_tools python \
         python-pip texlive-most youtube-dl zip unzip p7zip slock jq \
 	xss-lock bash-completion xsel
 
-# Install VirtualBox.
-log "Installing VirtualBox..."
-sudo pacman -S --noconfirm virtualbox virtualbox-host-modules-arch \
-        virtualbox-guest-iso
-install_aur virtualbox-ext-oracle
-
 # Install Java.
 log "Installing Java..."
 sudo pacman -S --noconfirm jdk-openjdk jre-openjdk openjdk-doc openjdk-src
