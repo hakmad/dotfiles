@@ -23,9 +23,6 @@ log "Adding new user..."
 useradd -m -G sudo -s /usr/bin/bash hakmad
 passwd hakmad
 
-log "Editing /etc/sudoers..."
-visudo
-
 # Update packages, refresh package database.
 log "Updating..."
 apt update
