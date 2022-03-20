@@ -44,7 +44,7 @@ su hakmad -c "/home/hakmad/.dotfiles/bin/push-dotfiles.sh vim"
 su hakmad -c "/home/hakmad/.dotfiles/bin/push-dotfiles.sh git"
 
 log "Changing ownership of dotfiles..."
-chown -R hakmad:hakmad /home/hakmad/dotfiles
+chown -R hakmad:hakmad /home/hakmad/.dotfiles
 
 # Setup complete.
 log "Setup complete! Please login as hakmad. :)"
