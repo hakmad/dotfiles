@@ -49,7 +49,7 @@ setxkbmap gb &
 picom &
 sxhkd &
 
-feh --bg-fill --no-xinerama $(find ~/media/images/wallpapers/ | tail -n +2 | shuf -n 1) &
+feh --bg-fill $(find ~/media/images/wallpapers/ | tail -n +2 | shuf -n 1) &
 xsetroot -cursor_name left_ptr &
 
 xss-lock -- slock
