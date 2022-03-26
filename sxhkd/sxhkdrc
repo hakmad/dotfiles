@@ -12,7 +12,7 @@ super + ctrl + {_,shift + } q
 super + {_,shift + } q
 	bspc node -{c,k}
 super + {u,i,o}
-	bspc node -t {floating,tiled,fullscreen}
+	bspc node -t {floating,tiled,pseudo_tiled}
 super + {h,j,k,l}
 	bspc node -f {west,south,north,east}
 super + {1-9,0}
