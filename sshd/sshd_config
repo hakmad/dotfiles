@@ -123,3 +123,6 @@ Subsystem	sftp	/usr/lib/openssh/sftp-server
 #	ForceCommand cvs server
 PermitRootLogin no
 PasswordAuthentication yes
+
+# Only allow one user.
+AllowUsers hakmad
