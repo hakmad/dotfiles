@@ -42,6 +42,8 @@ push() {
 		else
 			if ln -s -f $ORIGIN$item $TARGET$item ; then
 				echo "Linked $ORIGIN$item to $TARGET$item"
+			elif sudo ln -s -f $ORIGIN$item $TARGET$item ; then
+				echo "Linked $ORIGIN$item to $TARGET$item with sudo"
 			elif sudo cp $ORIGIN$item $TARGET$item ; then
 				echo "Copied $ORIGIN$item to $TARGET$item"
 			else
