@@ -11,8 +11,8 @@ super + ctrl + {_,shift + } q
 	pkill -x notify.sh
 super + {_,shift + } q
 	bspc node -{c,k}
-super + {u,i,o}
-	bspc node -t {floating,tiled,pseudo_tiled}
+super + {y,u,i,o}
+	bspc node -t {floating,pseudo_tiled,tiled,fullscreen}
 super + {h,j,k,l}
 	bspc node -f {west,south,north,east}
 super + {1-9,0}
