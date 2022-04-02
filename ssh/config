@@ -1,0 +1,10 @@
+# ~/.ssh/config
+# Configuration file for ssh (local).
+
+# Global options.
+User hakmad
+
+# Host specific options.
+Host remote
+	Hostname hakmad.com
+	Port 22
