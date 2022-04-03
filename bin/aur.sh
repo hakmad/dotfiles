@@ -57,7 +57,7 @@ search() {
 	PACKAGE=$1
 
 	RESULT=$(curl -s \
-		"https://aur.archlinux.org/rpc/?type=search&arg=$PACKAGE" \
+		"https://aur.archlinux.org/rpc/?v=5&type=search&arg=$PACKAGE" \
 		| jq -r ".results | .[] | .Name, .Version, .Description")
 
 	while read PACKAGE; read VERSION; read DESCRIPTION
