@@ -5,10 +5,10 @@
 Include /etc/ssh/sshd_config.d/*.conf
 
 # Authentication settings.
-PasswordAuthentication yes
+PasswordAuthentication no
+AuthenticationMethods publickey
 ChallengeResponseAuthentication yes
 UsePAM yes
-AllowUsers hakmad
 PermitRootLogin no
 
 # Logging settings.
