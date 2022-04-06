@@ -12,8 +12,16 @@ fi
 # Functions.
 check_remote() {
 	if [[ $SSH_CONNECTION ]]; then
-		echo "R "
+		echo "R"
 	fi
+}
+
+right_prompt() {
+	printf "%*s" $(tput cols) $(check_remote)
+}
+
+set_prompt() {
+	PS1="\[$(tput sc; right_prompt; tput rc)\]> "
 }
 
 # Aliases.
@@ -28,7 +36,7 @@ alias zathura="zathura --fork"
 alias feh="feh --conversion-timeout 1"
 
 # Prompts.
-PS1="$(check_remote)> "
+PROMPT_COMMAND=set_prompt
 PS2="? "
 PS3="# "
 PS4="! "
