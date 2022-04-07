@@ -5,6 +5,6 @@
 User hakmad
 
 # Host specific options.
-Host remote
+Host server
 	Hostname hakmad.com
-	Port 22
+	Port 30240
