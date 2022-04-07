@@ -4,6 +4,9 @@
 # Include /etc/ssh/sshd_config.d/*.conf configuration files.
 Include /etc/ssh/sshd_config.d/*.conf
 
+# Port settings.
+Port 30240
+
 # Authentication settings.
 PasswordAuthentication no
 AuthenticationMethods publickey
