@@ -29,9 +29,9 @@ FOREGROUND=$COLOUR0
 ACCENT=$COLOUR8
 
 # Position for small windows.
-X=30
-Y=30
+X=20
+Y=20
 
 # Size of small windows.
 WIDTH=500
-HEIGHT=30
+HEIGHT=20
