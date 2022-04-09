@@ -19,9 +19,9 @@ source style.sh
 
 # Basic variables.
 DURATION=1
-MESSAGE="  "
+MESSAGE=" "
 
-# MESSAGE needs to be prefixed with 2 empty spaces for padding
+# MESSAGE needs to be prefixed with an empty space for padding
 # (otherwise it looks a bit odd).
 
 # Get command line arguments.
@@ -47,7 +47,7 @@ done
 # Set width according to length of message to display.
 if [[ ! $WIDTH_SET ]]; then
 	# Don't ask how I know these numbers are correct.
-	WIDTH=$((14 + 6 * ${#MESSAGE}))
+	WIDTH=$((6 + 6 * ${#MESSAGE}))
 fi
 
 # Run popup.
