@@ -2,6 +2,10 @@
 
 # Script for installing Arch Linux.
 
+# Basic variables.
+HOSTNAME="laptop"
+USER="hakmad"
+
 # Logging function.
 log () {
 	echo $@
@@ -74,7 +78,6 @@ echo "KEYMAP=uk" >> /mnt/etc/vconsole.conf
 echo "FONT=ter-112n" >> /mnt/etc/vconsole.conf
 
 # Set hostname and hosts.
-read -p "Enter hostname: " HOSTNAME
 echo $HOSTNAME >> /mnt/etc/hostname
 echo -e "127.0.0.1\tlocalhost" >> /mnt/etc/hosts
 echo -e "::1\tlocalhost" >> /mnt/etc/hosts
@@ -82,16 +85,16 @@ echo -e "::1\tlocalhost" >> /mnt/etc/hosts
 # Setup users.
 log "Setting password for root..."
 arch-chroot /mnt passwd
-arch-chroot /mnt useradd -m -G wheel hakmad
-log "Setting password for hakmad..."
-arch-chroot /mnt passwd hakmad
+arch-chroot /mnt useradd -m -G wheel $USER
+log "Setting password for $USER..."
+arch-chroot /mnt passwd $USER
 arch-chroot /mnt sed -i "s/^# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel \
 ALL=(ALL) NOPASSWD: ALL/" /etc/sudoers
 
 # Clone dotfiles onto new system.
-arch-chroot /mnt git clone https://github.com/hakmad/dotfiles \
-	/home/hakmad/.dotfiles
-arch-chroot /mnt chown -R hakmad:hakmad /home/hakmad/.dotfiles
+arch-chroot /mnt git clone https://github.com/$USER/dotfiles \
+	/home/$USER/.dotfiles
+arch-chroot /mnt chown -R $USER:$USER /home/$USER/.dotfiles
 
 # Install (temporary) bootloader.
 log "Installing bootloader..."
