@@ -114,8 +114,8 @@ echo "" | sudo tee /etc/motd
 # Set qutebrowser as the default browser.
 xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop
 
-# Add user hakmad to group wireshark.
-sudo gpasswd -a hakmad wireshark
+# Add user to group wireshark.
+sudo gpasswd -a $USER wireshark
 
 # Setup complete.
 log "Setup complete! Please reboot. :)"
