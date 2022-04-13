@@ -2,6 +2,10 @@
 
 # Script for setting a Debian based server.
 
+# Basic variables.
+HOSTNAME="server"
+USER="hakmad"
+
 # Function for logging.
 log () {
 	echo $@
@@ -20,8 +24,8 @@ log "Setting password for root..."
 passwd
 
 log "Adding new user..."
-useradd -m -G sudo -s /usr/bin/bash hakmad
-passwd hakmad
+useradd -m -G sudo -s /usr/bin/bash $USER
+passwd $USER
 
 # Update packages, refresh package database.
 log "Updating..."
@@ -35,16 +39,16 @@ apt install --yes vim git man-db acpi tree htop python zip unzip p7zip jq \
 
 # Clone dotfiles onto new system and push dotfiles.
 log "Cloning dotfiles..."
-git clone https://github.com/hakmad/dotfiles /home/hakmad/.dotfiles
+git clone https://github.com/$USER/dotfiles /home/$USER/.dotfiles
 
 log "Pushing dotfiles..."
-su hakmad -c "/home/hakmad/.dotfiles/bin/push-dotfiles.sh bash"
-su hakmad -c "/home/hakmad/.dotfiles/bin/push-dotfiles.sh bin"
-su hakmad -c "/home/hakmad/.dotfiles/bin/push-dotfiles.sh vim"
-su hakmad -c "/home/hakmad/.dotfiles/bin/push-dotfiles.sh git"
+su $USER -c "/home/$USER/.dotfiles/bin/push-dotfiles.sh bash"
+su $USER -c "/home/$USER/.dotfiles/bin/push-dotfiles.sh bin"
+su $USER -c "/home/$USER/.dotfiles/bin/push-dotfiles.sh vim"
+su $USER -c "/home/$USER/.dotfiles/bin/push-dotfiles.sh git"
 
 log "Changing ownership of dotfiles..."
-chown -R hakmad:hakmad /home/hakmad/.dotfiles
+chown -R $USER:$USER /home/$USER/.dotfiles
 
 # Setup complete.
-log "Setup complete! Please login as hakmad. :)"
+log "Setup complete! Please login as $USER. :)"
