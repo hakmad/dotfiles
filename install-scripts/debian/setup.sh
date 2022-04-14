@@ -50,5 +50,9 @@ su $USER -c "/home/$USER/.dotfiles/bin/push-dotfiles.sh git"
 log "Changing ownership of dotfiles..."
 chown -R $USER:$USER /home/$USER/.dotfiles
 
+# Change hostname.
+log "Changing hostname..."
+echo $HOSTNAME >> /etc/hostname
+
 # Setup complete.
 log "Setup complete! Please login as $USER. :)"
