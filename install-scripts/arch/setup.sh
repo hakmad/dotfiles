@@ -89,6 +89,7 @@ log "Pushing dotfiles..."
 ~/.dotfiles/bin/push-dotfiles.sh git
 ~/.dotfiles/bin/push-dotfiles.sh picom
 ~/.dotfiles/bin/push-dotfiles.sh qutebrowser
+~/.dotfiles/bin/push-dotfiles.sh ssh
 ~/.dotfiles/bin/push-dotfiles.sh sxhkd
 ~/.dotfiles/bin/push-dotfiles.sh systemd
 ~/.dotfiles/bin/push-dotfiles.sh systemd-boot
