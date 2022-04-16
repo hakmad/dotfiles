@@ -2,6 +2,7 @@
 
 # Script for setting up a USB with Arch Linux.
 
+# Stop script of failure.
 set -e
 
 # Output list of devices.
@@ -18,7 +19,7 @@ if [[ $CONFIRM != [yY] ]]; then
 fi
 
 # Partition device with fdisk (make 2 partitions!).
-echo "Paritioning $DEVICE with fdisk"
+echo "Paritioning $DEVICE with fdisk..."
 fdisk $DEVICE
 
 # Format device paritition 1.
