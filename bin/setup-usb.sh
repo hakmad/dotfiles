@@ -2,7 +2,7 @@
 
 # Script for setting up a USB with Arch Linux.
 
-# Stop script of failure.
+# Stop the script if there are errors.
 set -e
 
 # Output list of devices.
@@ -35,9 +35,9 @@ echo "Formatting $DEVICE"2" as exFAT..."
 mkfs.exfat $DEVICE"2"
 
 # Download Arch Linux ISO.
-read -p "Enter URL for Arch Linux ISO: " URL
-echo "Downloading Arch Linux ISO..."
-curl -o archlinux.iso $URL
+#read -p "Enter URL for Arch Linux ISO: " URL
+#echo "Downloading Arch Linux ISO..."
+#curl -o archlinux.iso $URL
 
 # Copy ISO to device parition 1.
 echo "Extracting ISO to mount point..."
@@ -46,8 +46,9 @@ bsdtar -x -f archlinux.iso -C /mnt
 # Modify system labels.
 echo "Modifying file system label..."
 UUID=$(lsblk -dno UUID $DEVICE"1")
-sed -i -E "s/(archisolabel=ARCH_)([0-9]{6})/archisodevice=\/dev\/disk\/by-uuid\/$UUID/" /mnt/loader/entries/*
 sed -i -E "s/(archisolabel=ARCH_)([0-9]{6})/archisodevice=\/dev\/disk\/by-uuid\/$UUID/" /mnt/syslinux/archiso_sys-linux.cfg
+sed -i -E "s/(archisolabel=ARCH_)([0-9]{6})/archisodevice=\/dev\/disk\/by-uuid\/$UUID/" /mnt/EFI/BOOT/grub.cfg
+sed -i -E "s/(ARCH_)([0-9]{6})/$UUID/" /mnt/EFI/BOOT/grub.cfg
 
 # Unmount.
 echo "Unmounting /mnt..."
