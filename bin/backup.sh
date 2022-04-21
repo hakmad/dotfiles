@@ -62,6 +62,9 @@ else
 	}
 fi
 
+# Notify user that backup is starting.
+echo "Starting backup..."
+
 # Create temporary directory for backup.
 log "Creating backup directory..."
 rm -rf $BACKUP_DIR
