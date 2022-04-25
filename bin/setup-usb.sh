@@ -35,9 +35,9 @@ echo "Formatting $DEVICE"2" as exFAT..."
 mkfs.exfat $DEVICE"2"
 
 # Download Arch Linux ISO.
-#read -p "Enter URL for Arch Linux ISO: " URL
-#echo "Downloading Arch Linux ISO..."
-#curl -o archlinux.iso $URL
+read -p "Enter URL for Arch Linux ISO: " URL
+echo "Downloading Arch Linux ISO..."
+curl -o archlinux.iso $URL
 
 # Copy ISO to device parition 1.
 echo "Extracting ISO to mount point..."
