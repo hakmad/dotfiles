@@ -49,6 +49,7 @@ UUID=$(lsblk -dno UUID $DEVICE"1")
 sed -i -E "s/(archisolabel=ARCH_)([0-9]{6})/archisodevice=\/dev\/disk\/by-uuid\/$UUID/" /mnt/syslinux/archiso_sys-linux.cfg
 sed -i -E "s/(archisolabel=ARCH_)([0-9]{6})/archisodevice=\/dev\/disk\/by-uuid\/$UUID/" /mnt/EFI/BOOT/grub.cfg
 sed -i -E "s/(ARCH_)([0-9]{6})/$UUID/" /mnt/EFI/BOOT/grub.cfg
+sed -i -E "s/--label/--fs-uuid/" /mnt/EFI/BOOT/grub.cfg
 
 # Unmount.
 echo "Unmounting /mnt..."
