@@ -60,8 +60,5 @@ echo "Installing syslinux files..."
 syslinux --directory syslinux --install $DEVICE"1"
 dd bs=440 count=1 conv=notrunc if=/usr/lib/syslinux/bios/mbr.bin of=$DEVICE
 
-# Delete ISO.
-echo "Cleaning up..."
-rm archlinux.iso
-
+# Install complete.
 echo "Installation complete!"
