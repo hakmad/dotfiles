@@ -38,3 +38,18 @@ if [[ -z $BATTERY_REMAINING ]]; then
 else
 	echo -e "$C \bBattery:$NC $BATTERY_REMAINING ($BATTERY_STATUS)"
 fi
+
+# Show colour stuff. :D
+printf "\n"
+
+for i in {0..8}; do
+	printf "\033[0;4"$i"m   \033[0m"
+done
+
+printf "\n"
+
+for i in {0..8}; do
+	printf "\033[0;4"$i"m   \033[0m"
+done
+
+printf "\n"
