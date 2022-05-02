@@ -9,6 +9,15 @@
 # It contains a file called .location which specifies where
 # the dotfiles should be pushed to.
 
+show_help() {
+	head ~/.bin/push-dotfiles.sh -n 10 | tail -n 8 | sed "s/# //"
+}
+
+if [[ $1 == "-h" ]] || [[ $1 == "--help" ]]; then
+	show_help
+	exit
+fi
+
 # Basic variables.
 NAME=$1
 ORIGIN=~/.dotfiles/$NAME/
