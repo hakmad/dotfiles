@@ -26,7 +26,7 @@ WORKING_DIR=$(pwd)
 
 # Show help for this script.
 show_help() {
-	head ~/.bin/backup.sh -n 17 | tail -n 15 | sed 's/# //g'
+	head ~/.bin/backup.sh -n 17 | tail -n 15 | sed "s/# //"
 }
 
 # Get command line arguments.
