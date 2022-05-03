@@ -69,7 +69,7 @@ search() {
 
 # Show help for this script.
 show_help() {
-	head ~/.bin/aur.sh -n 12 | tail -n 10 | sed 's/# //g'
+	head ~/.bin/aur.sh -n 12 | tail -n 10 | sed "s/# //"
 }
 
 # Get command line arguments.
