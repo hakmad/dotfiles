@@ -42,7 +42,8 @@ sudo timedatectl set-timezone Europe/London
 
 # Install X and video drivers.
 log "Installing X and video drivers..."
-sudo pacman -S --noconfirm xorg xorg-xinit xf86-video-intel mesa
+sudo pacman -S --noconfirm xorg xorg-xinit xf86-video-intel xf86-video-fbdev \
+	mesa
 
 # Install audio and setup alsa.
 log "Installing audio packages..."
