@@ -104,7 +104,7 @@ log "Removing fsck hooks..."
 sudo sed -i "s/HOOKS=(base udev autodetect modconf block filesystems \
 keyboard fsck)/HOOKS=(base udev autodetect modconf block filesystems \
 keyboard)/g" /etc/mkinitcpio.conf
-sudo pacman -S --noconfirm linux
+sudo mkinitcpio -p linux
 
 # Hide kernel messages on the console.
 echo "kernel.printk = 3 3 3 3" | sudo tee /etc/sysctl.d/20-quiet-printk.conf
