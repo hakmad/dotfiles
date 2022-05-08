@@ -88,6 +88,7 @@ log "Pushing dotfiles..."
 ~/.dotfiles/bin/push-dotfiles.sh bin
 ~/.dotfiles/bin/push-dotfiles.sh bswpm
 ~/.dotfiles/bin/push-dotfiles.sh git
+~/.dotfiles/bin/push-dotfiles.sh mkinitcpio
 ~/.dotfiles/bin/push-dotfiles.sh picom
 ~/.dotfiles/bin/push-dotfiles.sh qutebrowser
 ~/.dotfiles/bin/push-dotfiles.sh ssh
@@ -100,10 +101,7 @@ log "Pushing dotfiles..."
 
 # Extra things.
 # Remove fsck hooks.
-log "Removing fsck hooks..."
-sudo sed -i "s/HOOKS=(base udev autodetect modconf block filesystems \
-keyboard fsck)/HOOKS=(base udev autodetect modconf block filesystems \
-keyboard)/g" /etc/mkinitcpio.conf
+log "Regenerating initial RAM-disk..."
 sudo mkinitcpio -p linux
 
 # Hide kernel messages on the console.
