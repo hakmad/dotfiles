@@ -8,8 +8,8 @@ Include /etc/ssh/sshd_config.d/*.conf
 Port 30240
 
 # Authentication settings.
-PasswordAuthentication no
-AuthenticationMethods publickey
+PasswordAuthentication yes
+AuthenticationMethods password
 ChallengeResponseAuthentication yes
 UsePAM yes
 PermitRootLogin no
