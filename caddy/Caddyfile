@@ -6,3 +6,7 @@ hakmad.com {
 
 	file_server
 }
+
+www.hakmad.com {
+	redir https://hakmad.com{uri}
+}
