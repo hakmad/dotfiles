@@ -1,0 +1,8 @@
+# /etc/caddy/Caddyfile
+# Configuration file for Caddy.
+
+hakmad.com {
+	root * /home/hakmad/website/.output
+
+	file_server
+}
