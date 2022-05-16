@@ -22,7 +22,7 @@ pkg upgrade
 
 # Install programs.
 log "Installing utilities..."
-pkg install ffmpeg git python vim man
+pkg install ffmpeg git python vim man openssh
 
 # Install youtube-dl through pip.
 log "Installing youtube-dl"
