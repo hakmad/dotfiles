@@ -41,14 +41,15 @@ apt install --yes vim git man-db acpi tree htop python zip unzip p7zip jq \
 log "Cloning dotfiles..."
 git clone https://github.com/$USER/dotfiles /home/$USER/.dotfiles
 
+log "Changing ownership of dotfiles..."
+chown -R $USER:$USER /home/$USER/.dotfiles
+
 log "Pushing dotfiles..."
 su $USER -c "/home/$USER/.dotfiles/bin/push-dotfiles.sh bash"
 su $USER -c "/home/$USER/.dotfiles/bin/push-dotfiles.sh bin"
 su $USER -c "/home/$USER/.dotfiles/bin/push-dotfiles.sh vim"
 su $USER -c "/home/$USER/.dotfiles/bin/push-dotfiles.sh git"
-
-log "Changing ownership of dotfiles..."
-chown -R $USER:$USER /home/$USER/.dotfiles
+su $USER -c "/home/$USER/.dotfiles/bin/push-dotfiles.sh sshd"
 
 # Change hostname.
 log "Changing hostname..."
