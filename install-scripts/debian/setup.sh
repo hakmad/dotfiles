@@ -37,6 +37,15 @@ log "Installing basic and miscellaneous utilities..."
 apt install --yes vim git man-db acpi tree htop python zip unzip p7zip jq \
 	file bash-completion
 
+# Install Caddy.
+apt install --yes debian-keyring debian-archive-keyring apt-transport-https
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' \
+	| gpg --dearmor -o /usr/share/keyrings/caddy-stable-keyring.gpg
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' \
+	| tee /etc/apt/sources.list.d/caddy-stable.list
+apt update
+apt install caddy
+
 # Clone dotfiles onto new system and push dotfiles.
 log "Cloning dotfiles..."
 git clone https://github.com/$USER/dotfiles /home/$USER/.dotfiles
