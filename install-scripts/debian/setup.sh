@@ -60,6 +60,10 @@ su $USER -c "/home/$USER/.dotfiles/bin/push-dotfiles.sh vim"
 su $USER -c "/home/$USER/.dotfiles/bin/push-dotfiles.sh git"
 su $USER -c "/home/$USER/.dotfiles/bin/push-dotfiles.sh sshd"
 su $USER -c "/home/$USER/.dotfiles/bin/push-dotfiles.sh caddy"
+su $USER -c "/home/$USER/.dotfiles/bin/push-dotfiles.sh nftables"
+
+# Setup firewall.
+su $USER -c "sudo nft -f /etc/nftables.conf"
 
 # Change hostname.
 log "Changing hostname..."
