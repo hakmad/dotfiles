@@ -9,7 +9,7 @@ Port 30240
 
 # Authentication settings.
 PasswordAuthentication yes
-AuthenticationMethods password
+AuthenticationMethods publickey password
 ChallengeResponseAuthentication yes
 UsePAM yes
 PermitRootLogin no
