@@ -45,6 +45,8 @@ super + shift + m
 	modules.sh
 super + g
 	pat.sh
+super + shift + x
+	xsel -c
 
 # Screenlock.
 super + p
