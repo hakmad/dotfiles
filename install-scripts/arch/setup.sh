@@ -86,7 +86,7 @@ log "Pushing dotfiles..."
 ~/.dotfiles/bin/push-dotfiles.sh alacritty
 ~/.dotfiles/bin/push-dotfiles.sh bash
 ~/.dotfiles/bin/push-dotfiles.sh bin
-~/.dotfiles/bin/push-dotfiles.sh bswpm
+~/.dotfiles/bin/push-dotfiles.sh bspwm
 ~/.dotfiles/bin/push-dotfiles.sh git
 ~/.dotfiles/bin/push-dotfiles.sh mkinitcpio
 ~/.dotfiles/bin/push-dotfiles.sh picom
