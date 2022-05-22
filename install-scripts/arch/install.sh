@@ -100,6 +100,7 @@ arch-chroot /mnt chown -R $USER:$USER /home/$USER/.dotfiles
 log "Installing bootloader..."
 arch-chroot /mnt bootctl install --path=/boot
 echo -e "default\tarch.conf" > /mnt/boot/loader/loader.conf
+rm -f /mnt/boot/loader/entries/arch.conf
 echo -e "title\tArch Linux" >> /mnt/boot/loader/entries/arch.conf
 echo -e "linux\t/vmlinuz-linux" >> /mnt/boot/loader/entries/arch.conf
 echo -e "initrd\t/initramfs-linux.img" >> /mnt/boot/loader/entries/arch.conf
