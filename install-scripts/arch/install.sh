@@ -88,8 +88,7 @@ arch-chroot /mnt passwd
 arch-chroot /mnt useradd -m -G wheel $USER
 log "Setting password for $USER..."
 arch-chroot /mnt passwd $USER
-arch-chroot /mnt sed -i "s/^# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel \
-ALL=(ALL) NOPASSWD: ALL/" /etc/sudoers
+arch-chroot /mnt visudo
 
 # Clone dotfiles onto new system.
 arch-chroot /mnt git clone https://github.com/$USER/dotfiles \
