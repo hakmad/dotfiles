@@ -75,7 +75,7 @@ sudo pacman -S --noconfirm alacritty qutebrowser pavucontrol firefox \
 log "Installing miscellaneous utilities..."
 sudo pacman -S --noconfirm acpi tree ntfs-3g htop wireless_tools python \
         python-pip texlive-most youtube-dl zip unzip p7zip slock jq \
-	xss-lock bash-completion xsel
+	xss-lock bash-completion xsel openssh
 
 # Install Java.
 log "Installing Java..."
