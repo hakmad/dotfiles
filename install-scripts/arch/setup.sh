@@ -83,21 +83,11 @@ sudo pacman -S --noconfirm jdk-openjdk jre-openjdk openjdk-doc openjdk-src
 
 # Push dotfiles.
 log "Pushing dotfiles..."
-~/.dotfiles/bin/push-dotfiles.sh alacritty
-~/.dotfiles/bin/push-dotfiles.sh bash
-~/.dotfiles/bin/push-dotfiles.sh bin
-~/.dotfiles/bin/push-dotfiles.sh bspwm
-~/.dotfiles/bin/push-dotfiles.sh git
-~/.dotfiles/bin/push-dotfiles.sh mkinitcpio
-~/.dotfiles/bin/push-dotfiles.sh picom
-~/.dotfiles/bin/push-dotfiles.sh qutebrowser
-~/.dotfiles/bin/push-dotfiles.sh ssh
-~/.dotfiles/bin/push-dotfiles.sh sxhkd
-~/.dotfiles/bin/push-dotfiles.sh systemd
-~/.dotfiles/bin/push-dotfiles.sh systemd-boot
-~/.dotfiles/bin/push-dotfiles.sh vim
-~/.dotfiles/bin/push-dotfiles.sh xorg
-~/.dotfiles/bin/push-dotfiles.sh zathura
+for package in $(find * -maxdepth 0 -type d -not \( \
+	-name install-scripts -o \
+	-name caddy \)); do
+	~/.dotfiles/bin/push-dotfiles.sh $package
+done
 
 # Extra things.
 # Remove fsck hooks.
