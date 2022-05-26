@@ -63,6 +63,7 @@ su $USER -c "/home/$USER/.dotfiles/bin/push-dotfiles.sh caddy"
 su $USER -c "/home/$USER/.dotfiles/bin/push-dotfiles.sh nftables"
 
 # Setup firewall.
+log "Setting up firewall..."
 su $USER -c "sudo nft -f /etc/nftables.conf"
 
 # Change hostname.
