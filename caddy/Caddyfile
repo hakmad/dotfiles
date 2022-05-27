@@ -5,6 +5,8 @@ hakmad.com {
 	root * /home/hakmad/website/.output
 
 	file_server
+
+	try_files {path}.html {path}
 }
 
 www.hakmad.com {
