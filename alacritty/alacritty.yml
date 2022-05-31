@@ -1,6 +1,11 @@
 # ~/.config/alacritty/alacritty.yml
 # Configuration file for alacritty.
 
+# Environment variables for alacritty.
+env:
+  WINIT_X11_SCALE_FACTOR: "1"
+  WINIT_HIDPI_FACTOR: "1"
+
 # Window settings.
 window:
   dimensions:
@@ -39,7 +44,7 @@ font:
     family: terminus
     style: Bold Italic
 
-  size: 9
+  size: 5
 
 # Colour settings.
 colors:
