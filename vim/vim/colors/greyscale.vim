@@ -33,6 +33,10 @@ highlight Ignore ctermfg=7
 highlight Error ctermbg=1
 highlight Todo ctermfg=15 ctermbg=2
 highlight MatchParen ctermfg=7 ctermbg=8
+highlight Title ctermfg=7
+
+" Fold colours.
+highlight Folded ctermfg=7 ctermbg=8
 
 " Meta colours.
 highlight NonText ctermfg=240
