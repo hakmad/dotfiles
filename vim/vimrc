@@ -11,6 +11,7 @@ syntax on
 set autoindent
 set number
 set incsearch
+set foldmethod=marker
 
 " Colourscheme.
 colorscheme greyscale
