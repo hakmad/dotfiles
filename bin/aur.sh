@@ -28,6 +28,15 @@ argument_handler() {
 	fi
 }
 
+# Helper function to check if a package is installed.
+check_installed() {
+	PACKAGE=$1
+
+	if [[ $(pacman -Q | grep $PACKAGE) ]]; then
+		echo "[installed]"
+	fi
+}
+
 # Clean download directory.
 clean() {
 	cd $DOWNLOADS_DIR
@@ -62,7 +71,8 @@ search() {
 
 	while read PACKAGE; read VERSION; read DESCRIPTION
 	do
-		echo "aur/$PACKAGE $VERSION"
+		INSTALLED=$(check_installed $PACKAGE)
+		echo "aur/$PACKAGE $VERSION $INSTALLED"
 		echo "    $DESCRIPTION"
 	done <<< $RESULT
 }
