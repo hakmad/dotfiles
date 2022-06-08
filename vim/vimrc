@@ -12,6 +12,7 @@ set autoindent
 set number
 set incsearch
 set foldmethod=marker
+set textwidth=79
 
 " Colourscheme.
 colorscheme greyscale
