@@ -5,7 +5,7 @@
 # The usage of this script is as follows:
 # 	[options] |
 # 	menu.sh [flags] |
-# 	[handler
+# 	[handler]
 # 
 # where:
 # 	[options] is the different options to be passed to dmenu.
