@@ -14,22 +14,3 @@ hakmad.com {
 www.hakmad.com {
 	redir https://hakmad.com{uri}
 }
-
-dav.hakmad.com {
-	root * /home/hakmad/dav/html
-
-	php_fastcgi unix//run/php/php-fpm.sock
-	
-	file_server
-
-	redir /.well-known/carddav /dav.php
-	redir /.well-known/caldav /dav.php
-
-	@forbidden {
-		path /Core/*
-		path /Specific/*
-		path /config/*
-	}
-
-	respond @forbidden 404
-}
