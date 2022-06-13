@@ -78,10 +78,6 @@ sudo pacman -S --noconfirm acpi tree ntfs-3g htop wireless_tools python \
         python-pip texlive-most youtube-dl zip unzip p7zip slock jq \
 	xss-lock bash-completion xsel openssh
 
-# Install Java.
-log "Installing Java..."
-sudo pacman -S --noconfirm jdk-openjdk jre-openjdk openjdk-doc openjdk-src
-
 # Push dotfiles.
 log "Pushing dotfiles..."
 for package in $(find * -maxdepth 0 -type d -not \( \
