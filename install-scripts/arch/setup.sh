@@ -82,7 +82,9 @@ sudo pacman -S --noconfirm acpi tree ntfs-3g htop wireless_tools python \
 log "Pushing dotfiles..."
 for package in $(find * -maxdepth 0 -type d -not \( \
 	-name install-scripts -o \
-	-name caddy \)); do
+	-name caddy -o \
+	-name nftables -o \
+	-name sshd \)); do
 	~/.dotfiles/bin/push-dotfiles.sh $package
 done
 
