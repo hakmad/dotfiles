@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Script for setting a Debian based server.
+# Script for setting a Debian based server as root.
 
 # Basic variables.
 HOSTNAME="server"
@@ -58,13 +58,6 @@ su $USER -c "/home/$USER/.dotfiles/bin/push-dotfiles.sh bash"
 su $USER -c "/home/$USER/.dotfiles/bin/push-dotfiles.sh bin"
 su $USER -c "/home/$USER/.dotfiles/bin/push-dotfiles.sh vim"
 su $USER -c "/home/$USER/.dotfiles/bin/push-dotfiles.sh git"
-su $USER -c "/home/$USER/.dotfiles/bin/push-dotfiles.sh sshd"
-su $USER -c "/home/$USER/.dotfiles/bin/push-dotfiles.sh caddy"
-su $USER -c "/home/$USER/.dotfiles/bin/push-dotfiles.sh nftables"
-
-# Setup firewall.
-log "Setting up firewall..."
-su $USER -c "sudo nft -f /etc/nftables.conf"
 
 # Change hostname.
 log "Changing hostname..."
