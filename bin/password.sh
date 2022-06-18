@@ -16,6 +16,5 @@ CHOICES=$(printf $PASSWORD"\n\r" | keepassxc-cli ls $DB -q)
 CHOICE=$(printf "$CHOICES" | menu.sh)
 
 # Get password from DB and copy to clipboard.
-popup.sh -m "Copying password for $CHOICE" -d 3
 printf $PASSWORD"\n\r" | keepassxc-cli clip -q $DB "$CHOICE"
 popup.sh -m "Password cleared from clipboard" -d 3
