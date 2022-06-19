@@ -35,3 +35,9 @@ Y=20
 # Size of small windows.
 WIDTH=500
 HEIGHT=20
+
+# Size of the screen.
+SCREEN_WIDTH=$(xdpyinfo | grep "dimensions" | awk '{print $2}' | \
+	cut -d "x" -f 1)
+SCREEN_HEIGHT=$(xdpyinfo | grep "dimensions" | awk '{print $2}' | \
+	cut -d "x" -f 2)
