@@ -50,6 +50,9 @@ if [[ ! $WIDTH_SET ]]; then
 	WIDTH=$((6 + 6 * ${#MESSAGE}))
 fi
 
+# Move popup to the left of the screen.
+X=$((SCREEN_WIDTH-X-WIDTH))
+
 # Run popup.
 (echo "$MESSAGE"; sleep $DURATION) | lemonbar -d -b \
 	-g ${WIDTH}x${HEIGHT}+${X}+${Y} \
