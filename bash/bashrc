@@ -9,13 +9,6 @@ if [[ -z $ANDROID_ROOT ]]; then
 	source /usr/share/bash-completion/bash_completion
 fi
 
-# Functions.
-check_remote() {
-	if [[ $SSH_CONNECTION ]]; then
-		echo "R "
-	fi
-}
-
 # Aliases.
 alias cp="cp -r"
 alias scp="scp -r"
@@ -29,7 +22,7 @@ alias feh="feh --conversion-timeout 1"
 alias j="vim -c 'syntax off'"
 
 # Prompts.
-PS1="$(check_remote)> "
+PS1="> "
 PS2="? "
 PS3="# "
 PS4="! "
