@@ -44,7 +44,7 @@ font:
     family: Terminus
     style: Bold Italic
 
-  size: 5
+  size: 9
 
 # Colour settings.
 colors:
