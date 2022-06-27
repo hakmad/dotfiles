@@ -25,5 +25,3 @@ PS1="> "
 PS2="? "
 PS3="# "
 PS4="! "
-
-export GPG_TTY=$(tty)
