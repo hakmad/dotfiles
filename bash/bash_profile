@@ -5,20 +5,22 @@
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
 # Export environment variables.
-export PATH=$PATH:~/.bin:~/.local/bin
+export PATH="${PATH}:~/.bin"
+
+# Default programs.
+export PAGER=less
+export VISUAL=vim
 export EDITOR=vim
+export BROWSER=qutebrowser
 
 # History file settings.
-export HISTFILESIZE=1000
+export HISTFILESIZE=10000
 export HISTCONTROL=ignorespace:ignoredups
 export HISTTIMEFORMAT="%d/%m/%Y %H:%M:%S "
 
 # Shell options.
 shopt -s no_empty_cmd_completion
 shopt -s histappend
-
-# Java application issue.
-export _JAVA_AWT_WM_NONREPARENTING=1
 
 # Run startx silently.
 [[ $(fgconsole 2>/dev/null) == 1 ]] && startx -- vt1 &> /dev/null
