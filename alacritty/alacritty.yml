@@ -29,19 +29,19 @@ cursor:
 # Font settings.
 font:
   normal:
-    family: Terminus
+    family: terminus
     style: Regular
 
   bold:
-    family: Terminus
+    family: terminus
     style: Bold
 
   italic:
-    family: Terminus
+    family: terminus
     style: Italic
 
   bold_italic:
-    family: Terminus
+    family: terminus
     style: Bold Italic
 
   size: 9
