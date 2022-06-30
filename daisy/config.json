@@ -3,7 +3,7 @@
 	"index_file": "index.md",
 	"remove_html_ext": true,
 	"quiet": false,
-	"postprocess": "git push; ssh server -t 'cd website; git pull'",
+	"postprocess": "git push",
 	"ignored_files": [
 		"README.md"
 	],
