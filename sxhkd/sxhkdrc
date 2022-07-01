@@ -11,7 +11,7 @@ super + ctrl + {_,shift + } q
 	pkill -x notify.sh
 super + {_,shift + } q
 	bspc node -{c,k}
-super + {y,u,i,o}
+super + {u,i,o,p}
 	bspc node -t {floating,pseudo_tiled,tiled,fullscreen}
 super + {h,j,k,l}
 	bspc node -f {west,south,north,east}
@@ -25,34 +25,18 @@ super + ctrl + shift + {h,j,k,l}
 	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
 super + shift + {h,j,k,l}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
-super + alt + {h,j,k,l}
-	bspc node -p {west,south,north,east}
-super + alt + {1-9}
-	bspc node -o 0.{1-9}
-super + alt + space
-	bspc node -p cancel
 
 # Utilities.
 super + Return
 	alacritty
 super + shift + Return
-	alacritty --class ,floating
+	alacritty --class floating,
+super + shift + n
+	alacritty --class floating, --command nmtui
 super + space
 	run.sh
 super + shift + space
 	password.sh
-super + shift + n
-	alacritty --class ,floating --command nmtui
-super + m
-	alacritty --command aerc
-super + shift + m
-	modules.sh
-super + shift + x
-	xsel -c
-
-# Screenlock.
-super + p
-	slock
 
 # Screenshot.
 {_,super} + Print
