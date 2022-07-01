@@ -58,34 +58,29 @@ set -e
 log "Installing fonts..."
 sudo pacman -S --noconfirm noto-fonts noto-fonts-extra noto-fonts-emoji \
 	noto-fonts-cjk gnu-free-fonts ttf-liberation terminus-font
-install_aur terminus-font-ttf
 
 # Install desktop utilities.
 log "Installing desktop utilities..."
-sudo pacman -S --noconfirm bspwm sxhkd picom scrot
+sudo pacman -S --noconfirm bspwm sxhkd picom scrot slock
 install_aur dmenu2
 install_aur lemonbar-xft-git
 
 # Install desktop applications.
 log "Installing desktop applications..."
-sudo pacman -S --noconfirm alacritty qutebrowser pavucontrol firefox \
-	zathura zathura-pdf-mupdf mpv feh obs-studio wireshark-qt keepassxc \
-	gimp blender krita syncthing
+sudo pacman -S --noconfirm alacritty qutebrowser firefox \
+	zathura zathura-pdf-mupdf feh keepassxc syncthing
 
 # Install miscellaneous utilities.
 log "Installing miscellaneous utilities..."
 sudo pacman -S --noconfirm acpi tree ntfs-3g htop wireless_tools python \
-        python-pip texlive-most youtube-dl zip unzip p7zip slock jq \
-	xss-lock bash-completion xsel openssh bluez bluez-utils \
+	python-pip texlive-most youtube-dl zip unzip p7zip jq \
+	xss-lock bash-completion xsel xdotool openssh bluez bluez-utils \
 	pulseaudio-bluetooth
 
 # Push dotfiles.
 log "Pushing dotfiles..."
 for package in $(find * -maxdepth 0 -type d -not \( \
-	-name install-scripts -o \
-	-name caddy -o \
-	-name nftables -o \
-	-name sshd \)); do
+	-name install-scripts \)); do
 	~/.dotfiles/bin/push-dotfiles.sh $package
 done
 
@@ -103,9 +98,6 @@ echo "" | sudo tee /etc/motd
 
 # Set qutebrowser as the default browser.
 xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop
-
-# Add user to group wireshark.
-sudo gpasswd -a $USER wireshark
 
 # Setup complete.
 log "Setup complete! Please reboot. :)"
