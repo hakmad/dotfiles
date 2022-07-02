@@ -79,10 +79,12 @@ sudo pacman -S --noconfirm acpi tree ntfs-3g htop wireless_tools python \
 
 # Push dotfiles.
 log "Pushing dotfiles..."
+cd ~/.dotfiles/
 for package in $(find * -maxdepth 0 -type d -not \( \
 	-name install-scripts \)); do
 	~/.dotfiles/bin/push-dotfiles.sh $package
 done
+cd -
 
 # Extra things.
 # Remove fsck hooks.
