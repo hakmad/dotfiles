@@ -21,8 +21,6 @@ config.set('content.javascript.enabled', True, 'qute://*/*')
 
 c.content.notifications.enabled = False
 
-c.content.private_browsing = True
-
 c.content.tls.certificate_errors = 'load-insecurely'
 
 c.downloads.location.directory = '~/downloads'
