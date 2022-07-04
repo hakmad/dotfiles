@@ -1,8 +1,0 @@
-# ~/.config/pulse/default.pa
-# Configuration file for PulseAudio.
-
-# Include the system configuration file.
-.include /etc/pulse/default.pa
-
-# Load Bluetooth modules.
-load-module module-bluetooth-discover
