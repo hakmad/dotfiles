@@ -47,7 +47,7 @@ sudo pacman -S --noconfirm xorg xorg-xinit xf86-video-intel xf86-video-fbdev \
 
 # Install audio and setup alsa.
 log "Installing audio packages..."
-sudo pacman -S --noconfirm alsa alsa-utils alsa-lib pulseaudio \
+sudo pacman -S --noconfirm alsa-utils alsa-lib pulseaudio \
 	pulseaudio-alsa
 set +e
 log "Starting alsa..."
@@ -74,7 +74,7 @@ sudo pacman -S --noconfirm alacritty qutebrowser firefox \
 log "Installing miscellaneous utilities..."
 sudo pacman -S --noconfirm acpi tree ntfs-3g htop wireless_tools python \
 	python-pip texlive-most youtube-dl zip unzip p7zip jq \
-	xss-lock bash-completion xsel xdotool openssh
+	xss-lock bash-completion xsel xdotool xclip openssh
 
 # Push dotfiles.
 log "Pushing dotfiles..."
