@@ -100,5 +100,8 @@ echo "" | sudo tee /etc/motd
 # Set qutebrowser as the default browser.
 xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop
 
+# Generate SSH keys for this machine.
+ssh-keygen
+
 # Setup complete.
 log "Setup complete! Please reboot. :)"
