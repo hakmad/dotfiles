@@ -1,7 +1,7 @@
-# Installation Scripts
+# Install Scripts
 
-These directory contains installation scripts for making a fresh install of
-Arch Linux.
+This directory contains installation scripts for making a fresh install of Arch
+Linux.
 
 ## Pre-installation
 
@@ -9,26 +9,31 @@ To get started, read the Arch Wiki page
 [here](https://wiki.archlinux.org/title/Installation_guide) to understand the
 installation process and setup a live installation medium.
 
-## Downloading
+## Download
 
-To download the main installer script on a live installation medium:
+To download the main installer script on a live installation medium, run the
+following:
 
 ```
-curl https://raw.githubusercontent.com/hakmad/dotfiles/main/install-scripts/arch/install.sh
+curl -O https://raw.githubusercontent.com/hakmad/dotfiles/main/install-scripts/arch/install.sh
 ```
 
-## Installation
+## Install
 
-To begin an installation:
+To begin an installation, run the following:
 
 ```
 chmod +x install.sh
 ./install.sh
 ```
 
+Note: when setting passwords, it is recommended to use simple passwords and
+change them at a later stage. This is because the keyboard layout may not
+always be set correctly, which can lead to issues with logging in.
+
 ## Setup
 
-To setup, reboot the computer, log in, and run the `setup.sh` script:
+To setup, reboot the computer, log in, and run the following:
 
 ```
 ~/.dotfiles/install-scripts/arch/setup.sh
