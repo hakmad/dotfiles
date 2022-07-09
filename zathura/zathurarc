@@ -9,8 +9,5 @@ set recolor-lightcolor	"#101010"
 set recolor-darkcolor 	"#b9b9b9"
 set recolor-keephue 	true
 
-# Font.
-set font 		"terminus 9"
-
 # Disable sandbox.
 set sandbox		none
