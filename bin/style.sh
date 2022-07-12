@@ -3,7 +3,7 @@
 # Script containing various definitions for fonts, colours and other things.
 
 # Font.
-FONT="terminus-9"
+FONT="cozette-10"
 
 # Colours.
 COLOUR0="#101010"

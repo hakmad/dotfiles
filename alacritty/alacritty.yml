@@ -29,22 +29,22 @@ cursor:
 # Font settings.
 font:
   normal:
-    family: terminus
+    family: Cozette
     style: Regular
 
   bold:
-    family: terminus
+    family: Cozette
     style: Bold
 
   italic:
-    family: terminus
+    family: Cozette
     style: Italic
 
   bold_italic:
-    family: terminus
+    family: Cozette
     style: Bold Italic
 
-  size: 5
+  size: 10
 
 # Colour settings.
 colors:
