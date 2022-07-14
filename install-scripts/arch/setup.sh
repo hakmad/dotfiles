@@ -57,7 +57,11 @@ set -e
 # Install fonts.
 log "Installing fonts..."
 sudo pacman -S --noconfirm noto-fonts noto-fonts-extra noto-fonts-emoji \
-	noto-fonts-cjk gnu-free-fonts ttf-liberation terminus-font
+	noto-fonts-cjk gnu-free-fonts ttf-liberation
+
+install_aur cozette-otb
+install_aur bdf2psf
+install_aur psf-cozette
 
 # Install desktop utilities.
 log "Installing desktop utilities..."
