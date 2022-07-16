@@ -84,7 +84,8 @@ sudo pacman -S --noconfirm acpi tree ntfs-3g htop wireless_tools python \
 log "Pushing dotfiles..."
 cd ~/.dotfiles/
 for package in $(find * -maxdepth 0 -type d -not \( \
-	-name install-scripts \)); do
+	-name install-scripts -or
+	-name misc \)); do
 	~/.dotfiles/bin/push-dotfiles.sh $package
 done
 cd -
@@ -93,13 +94,6 @@ cd -
 # Remove fsck hooks.
 log "Regenerating initial RAM-disk..."
 sudo mkinitcpio -p linux
-
-# Hide kernel messages on the console.
-echo "kernel.printk = 3 3 3 3" | sudo tee /etc/sysctl.d/20-quiet-printk.conf
-
-# Set /etc/issue to clear, /etc/motd to empty.
-clear | sudo tee /etc/issue
-echo "" | sudo tee /etc/motd
 
 # Set qutebrowser as the default browser.
 xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop
