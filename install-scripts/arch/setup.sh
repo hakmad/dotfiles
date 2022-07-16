@@ -7,12 +7,26 @@ install_aur() {
 	git clone https://aur.archlinux.org/$1
 	cd $1
 	makepkg -si --noconfirm
-	cd ..
+	cd -
 	rm -rf $1
 }
 
 # Stop the script if there are errors.
 set -e
+
+# Push dotfiles.
+DOTFILES_LOCATION="$HOME/.dotfiles"
+
+for package in $(find $DOTFILES_LOCATION -mindepth 1 -maxdepth 1 -type d \
+	-not \( -name .git \
+	-or -name install-scripts \
+	-or -name misc \)); do
+	~/.dotfiles/bin/push-dotfiles.sh ${package#$DOTFILES_LOCATION}
+done
+
+for package in $(find $DOTFILES_LOCATION/misc -mindepth 1 -maxdepth 1 -type d); do
+	~/.dotfiles/bin/push-dotfiles.sh ${package#$DOTFILES_LOCATION/}
+done
 
 # Connect to the internet.
 sudo systemctl enable --now NetworkManager.service
@@ -58,15 +72,6 @@ sudo pacman -S --noconfirm acpi tree ntfs-3g htop wireless_tools python \
 	python-pip texlive-most youtube-dl zip unzip p7zip jq \
 	xss-lock bash-completion xsel xdotool xclip openssh
 
-# Push dotfiles.
-cd ~/.dotfiles/
-for package in $(find * -maxdepth 0 -type d -not \( \
-	-name install-scripts -or
-	-name misc \)); do
-	~/.dotfiles/bin/push-dotfiles.sh $package
-done
-cd -
-
 # Extra things.
 # Remove fsck hooks.
 sudo mkinitcpio -p linux
@@ -76,3 +81,6 @@ xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop
 
 # Generate SSH keys for this machine.
 ssh-keygen
+
+# Setup complete.
+echo "Setup complete. Please reboot!"
