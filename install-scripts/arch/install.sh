@@ -30,13 +30,11 @@ mkdir /mnt/boot
 mount $ESP /mnt/boot
 
 # Get mirrorlist.
-curl -L https://www.archlinux.org/mirrorlist/?country=GB > \
-	/etc/pacman.d/mirrorlist
+curl -L https://www.archlinux.org/mirrorlist/?country=GB > /etc/pacman.d/mirrorlist
 sed -i "s/^#Server/Server/" /etc/pacman.d/mirrorlist
 
 # Install Arch base onto mountpoint.
-pacstrap /mnt base base-devel linux linux-firmware vi vim git man-pages \
-	man-db networkmanager
+pacstrap /mnt base base-devel linux linux-firmware vi vim git man-pages man-db networkmanager
 
 # Generate fstab file.
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -67,8 +65,7 @@ arch-chroot /mnt passwd $USER
 arch-chroot /mnt visudo
 
 # Clone dotfiles onto new system.
-arch-chroot /mnt git clone https://github.com/$USER/dotfiles \
-	/home/$USER/.dotfiles
+arch-chroot /mnt git clone https://github.com/$USER/dotfiles /home/$USER/.dotfiles
 arch-chroot /mnt chown -R $USER:$USER /home/$USER/.dotfiles
 
 # Install (temporary) bootloader.
