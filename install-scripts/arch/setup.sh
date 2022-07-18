@@ -41,36 +41,33 @@ sudo pacman -Syu --noconfirm
 sudo timedatectl set-timezone Europe/London
 
 # Install X and video drivers.
-sudo pacman -S --noconfirm xorg xorg-xinit xf86-video-intel xf86-video-fbdev \
-	mesa
+sudo pacman -S --noconfirm xorg xorg-xinit xf86-video-intel xf86-video-fbdev mesa
 
 # Install audio and setup alsa.
-sudo pacman -S --noconfirm alsa-utils alsa-lib pulseaudio \
-	pulseaudio-alsa
+sudo pacman -S --noconfirm alsa-utils alsa-lib pulseaudio pulseaudio-alsa
 set +e
 sudo alsactl init
 set -e
 
 # Install fonts.
-sudo pacman -S --noconfirm noto-fonts noto-fonts-extra noto-fonts-emoji \
-	noto-fonts-cjk gnu-free-fonts ttf-liberation
+sudo pacman -S --noconfirm noto-fonts noto-fonts-extra noto-fonts-emoji noto-fonts-cjk gnu-free-fonts ttf-liberation
 install_aur bdf2psf
 install_aur cozette-otb
 install_aur psf-cozette
 
 # Install desktop utilities.
-sudo pacman -S --noconfirm bspwm sxhkd picom scrot slock
+sudo pacman -S --noconfirm bspwm sxhkd picom scrot slock xss-lock
 install_aur dmenu2
 install_aur lemonbar-xft-git
 
 # Install desktop applications.
-sudo pacman -S --noconfirm alacritty qutebrowser firefox \
-	zathura zathura-pdf-mupdf feh keepassxc syncthing
+sudo pacman -S --noconfirm alacritty qutebrowser firefox zathura zathura-pdf-mupdf feh keepassxc syncthing
 
 # Install miscellaneous utilities.
-sudo pacman -S --noconfirm acpi tree ntfs-3g htop wireless_tools python \
-	python-pip texlive-most yt-dlp zip unzip p7zip jq \
-	xss-lock bash-completion xsel xdotool xclip openssh
+sudo pacman -S --noconfirm acpi tree ntfs-3g htop wireless_tools texlive-most yt-dlp jq bash-completion xsel xdotool xclip openssh
+
+# Install programming languages.
+sudo pacman -S --noconfirm python python-pip go
 
 # Extra things.
 # Remove fsck hooks.
