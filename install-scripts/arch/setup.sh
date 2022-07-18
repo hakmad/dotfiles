@@ -69,7 +69,7 @@ sudo pacman -S --noconfirm alacritty qutebrowser firefox \
 
 # Install miscellaneous utilities.
 sudo pacman -S --noconfirm acpi tree ntfs-3g htop wireless_tools python \
-	python-pip texlive-most youtube-dl zip unzip p7zip jq \
+	python-pip texlive-most yt-dlp zip unzip p7zip jq \
 	xss-lock bash-completion xsel xdotool xclip openssh
 
 # Extra things.

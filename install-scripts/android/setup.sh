@@ -13,7 +13,7 @@ pkg install ffmpeg git python vim man openssh
 
 # Install youtube-dl through pip.
 pip install --upgrade pip
-pip install youtube-dl
+pip install yt-dlp
 
 # Clone and push dotfiles.
 git clone https://github.com/hakmad/dotfiles ~/.dotfiles
