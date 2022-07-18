@@ -18,7 +18,7 @@ TITLE=$3
 FILENAME=$ARTIST-$TITLE
 
 # Download file.
-youtube-dl --extract-audio --audio-format mp3 \
+yt-dlp --extract-audio --audio-format mp3 \
 	--output "$FILENAME".%\(ext\)s $URL \
 	--postprocessor-args "-metadata artist=\"$ARTIST\" -metadata title=\"$TITLE\""
 
