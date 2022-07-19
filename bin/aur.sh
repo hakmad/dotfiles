@@ -52,7 +52,7 @@ install() {
 	git clone https://aur.archlinux.org/$PACKAGE $DOWNLOADS_DIR$PACKAGE
 
 	cd $DOWNLOADS_DIR$PACKAGE
-	makepkg -si
+	makepkg -si --no-confirm --skipinteg
 	cd -
 }
 

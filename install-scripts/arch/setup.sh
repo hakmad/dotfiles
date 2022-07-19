@@ -6,7 +6,7 @@
 install_aur() {
 	git clone https://aur.archlinux.org/$1
 	cd $1
-	makepkg -si --noconfirm
+	makepkg -si --noconfirm --skipinteg
 	cd -
 	rm -rf $1
 }
