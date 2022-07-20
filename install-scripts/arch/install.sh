@@ -69,7 +69,7 @@ arch-chroot /mnt git clone https://github.com/$USER/dotfiles /home/$USER/.dotfil
 arch-chroot /mnt chown -R $USER:$USER /home/$USER/.dotfiles
 
 # Install (temporary) bootloader.
-arch-chroot /mnt bootctl install --path=/boot
+arch-chroot /mnt bootctl install --path=/boot --no-variables
 echo -e "default\tarch.conf" > /mnt/boot/loader/loader.conf
 rm -f /mnt/boot/loader/entries/arch.conf
 echo -e "title\tArch Linux" >> /mnt/boot/loader/entries/arch.conf
