@@ -16,7 +16,7 @@ pip install --upgrade pip
 pip install yt-dlp
 
 # Clone and push dotfiles.
-git clone https://github.com/hakmad/dotfiles ~/.dotfiles
+git clone git@github.com:hakmad/dotfiles ~/.dotfiles
 
 ~/.dotfiles/bin/push-dotfiles.sh bash
 ~/.dotfiles/bin/push-dotfiles.sh bin
