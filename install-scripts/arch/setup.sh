@@ -28,6 +28,9 @@ for package in $(find $DOTFILES_LOCATION/misc -mindepth 1 -maxdepth 1 -type d); 
 	~/.dotfiles/bin/push-dotfiles.sh ${package#$DOTFILES_LOCATION/}
 done
 
+# Generate SSH keys for this machine.
+ssh-keygen
+
 # Connect to the internet.
 sudo systemctl enable --now NetworkManager.service
 sleep 5
@@ -57,8 +60,9 @@ install_aur psf-cozette
 
 # Install desktop utilities.
 sudo pacman -S --noconfirm bspwm sxhkd picom scrot slock xss-lock
+install_aur pod2man
 install_aur dmenu2
-install_aur lemonbar-xft-git
+install_aur lemonbar
 
 # Install desktop applications.
 sudo pacman -S --noconfirm alacritty qutebrowser firefox zathura zathura-pdf-mupdf feh keepassxc syncthing
@@ -75,9 +79,6 @@ sudo mkinitcpio -p linux
 
 # Set qutebrowser as the default browser.
 xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop
-
-# Generate SSH keys for this machine.
-ssh-keygen
 
 # Setup complete.
 echo "Setup complete. Please reboot!"
