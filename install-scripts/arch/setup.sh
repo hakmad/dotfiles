@@ -65,7 +65,9 @@ install_aur dmenu2
 install_aur lemonbar
 
 # Install desktop applications.
-sudo pacman -S --noconfirm alacritty qutebrowser firefox zathura zathura-pdf-mupdf feh keepassxc syncthing
+sudo pacman -S --noconfirm alacritty qutebrowser firefox zathura zathura-pdf-mupdf feh keepassxc syncthing steam obs
+install_aur legendary
+install_aur rare
 
 # Install miscellaneous utilities.
 sudo pacman -S --noconfirm acpi tree ntfs-3g htop wireless_tools texlive-most yt-dlp jq bash-completion xsel xdotool xclip openssh
