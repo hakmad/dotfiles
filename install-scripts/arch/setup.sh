@@ -21,11 +21,11 @@ for package in $(find $DOTFILES_LOCATION -mindepth 1 -maxdepth 1 -type d \
 	-not \( -name .git \
 	-or -name install-scripts \
 	-or -name misc \)); do
-	~/.dotfiles/bin/push-dotfiles.sh ${package#$DOTFILES_LOCATION}
+	$HOME/.dotfiles/bin/push-dotfiles.sh ${package#$DOTFILES_LOCATION}
 done
 
 for package in $(find $DOTFILES_LOCATION/misc -mindepth 1 -maxdepth 1 -type d); do
-	~/.dotfiles/bin/push-dotfiles.sh ${package#$DOTFILES_LOCATION/}
+	$HOME/.dotfiles/bin/push-dotfiles.sh ${package#$DOTFILES_LOCATION/}
 done
 
 # Generate SSH keys for this machine.
