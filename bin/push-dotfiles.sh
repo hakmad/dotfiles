@@ -10,7 +10,7 @@
 # the dotfiles should be pushed to.
 
 show_help() {
-	head ~/.bin/push-dotfiles.sh -n 10 | tail -n 8 | sed "s/# //"
+	head $HOME/.bin/push-dotfiles.sh -n 10 | tail -n 8 | sed "s/# //"
 }
 
 if [[ $1 == "-h" ]] || [[ $1 == "--help" ]]; then
@@ -19,50 +19,40 @@ if [[ $1 == "-h" ]] || [[ $1 == "--help" ]]; then
 fi
 
 # Basic variables.
-NAME=$1
-ORIGIN=~/.dotfiles/$NAME/
+PACKAGE=$1
+ORIGIN="$HOME/.dotfiles/$PACKAGE/"
 
 # Check if necessary files/folders exist.
 if [[ -d $ORIGIN ]] && [[ -f $ORIGIN/.location ]]; then
-	TARGET=$(cat $ORIGIN/.location)
-
-	# Check if on Android (Termux).
-	if [[ -z $ANDROID_ROOT ]]; then
-		:
-	else
-		TARGET="${TARGET/\/home\/hakmad/\
-\/data\/data\/com.termux\/files\/home}"
-	fi
+	source $ORIGIN/.location
 else
 	echo "Necessary files/folders not found, exiting"
 	exit 1
 fi
 
-# Recursive push function.
-push() {
-	local ORIGIN=$1
-	local TARGET=$2
+# Create directories.
+mkdir -p $TARGET
 
-	mkdir -p $TARGET
+for dir in $(find $ORIGIN -mindepth 1 -type d); do
+	dir=${dir##$ORIGIN}
+	mkdir -p $TARGET$dir
+	echo "Created directory $TARGETS$dir"
+done
 
-	for item in $(ls $ORIGIN); do
-		if [[ -d $ORIGIN$item ]]; then
-			push $ORIGIN$item/ $TARGET$item/
-		else
-			if ln -s -f $ORIGIN$item $TARGET$item ; then
-				echo "Linked $ORIGIN$item to $TARGET$item"
-			elif sudo ln -s -f $ORIGIN$item $TARGET$item ; then
-				echo "Linked $ORIGIN$item to $TARGET$item with sudo"
-			elif sudo cp $ORIGIN$item $TARGET$item ; then
-				echo "Copied $ORIGIN$item to $TARGET$item"
-			else
-				echo "Failed to push $ORIGIN$item to \
-$TARGET$item"
-			fi
-		fi
-	done
-}
+# Push dotfiles (link or copy - depends on filesystem).
+for file in $(find $ORIGIN -mindepth 1 -type f -not -name .location); do
+	file=${file##$ORIGIN}
+
+	if ln -s -f $ORIGIN$file $TARGET$file ; then
+		echo "Linked $ORIGIN$file -> $TARGET$file"
+	elif sudo ln -s -f $ORIGIN$file $TARGET$file ; then
+		echo "Linked $ORIGIN$file -> $TARGET$file (using sudo)"
+	elif sudo cp $ORIGIN$file $TARGET$file ; then
+		echo "Copied $ORIGIN$file -> $TARGET$file (using sudo)"
+	else
+		echo "Failed to push $ORIGIN$item -> $TARGET$file"
+	fi
+done
 
 # Push the dotfiles.
-push $ORIGIN $TARGET
-echo "Pushed dotfiles for $NAME"
+echo "Pushed dotfiles for $PACKAGE"
