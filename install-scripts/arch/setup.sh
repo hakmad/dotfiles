@@ -65,7 +65,7 @@ install_aur dmenu2
 install_aur lemonbar
 
 # Install desktop applications.
-sudo pacman -S --noconfirm alacritty qutebrowser firefox zathura zathura-pdf-mupdf feh keepassxc syncthing steam obs
+sudo pacman -S --noconfirm alacritty qutebrowser firefox zathura zathura-pdf-mupdf feh keepassxc syncthing steam obs shotcut krita blender mpv
 install_aur legendary
 install_aur rare
 
