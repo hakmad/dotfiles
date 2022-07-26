@@ -65,7 +65,7 @@ arch-chroot /mnt passwd $USER
 arch-chroot /mnt visudo
 
 # Clone dotfiles onto new system.
-arch-chroot /mnt git clone git@github.com:$USER/dotfiles /home/$USER/.dotfiles
+arch-chroot /mnt git clone https://github.com/$USER/dotfiles /home/$USER/.dotfiles
 arch-chroot /mnt chown -R $USER:$USER /home/$USER/.dotfiles
 
 # Install (temporary) bootloader.
