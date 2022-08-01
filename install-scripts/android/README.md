@@ -4,7 +4,8 @@ This directory contains a setup script for setting up Termux on Android.
 
 ## Pre-installation
 
-To get started, install [Termux](https://termux.dev/en/).
+To get started, install [Termux](https://termux.dev/en/). Please also install
+the [Termux API](https://wiki.termux.com/wiki/Termux:API) plugin.
 
 ## Download
 
