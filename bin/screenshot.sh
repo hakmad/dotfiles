@@ -10,11 +10,11 @@
 # Screenshots are saved in ~/media/images/screenshots by default.
 
 # Basic variables.
-SCREENSHOT_DIR=~/media/images/screenshots/
+SCREENSHOT_DIR="$HOME/media/images/screenshots/"
 
 # Show help.
 show_help() {
-	head ~/.bin/screenshot.sh -n 10 | tail -n 8 | sed 's/# //g'
+	head $HOME/.bin/screenshot.sh -n 10 | tail -n 8 | sed 's/# //g'
 }
 
 # Get command line arguments.
@@ -40,14 +40,14 @@ done
 # Take screenshot.
 if [[ $SCREENSHOT == "all" ]]; then
 	FILENAME="$(date "+%Y-%m-%d_%H-%M-%S").jpg"
-	scrot -p $FILENAME
+	scrot -p "$FILENAME"
 elif [[ $SCREENSHOT == "window" ]]; then
 	FILENAME="window_$(date "+%Y-%m-%d_%H-%M-%S").jpg"
-	scrot -u $FILENAME
+	scrot -u "$FILENAME"
 fi
 
 # Move screenshot to screenshot directory.
-mv $FILENAME $SCREENSHOT_DIR
+mv "$FILENAME" "$SCREENSHOT_DIR"
 
 # Create popup.
 popup.sh -d 5 -m "Screenshot $FILENAME saved"
