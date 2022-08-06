@@ -54,6 +54,6 @@ fi
 X=$((SCREEN_WIDTH-X-WIDTH))
 
 # Run popup.
-(echo "$MESSAGE"; sleep $DURATION) | lemonbar -d -b \
+(echo "$MESSAGE"; sleep "$DURATION") | lemonbar -d -b \
 	-g ${WIDTH}x${HEIGHT}+${X}+${Y} \
 	-F $FOREGROUND -B $BACKGROUND -f "$FONT"
