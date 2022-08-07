@@ -6,15 +6,15 @@
 set -e
 
 # Location for passwords DB.
-DB=~/share/passwords.kdbx
+DB="$HOME/share/passwords.kdbx"
 
 # Get password from user.
 PASSWORD=$(echo " " | menu.sh -mask -p "Password:")
 
 # List choices from passwords DB and copy selected choice to clipboard.
-CHOICES=$(printf $PASSWORD"\n\r" | keepassxc-cli ls $DB -q)
-CHOICE=$(printf "$CHOICES" | menu.sh)
+CHOICES=$(printf "%s\n\r" "$PASSWORD" | keepassxc-cli ls "$DB" -q)
+CHOICE=$(printf "%s" "$CHOICES" | menu.sh)
 
 # Get password from DB and copy to clipboard.
-printf $PASSWORD"\n\r" | keepassxc-cli clip -q $DB "$CHOICE"
+printf "%s\n\r" "$PASSWORD" | keepassxc-cli clip -q "$DB" "$CHOICE"
 popup.sh -m "Password cleared from clipboard" -d 3
