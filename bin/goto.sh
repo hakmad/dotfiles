@@ -7,5 +7,5 @@
 # 
 # where [desktop] is the name of the desktop to move to.
 
-bspc desktop -f "$@"
-popup.sh -m "Workspace $@"
+bspc desktop -f "$*"
+popup.sh -m "Workspace $*"
