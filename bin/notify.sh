@@ -7,7 +7,7 @@ rm /tmp/network
 # Get battery information and create popups.
 battery() {
 	PERCENTAGE=$(get-battery.sh --percentage)
-	PERCENTAGE_NUM=$(echo $PERCENTAGE | sed "s/%//g")
+	PERCENTAGE_NUM=${PERCENTAGE/\%/}
 	STATUS=$(get-battery.sh --status)
 
 	if [[ $PERCENTAGE_NUM == 100 ]] && [[ $STATUS == "Full" ]]; then
@@ -25,10 +25,10 @@ network() {
 	CURRENT=$(iwgetid -r)
 	PREVIOUS=$(cat /tmp/network)
 
-	if [[ $CURRENT != $PREVIOUS ]]; then
+	if [[ "$CURRENT" != "$PREVIOUS" ]]; then
 		popup.sh -d 3 -m "$(get-network.sh)" &
 
-		echo $CURRENT > /tmp/network
+		echo "$CURRENT" > /tmp/network
 	fi
 }
 
