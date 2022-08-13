@@ -18,6 +18,6 @@
 source style.sh
 
 # Pipe our stdin to stdin of dmenu.
-cat - | dmenu -fn $FONT -nb $BACKGROUND -nf $ACCENT \
-	-sb $BACKGROUND -sf $FOREGROUND -b -x $X -y $Y \
-	-w $WIDTH -h $HEIGHT -q "$@"
+cat - | dmenu -fn "$FONT" -nb "$BACKGROUND" -nf "$ACCENT" \
+	-sb "$BACKGROUND" -sf "$FOREGROUND" -b -x "$X" -y "$Y" \
+	-w "$WIDTH" -h "$HEIGHT" -q "$@"
