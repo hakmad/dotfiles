@@ -29,6 +29,8 @@ super + shift + {h,j,k,l}
 # Utilities.
 super + Return
 	alacritty
+super + control + Return
+	alacritty --command emacs -nw
 super + shift + Return
 	alacritty --class floating,
 super + shift + n
