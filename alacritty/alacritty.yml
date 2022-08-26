@@ -74,4 +74,4 @@ colors:
 
 # Key bindings.
 key_bindings:
-  - { key: Return, mods: Control|Super, action: SpawnNewInstance }
+  - { key: Return, mods: Alt|Super, action: SpawnNewInstance }
