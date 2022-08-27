@@ -5,7 +5,8 @@
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
 # Export environment variables.
-export PATH="${PATH}:~/.bin"
+export PATH="${PATH}:~/.bin:~/.local/bin"
+export GOPATH="${HOME}/.go"
 
 # Default programs.
 export PAGER=less
