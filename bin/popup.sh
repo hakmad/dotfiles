@@ -47,7 +47,7 @@ done
 # Set width according to length of message to display.
 if [[ ! $WIDTH_SET ]]; then
 	# Don't ask how I know these numbers are correct.
-	WIDTH=$((6 + 6 * ${#MESSAGE}))
+	WIDTH=$((8 + 8 * ${#MESSAGE}))
 fi
 
 # Move popup to the left of the screen.
