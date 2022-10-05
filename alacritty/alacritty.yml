@@ -29,22 +29,22 @@ cursor:
 # Font settings.
 font:
   normal:
-    family: Fixed
+    family: Dina
     style: Regular
 
   bold:
-    family: Fixed
+    family: Dina
     style: Bold
 
   italic:
-    family: Fixed
+    family: Dina
     style: Italic
 
   bold_italic:
-    family: Fixed
+    family: Dina
     style: Bold Italic
 
-  size: 12
+  size: 9
 
 # Colour settings.
 colors:
