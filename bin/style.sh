@@ -3,7 +3,7 @@
 # Script containing various definitions for fonts, colours and other things.
 
 # Font.
-FONT="Fixed-12"
+FONT="Dina-9"
 
 # Colours.
 COLOUR0="#101010"
