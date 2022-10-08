@@ -12,7 +12,7 @@
 # where [package] is the name of the package to be installed/searched for.
 
 # Directory for installation files.
-DOWNLOADS_DIR=~/.aur/
+DOWNLOADS_DIR="${HOME}/.aur/"
 mkdir -p $DOWNLOADS_DIR
 
 # Helper function for passing an argument to a function.
@@ -79,7 +79,7 @@ search() {
 
 # Show help for this script.
 show_help() {
-	head ~/.bin/aur.sh -n 12 | tail -n 10 | sed "s/# //"
+	head ${HOME}/.bin/aur.sh -n 12 | tail -n 10 | sed "s/# //"
 }
 
 # Get command line arguments.
