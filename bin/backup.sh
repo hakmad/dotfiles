@@ -1,10 +1,6 @@
 #!/bin/bash
 
-# Script for creating a backup of the following directories:
-# 	~/.dotfiles/
-# 	~/downloads/
-# 	~/media/
-# 	~/workspace/
+# Script for creating a backup of the home directory.
 # 
 # The usage of this script is as follows:
 # 	backup.sh -v, --verbose		Enable verbosity.
@@ -17,7 +13,7 @@
 
 # Basic variables.
 VERBOSE=false
-BACKUP_DIR=~/.backup/
+BACKUP_DIR=${HOME}/.backup/
 FILENAME="${HOSTNAME}_backup_$(date "+%Y-%m-%d_%H-%M").tar.gz"
 
 # Working directory of the user.
@@ -25,7 +21,7 @@ WORKING_DIR=$(pwd)
 
 # Show help for this script.
 show_help() {
-	head ~/.bin/backup.sh -n 16 | tail -n 15 | sed "s/# //"
+	head ${HOME}/.bin/backup.sh -n 12 | tail -n 10 | sed "s/# //"
 }
 
 # Get command line arguments.
@@ -72,7 +68,7 @@ cd $BACKUP_DIR
 
 # Copy directories.
 log "Copying files..."
-cp -r ~/* .
+cp -r ${HOME}/* .
 
 # Create tarball.
 log "Creating $FILENAME..."
@@ -84,7 +80,7 @@ fi
 
 # Move resulting file to home directory.
 log "Moving $FILENAME to home directory..."
-mv $FILENAME ~/
+mv $FILENAME ${HOME}/
 
 # Clean up.
 log "Cleaning up..."
