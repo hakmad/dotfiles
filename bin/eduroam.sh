@@ -4,7 +4,7 @@
 
 # Basic variables.
 NETWORK="eduroam"
-CERT_FILE=~/.local/share/certs/eduroam.pem
+CERT_FILE=$HOME/.local/share/certs/eduroam.pem
 INTERFACE=$(nmcli device status | grep wifi | grep -v p2p | \
 	awk '{ print $1 }')
 
