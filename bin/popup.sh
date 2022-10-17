@@ -47,7 +47,7 @@ done
 # Set width according to length of message to display.
 if [[ ! $WIDTH_SET ]]; then
 	# Don't ask how I know these numbers are correct.
-	WIDTH=$((8 + 8 * ${#MESSAGE}))
+	WIDTH=$((7 + 7 * ${#MESSAGE}))
 fi
 
 # Move popup to the left of the screen.
@@ -56,4 +56,4 @@ X=$((SCREEN_WIDTH-X-WIDTH))
 # Run popup.
 (echo "$MESSAGE"; sleep "$DURATION") | lemonbar -d -b \
 	-g ${WIDTH}x${HEIGHT}+${X}+${Y} \
-	-F $FOREGROUND -B $BACKGROUND -f "$FONT"
+	-F $FOREGROUND -B $BACKGROUND -f "$FONT" -o 1
