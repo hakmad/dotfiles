@@ -8,9 +8,12 @@ source style.sh
 # List of options.
 OPTIONS="alacritty
 firefox
+discord
+keepassxc
 obs
 pavucontrol
 qutebrowser
+syncthing
 via-ui
 wireshark"
 
