@@ -2,9 +2,6 @@
 
 # Script for opening notes for a specific module.
 
-# Get colours and fonts.
-source style.sh
-
 # Basic variables.
 MODULES_LOCATION=~/workspace/university/
 MODULES_LIST_FULLPATH=$(find $MODULES_LOCATION* -maxdepth 0 -type d -not -name template)
@@ -17,9 +14,7 @@ for module in $MODULES_LIST_FULLPATH; do
 done
 
 # Run dmenu and get choice.
-CHOICE=$(echo -e $MODULE_LIST | dmenu -fn $FONT -nb $BACKGROUND -nf \
-	$ACCENT -sb $BACKGROUND -sf $FOREGROUND \
-	-b -x $X -y $Y -w $WIDTH -h $HEIGHT -s 0 -q)
+CHOICE=$(echo -e $MODULE_LIST | menu.sh)
 
 # Open notes.
 if [[ -z $CHOICE ]]; then
