@@ -16,4 +16,4 @@ source style.sh
 
 cat - | dmenu -fn $FONT -nb $BACKGROUND -nf $ACCENT \
 	-sb $BACKGROUND -sf $FOREGROUND -b -x $X -y $Y \
-	-w $WIDTH -h $HEIGHT
+	-w $WIDTH -h $HEIGHT -q
