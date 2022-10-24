@@ -2,17 +2,8 @@
 
 # Script for running desktop applications.
 
-# List of options.
-OPTIONS="alacritty
-firefox
-discord
-keepassxc
-obs
-pavucontrol
-qutebrowser
-syncthing
-via-ui
-wireshark"
+# Location of file containing desktop applications.
+APPLICATION_LIST=~/.desktop-applications
 
-# Run dmenu with options and run selected option in the shell.
-echo -e "$OPTIONS" | menu.sh | $SHELL &
+# Run dmenu with list of applications and run selected option in the shell.
+cat $APPLICATION_LIST | menu.sh | $SHELL &
