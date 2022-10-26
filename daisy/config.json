@@ -1,0 +1,20 @@
+{
+	"encoding": "utf-8",
+	"index_file": "index.md",
+	"remove_html_ext": true,
+	"quiet": false,
+	"postprocess": "git push; ssh server -t 'cd website; git pull'",
+	"ignored_files": [
+		"README.md"
+	],
+	"dirs": {
+		"blog": "blog",
+		"content": ".content",
+		"template": ".templates",
+		"output": ".output"
+	},
+	"ext": {
+		"html": ".html",
+		"md": ".md"
+	}
+}
