@@ -3,10 +3,13 @@
 # Script for creating menues with dmenu.
 # 
 # The usage of this script is as follows:
-# 	[options] | menu.sh | [handler]
+# 	[options] |
+# 	menu.sh -p, --prompt [prompt] |
+# 	[handler
 # 
 # where:
 # 	[options] is the different options to be passed to dmenu.
+# 	[prompt] is the prompt to be used for dmenu (defaults to "")
 # 	[handler] is whatever is responsible for handling the option
 # 	selected by the user (usually Bash, though it is possible to
 # 	not have a handler at all).
@@ -14,6 +17,20 @@
 # Get colours and fonts.
 source style.sh
 
+PROMPT=""
+
+# Get arguments.
+while [[ $1 != "" ]]; do
+	case $1 in
+		-p | --prompt)
+			shift
+			PROMPT=$1
+			;;
+	esac
+	break
+done
+
+# Pipe our stdin to stdin of dmenu.
 cat - | dmenu -fn $FONT -nb $BACKGROUND -nf $ACCENT \
 	-sb $BACKGROUND -sf $FOREGROUND -b -x $X -y $Y \
-	-w $WIDTH -h $HEIGHT -q
+	-w $WIDTH -h $HEIGHT -q -p "$PROMPT"
