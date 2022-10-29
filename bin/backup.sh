@@ -72,10 +72,7 @@ cd $BACKUP_DIR
 
 # Copy directories.
 log "Copying files..."
-cp -r ~/.dotfiles/ ./dotfiles/
-cp -r ~/downloads/ .
-cp -r ~/media/ .
-cp -r ~/workspace/ .
+cp -r ~/* .
 
 # Create tarball.
 log "Creating $FILENAME..."
