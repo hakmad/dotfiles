@@ -16,3 +16,7 @@ set textwidth=79
 
 " Colourscheme.
 colorscheme greyscale
+
+" Key mappings.
+map <F7> :prev<CR>
+map <F8> :n<CR>
