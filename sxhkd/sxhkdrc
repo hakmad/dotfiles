@@ -2,42 +2,36 @@
 # Configuration file for SXHKD.
 
 # SXHKD hotkeys.
-super + Escape
+super + control + Escape
 	pkill -USR1 -x sxhkd
 
 # BSPWM hotkeys.
-super + ctrl + {_,shift + } q
+super + ctrl + {_,shift + } r
 	bspc {quit,wm -r}; \
 	pkill -x notify.sh
-super + {_,shift + } q
+super + ctrl + {_,shift + } q
 	bspc node -{c,k}
-super + {u,i,o,p}
+super + ctrl + {u,i,o,p}
 	bspc node -t {floating,pseudo_tiled,tiled,fullscreen}
 super + control + {h,j,k,l}
 	bspc node -f {west,south,north,east}
-super + {1-9,0}
-	goto.sh "{1-9,10}"
-super + shift + {1-9,0}
-	move.sh "{1-9,10}"
-super + shift + {h,j,k,l}
+super + control + shift + {h,j,k,l}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
+super + control {1-9,0}
+	goto.sh "{1-9,10}"
+super + control + shift + {1-9,0}
+	move.sh "{1-9,10}"
 
 # Utilities.
-super + Return
-	alacritty
 super + control + Return
-	alacritty --command emacs -nw
-super + shift + Return
-	alacritty --class floating,
-super + shift + n
-	alacritty --class floating, --command nmtui
-super + space
+	alacritty
+super + control + space
 	run.sh
-super + shift + space
+super + control + shift + space
 	password.sh
 
 # Screenshot.
-{_,super} + Print
+{_,control} + Print
 	screenshot.sh {--all,--window}
 
 # Brightness.
@@ -54,13 +48,13 @@ XF86AudioMute
 	popup.sh -m "$(get-audio.sh --status)"
 
 # Display information.
-super + x
+super + control + x
 	popup.sh -m "$(get-backlight.sh)"
-super + c
+super + control + c
 	popup.sh -d 5 -m "$(date "+%a %d/%m/%Y %H:%M")"
-super + v
+super + control + v
 	popup.sh -m "$(get-audio.sh --all)"
-super + b
+super + control + b
 	popup.sh -d 3 -m "$(get-battery.sh --all)"
-super + n
+super + control + n
 	popup.sh -m "$(get-network.sh)"
