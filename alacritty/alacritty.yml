@@ -71,7 +71,3 @@ colors:
     magenta: "#a36ac7"
     cyan:    "#3971ed"
     white:   "#f7f7f7"
-
-# Key bindings.
-key_bindings:
-  - { key: Return, mods: Alt|Super, action: SpawnNewInstance }
