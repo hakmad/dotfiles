@@ -2,36 +2,40 @@
 # Configuration file for SXHKD.
 
 # SXHKD hotkeys.
-super + control + Escape
+super + Escape
 	pkill -USR1 -x sxhkd
 
+# Xorg hotkeys.
+control + alt + Escape
+	setxkbmap -option altwin:swap_alt_win
+
 # BSPWM hotkeys.
-super + ctrl + {_,shift + } r
+super + {_,shift + } r
 	bspc {quit,wm -r}; \
 	pkill -x notify.sh
-super + ctrl + {_,shift + } q
+super + {_,shift + } q
 	bspc node -{c,k}
-super + ctrl + {u,i,o,p}
+super + {u,i,o,p}
 	bspc node -t {floating,pseudo_tiled,tiled,fullscreen}
-super + control + {h,j,k,l}
+super + {h,j,k,l}
 	bspc node -f {west,south,north,east}
-super + control + shift + {h,j,k,l}
+super + shift + {h,j,k,l}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
-super + control {1-9,0}
+super + {1-9,0}
 	goto.sh "{1-9,10}"
-super + control + shift + {1-9,0}
+super + shift + {1-9,0}
 	move.sh "{1-9,10}"
 
 # Utilities.
-super + control + Return
+super + Return
 	alacritty
-super + control + space
+super + space
 	run.sh
-super + control + shift + space
+super + shift + space
 	password.sh
 
 # Screenshot.
-{_,control} + Print
+{_,super} + Print
 	screenshot.sh {--all,--window}
 
 # Brightness.
@@ -48,13 +52,13 @@ XF86AudioMute
 	popup.sh -m "$(get-audio.sh --status)"
 
 # Display information.
-super + control + x
+super + x
 	popup.sh -m "$(get-backlight.sh)"
-super + control + c
+super + c
 	popup.sh -d 5 -m "$(date "+%a %d/%m/%Y %H:%M")"
-super + control + v
+super + v
 	popup.sh -m "$(get-audio.sh --all)"
-super + control + b
+super + b
 	popup.sh -d 3 -m "$(get-battery.sh --all)"
-super + control + n
+super + n
 	popup.sh -m "$(get-network.sh)"
