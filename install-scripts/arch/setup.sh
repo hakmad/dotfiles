@@ -54,23 +54,19 @@ set -e
 
 # Install fonts.
 sudo pacman -S --noconfirm noto-fonts noto-fonts-extra noto-fonts-emoji noto-fonts-cjk gnu-free-fonts ttf-liberation
-install_aur bdf2psf
-install_aur cozette-otb
-install_aur psf-cozette
+install_aur dina-font 
 
 # Install desktop utilities.
 sudo pacman -S --noconfirm bspwm sxhkd picom scrot slock xss-lock
 install_aur pod2man
 install_aur dmenu2
-install_aur lemonbar
+install_aur lemonbar-xft-git
 
 # Install desktop applications.
 sudo pacman -S --noconfirm alacritty qutebrowser firefox zathura zathura-pdf-mupdf feh keepassxc syncthing steam obs-studio shotcut krita blender mpv
-install_aur legendary
-install_aur rare
 
 # Install miscellaneous utilities.
-sudo pacman -S --noconfirm acpi tree ntfs-3g htop wireless_tools texlive-most yt-dlp jq bash-completion xsel xdotool xclip openssh
+sudo pacman -S --noconfirm acpi tree ntfs-3g htop wireless_tools yt-dlp jq bash-completion xsel xdotool xclip openssh
 
 # Install programming languages.
 sudo pacman -S --noconfirm python python-pip go
