@@ -12,7 +12,6 @@ set -e
 read -rp "URL: " URL
 read -rp "Artist: " ARTIST
 read -rp "Title: " TITLE
-read -rp "Genre(s): " GENRES
 
 # Construct filename.
 FILENAME="$ARTIST-$TITLE"
@@ -20,7 +19,7 @@ echo "Saving file as $FILENAME.mp3"
 
 # Download file.
 yt-dlp --extract-audio --audio-format mp3 --output "$FILENAME".%\(ext\)s "$URL" \
-	--postprocessor-args "ffmpeg:-metadata artist=\"$ARTIST\" -metadata title=\"$TITLE\" -metadata genre=\"$GENRES\""
+	--postprocessor-args "ffmpeg:-metadata artist=\"$ARTIST\" -metadata title=\"$TITLE\""
 
 # Find music directory.
 if [[ -z $ANDROID_ROOT ]]; then
