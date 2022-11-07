@@ -60,7 +60,7 @@ install_aur dmenu2
 install_aur lemonbar-xft-git
 
 # Install desktop applications.
-sudo pacman -S --noconfirm alacritty qutebrowser firefox zathura zathura-pdf-mupdf feh keepassxc syncthing steam obs-studio shotcut krita blender mpv
+sudo pacman -S --noconfirm alacritty qutebrowser firefox zathura zathura-pdf-mupdf feh keepassxc syncthing
 
 # Install miscellaneous utilities.
 sudo pacman -S --noconfirm acpi tree ntfs-3g htop wireless_tools yt-dlp jq bash-completion xsel xdotool xclip openssh
