@@ -28,9 +28,6 @@ for package in $(find $DOTFILES_LOCATION/misc -mindepth 1 -maxdepth 1 -type d); 
 	$HOME/.dotfiles/bin/push-dotfiles.sh ${package#$DOTFILES_LOCATION/}
 done
 
-# Generate SSH keys for this machine.
-ssh-keygen
-
 # Connect to the internet.
 sudo systemctl enable --now NetworkManager.service
 sleep 5
@@ -74,6 +71,9 @@ sudo pacman -S --noconfirm python python-pip go
 # Extra things.
 # Remove fsck hooks.
 sudo mkinitcpio -p linux
+
+# Generate SSH keys for this machine.
+ssh-keygen
 
 # Set qutebrowser as the default browser.
 xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop
