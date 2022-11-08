@@ -39,6 +39,15 @@ To setup, reboot the computer, log in, and run the following:
 ~/.dotfiles/install-scripts/arch/setup.sh
 ```
 
+Optionally, run the following:
+
+```
+~/.dotfiles/install-scripts/arch/setup-extra.sh
+```
+
+Please note that this may take a while due to the larger sizes of the packages
+to install.
+
 ## Post-installation
 
 Reboot the computer (again), log in, and extract any backups that might have
