@@ -5,10 +5,6 @@
 super + Escape
 	pkill -USR1 -x sxhkd
 
-# Xorg hotkeys.
-control + alt + Escape
-	setxkbmap -option altwin:swap_alt_win
-
 # BSPWM hotkeys.
 super + {_,shift + } r
 	bspc {quit,wm -r}; \
