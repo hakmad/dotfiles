@@ -32,7 +32,7 @@ notify.sh &
 picom &
 sxhkd &
 
-feh --bg-fill $(find ~/media/images/wallpapers/ -type f | shuf -n 1) &
+feh --bg-fill $HOME/media/images/misc/wallpaper.jpg & 
 xsetroot -cursor_name left_ptr &
 
 xss-lock -- slock
