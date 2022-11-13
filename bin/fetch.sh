@@ -6,7 +6,7 @@
 clear
 
 # Colours.
-C="\033[1;32m"
+C="\033[1m"
 NC="\033[0m"
 
 # Get information.
