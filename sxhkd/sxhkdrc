@@ -29,6 +29,8 @@ super + space
 	run.sh
 super + shift + space
 	password.sh
+super + Delete
+	slock
 
 # Screenshot.
 {_,super} + Print
