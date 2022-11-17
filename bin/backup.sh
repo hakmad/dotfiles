@@ -13,7 +13,8 @@
 
 # Basic variables.
 VERBOSE=false
-BACKUP_DIR=${HOME}/.backup/
+TEMP_DIR=${HOME}/.backup/
+BACKUP_DIR=${HOME}/media/backups/${HOSTNAME}
 FILENAME="${HOSTNAME}_backup_$(date --iso-8601).tar.gz"
 
 # Working directory of the user.
@@ -62,9 +63,9 @@ echo "Starting backup..."
 
 # Create temporary directory for backup.
 log "Creating backup directory..."
-rm -rf $BACKUP_DIR
-mkdir -p $BACKUP_DIR
-cd $BACKUP_DIR
+rm -rf $TEMP_DIR
+mkdir -p $TEMP_DIR
+cd $TEMP_DIR
 
 # Copy directories.
 log "Copying files..."
@@ -78,13 +79,13 @@ else
 	tar -czf $FILENAME *
 fi
 
-# Move resulting file to home directory.
-log "Moving $FILENAME to home directory..."
-mv $FILENAME ${HOME}/
+# Move resulting file to backup directory.
+log "Moving $FILENAME to backup direcotory ($BACKUP_DIR)..."
+mv $FILENAME $BACKUP_DIR
 
 # Clean up.
 log "Cleaning up..."
-rm -rf $BACKUP_DIR
+rm -rf $TEMP_DIR
 cd $WORKING_DIR
 
 echo "Successfully created backup file $FILENAME"
