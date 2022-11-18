@@ -1,8 +1,5 @@
 # ~/.xinitrc
 # Run when X starts.
 
-# Set X keyboard layout.
-setxkbmap -layout gb -option altwin:swap_alt_win &
-
 # Start BSPWM.
 exec bspwm
