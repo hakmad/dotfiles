@@ -22,6 +22,10 @@ super + {1-9,0}
 super + shift + {1-9,0}
 	move.sh "{1-9,10}"
 
+# System hotkeys.
+control + alt + Delete
+	shutdown now
+
 # Utilities.
 super + Return
 	alacritty
@@ -41,7 +45,7 @@ XF86MonBrightness{Up,Down}
 	light {-A,-U} 2; \
 	popup.sh -m "$(get-backlight.sh)"
 
-# Audio
+# Audio.
 XF86Audio{Raise,Lower}Volume
 	amixer set Master 2%{+,-}; \
 	popup.sh -m "$(get-audio.sh --volume)"
