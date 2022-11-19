@@ -15,7 +15,7 @@
 VERBOSE=false
 TEMP_DIR=${HOME}/.backup/
 BACKUP_DIR=${HOME}/media/backups/${HOSTNAME}
-FILENAME="${HOSTNAME}_backup_$(date --iso-8601).tar.gz"
+FILENAME="${HOSTNAME}_$(date --iso-8601).tar.gz"
 
 # Working directory of the user.
 WORKING_DIR=$(pwd)
