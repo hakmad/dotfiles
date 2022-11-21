@@ -18,9 +18,9 @@ super + {h,j,k,l}
 super + shift + {h,j,k,l}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 super + {1-9,0}
-	goto.sh "{1-9,10}"
+	desktop.sh goto "{1-9,10}"
 super + shift + {1-9,0}
-	move.sh "{1-9,10}"
+	desktop.sh move "{1-9,10}"
 
 # System hotkeys.
 control + alt + Delete
