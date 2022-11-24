@@ -63,4 +63,4 @@ super + v
 super + b
 	popup.sh -d 3 -m "$(get-battery.sh --all)"
 super + n
-	popup.sh -m "$(get-network.sh)"
+	popup.sh -m "$(network.sh)"
