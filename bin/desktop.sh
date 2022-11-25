@@ -9,11 +9,13 @@
 # 
 # where [desktop] is the desktop number to go/switch to.
 
+# If no argument supplied, exit.
 if [[ -z $1 ]]; then
 	echo "Invalid arguments supplied! Exiting."
 	exit 1
 fi
 
+# Check arguments and perform action.
 case $1 in
 	goto)
 		bspc desktop -f "$2"
