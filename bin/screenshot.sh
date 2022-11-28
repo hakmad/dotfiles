@@ -22,11 +22,11 @@ fi
 case $1 in
 	all)
 		FILENAME="$(date "+%Y-%m-%d_%H-%M-%S").jpg"
-		scrot -p "$FILENAME" -q 100
+		scrot -p "$FILENAME" -q 100 -z
 		;;
 	window)
 		FILENAME="window_$(date "+%Y-%m-%d_%H-%M-%S").jpg"
-		scrot -u "$FILENAME" -q 100
+		scrot -u "$FILENAME" -q 100 -z
 		;;
 	help)
 		head $HOME/.bin/screenshot.sh -n 10 | tail -n 8 | sed 's/# //g'
