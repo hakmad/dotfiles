@@ -27,16 +27,16 @@ MESSAGE=" "
 # Get command line arguments.
 while [[ $1 != "" ]]; do
 	case $1 in
-		-w)
+		-w | --width)
 			shift
 			WIDTH=$1
 			WIDTH_SET=true
 			;;
-		-d)
+		-d | --duration)
 			shift
 			DURATION=$1
 			;;
-		-m)
+		-m | --message)
 			shift
 			MESSAGE+=$1
 			;;
