@@ -21,8 +21,8 @@ ROOT_DISK=$(lsblk -l | grep "/" | grep -v "/boot" | cut -d " " -f 1)
 USED_DISK=$(df -h | grep $ROOT_DISK | awk '{print $3}')
 TOTAL_DISK=$(df -h | grep $ROOT_DISK | awk '{print $2}')
 
-BATTERY_STATUS=$(acpi --battery | cut -d "," -f 1 | cut -d " " -f 3)
-BATTERY_REMAINING=$(acpi --battery | cut -d " " -f 5)
+BATTERY_STATUS=$(acpi --battery | grep -v "Unknown" | cut -d "," -f 1 | cut -d " " -f 3)
+BATTERY_REMAINING=$(acpi --battery | grep -v "Unknown" | cut -d " " -f 5)
 
 UPTIME="$(uptime -p | sed "s/up //") (since $(uptime -s))"
 
