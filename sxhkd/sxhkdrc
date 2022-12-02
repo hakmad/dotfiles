@@ -61,6 +61,6 @@ super + c
 super + v
 	popup.sh -m "$(get-audio.sh --all)"
 super + b
-	popup.sh -d 3 -m "$(get-battery.sh --all)"
+	popup.sh -d 3 -m "$(battery.sh status) - $(battery.sh time) remaining ($(battery.sh percentage))"
 super + n
 	popup.sh -m "$(network.sh)"
