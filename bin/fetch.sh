@@ -21,8 +21,7 @@ ROOT_DISK=$(lsblk -l | grep "/" | grep -v "/boot" | cut -d " " -f 1)
 USED_DISK=$(df -h | grep $ROOT_DISK | awk '{print $3}')
 TOTAL_DISK=$(df -h | grep $ROOT_DISK | awk '{print $2}')
 
-BATTERY_STATUS=$(acpi --battery | grep -v "Unknown" | cut -d "," -f 1 | cut -d " " -f 3)
-BATTERY_REMAINING=$(acpi --battery | grep -v "Unknown" | cut -d " " -f 5)
+BATTERY_INFO="$(battery.sh status) - $(battery.sh time) remaining ($(battery.sh percentage))"
 
 UPTIME="$(uptime -p | sed "s/up //") (since $(uptime -s))"
 
@@ -33,11 +32,7 @@ echo -e "$C \bCPU:$NC $CPU"
 echo -e "$C \bRAM:$NC $USED_RAM / $TOTAL_RAM"
 echo -e "$C \bDisk:$NC $USED_DISK / $TOTAL_DISK"
 echo -e "$C \bUptime:$NC $UPTIME"
-if [[ -z $BATTERY_REMAINING ]]; then
-	:	
-else
-	echo -e "$C \bBattery:$NC $BATTERY_REMAINING ($BATTERY_STATUS)"
-fi
+echo -e "$C \bBattery:$NC $BATTERY_INFO"
 
 # Show colour stuff. :D
 printf "\n"
