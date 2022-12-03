@@ -6,17 +6,15 @@ rm /tmp/network
 
 # Get battery information and create popups.
 battery() {
-	PERCENTAGE=$(get-battery.sh --percentage)
-	PERCENTAGE_NUM=${PERCENTAGE/\%/}
-	STATUS=$(get-battery.sh --status)
+	PERCENTAGE=$(battery.sh percentage | sed "s/\%//")
+	STATUS=$(battery.sh status)
 
-	if [[ $PERCENTAGE_NUM == 100 ]] && [[ $STATUS == "Full" ]]; then
+	if [[ $PERCENTAGE == 100 ]] && [[ $STATUS == "Full" ]]; then
 		popup.sh -d 3 -m "Unplug laptop - Battery full" &
-	elif [[ $PERCENTAGE_NUM -ge 90 ]] && [[ $STATUS == "Charging" ]]; then
-		popup.sh -d 3 -m "Unplug laptop - Battery at $PERCENTAGE" &
-	elif [[ $PERCENTAGE_NUM -lt 10 ]] && \
-		[[ $STATUS == "Discharging" ]]; then
-		popup.sh 3 -m "Plug in laptop - Battery at $PERCENTAGE" &
+	elif [[ $PERCENTAGE -ge 90 ]] && [[ $STATUS == "Charging" ]]; then
+		popup.sh -d 3 -m "Unplug laptop - Battery high" &
+	elif [[ $PERCENTAGE -lt 10 ]] && [[ $STATUS == "Discharging" ]]; then
+		popup.sh 3 -m "Plug in laptop - Battery low" &
 	fi
 }
 
@@ -36,5 +34,5 @@ network() {
 while true; do
 	battery
 	network
-	sleep 1
+	sleep 5
 done
