@@ -3,13 +3,14 @@
 # Script for creating desktop popups with lemonbar.
 # 
 # The usage of this script is as follows:
-# 	popup.sh -d [duration] -w [width] -m [message]
+# 	popup.sh -d [duration] -w [width] -m [message] -y [Y location]
 # 
 # where:
 # 	[duration] is the time (in seconds) for the popup to last
 # 	(defaults to 1).
 # 	[width] is the width (in pixels) for the popup.
 # 	[message] is the message to be shown.
+# 	[Y location] is the Y location relative to the bottom of the screen.
 #
 # If a width isn't supplied, the width of the popup is automatically
 # calculated based on the length of the message.
@@ -39,6 +40,10 @@ while [[ $1 != "" ]]; do
 		-m | --message)
 			shift
 			MESSAGE+=$1
+			;;
+		-y | --y-location)
+			shift
+			Y=$1
 			;;
 	esac
 	shift
