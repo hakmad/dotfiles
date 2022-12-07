@@ -55,7 +55,7 @@ XF86AudioMute
 
 # Display information.
 super + x
-	popup.sh -m "$(get-backlight.sh)"
+	popup.sh -m "Backlight at $(backlight.sh current)"
 super + c
 	popup.sh -d 5 -m "$(date "+%a %d/%m/%Y %H:%M")"
 super + v
