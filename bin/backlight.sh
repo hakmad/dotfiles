@@ -20,7 +20,7 @@ fi
 # Check arguments and perform action.
 case $1 in
 	current)
-		echo $(light -G | cut -d "." -f 1)
+		echo "$(light -G | cut -d "." -f 1)%"
 		exit
 		;;
 	increase)
