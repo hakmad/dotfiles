@@ -42,8 +42,8 @@ super + Delete
 
 # Brightness.
 XF86MonBrightness{Up,Down}
-	light {-A,-U} 2; \
-	popup.sh -m "$(get-backlight.sh)"
+	backlight.sh {increase,decrease}; \
+	popup.sh -m "Backlight at $(backlight.sh current)"
 
 # Audio.
 XF86Audio{Raise,Lower}Volume
