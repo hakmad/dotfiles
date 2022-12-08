@@ -28,7 +28,7 @@ case $1 in
 		exit
 		;;
 	help)
-		head ${HOME}/.bin/desktop.sh -n 9 | tail -n 7 | sed "s/# //"
+		head ${HOME}/.bin/desktop.sh -n 10 | tail -n 8 | sed "s/# //"
 		exit
 		;;
 	*)
