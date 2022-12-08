@@ -3,10 +3,10 @@
 # Script for outputting battery information.
 # 
 # The usage of this script is as follows:
-# 	get-battery.sh percentage	Get battery percentage.
-# 	get-battery.sh time		Get time remaining.
-# 	get-battery.sh status		Get status infomation.
-# 	get-battery.sh help		Show this help.
+# 	battery.sh percentage		Get battery percentage.
+# 	battery.sh time			Get time remaining.
+# 	battery.sh status		Get status infomation.
+# 	battery.sh help			Show this help.
 
 # If no argument supplied, exit.
 if [[ -z $1 ]]; then
@@ -29,7 +29,7 @@ case $1 in
 		exit
 		;;
 	help)
-		head ${HOME}/.bin/battery.sh -n 9 | tail -n 7 | sed 's/# //g'
+		head ${HOME}/.bin/battery.sh -n 9 | tail -n 7 | sed "s/# //g"
 		exit
 		;;
 	*)
