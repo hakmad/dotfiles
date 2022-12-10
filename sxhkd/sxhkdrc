@@ -43,24 +43,24 @@ super + Delete
 # Brightness.
 XF86MonBrightness{Up,Down}
 	backlight.sh {increase,decrease}; \
-	popup.sh -m "Backlight at $(backlight.sh current)"
+	popup.sh -m "Backlight: $(backlight.sh current)"
 
 # Audio.
 XF86Audio{Raise,Lower}Volume
-	amixer set Master 2%{+,-}; \
-	popup.sh -m "$(get-audio.sh --volume)"
+	audio.sh {increase,decrease}; \
+	popup.sh -m "Audio: $(audio.sh volume)"
 XF86AudioMute
-	amixer set Master toggle; \
-	popup.sh -m "$(get-audio.sh --status)"
+	audio.sh toggle; \
+	popup.sh -m "Audio: $(audio.sh status)"
 
 # Display information.
 super + x
-	popup.sh -m "Backlight at $(backlight.sh current)"
+	popup.sh -m "Backlight: $(backlight.sh current)"
 super + c
 	popup.sh -d 5 -m "$(date "+%a %d/%m/%Y %H:%M")"
 super + v
-	popup.sh -m "$(get-audio.sh --all)"
+	popup.sh -m "Audio: $(audio.sh status), $(audio.sh volume)"
 super + b
-	popup.sh -d 3 -m "$(battery.sh status) - $(battery.sh time) remaining ($(battery.sh percentage))"
+	popup.sh -d 3 -m "Battery: $(battery.sh status), $(battery.sh percentage) ($(battery.sh time))"
 super + n
 	popup.sh -m "$(network.sh)"
