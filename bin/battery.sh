@@ -17,15 +17,15 @@ fi
 # Check arguments and output information.
 case $1 in
 	percentage)
-		echo $(acpi | cut -d " " -f 4 | tr -d ",")
+		echo $(acpi | grep "Battery 0" | cut -d " " -f 4 | tr -d ",")
 		exit
 		;;
 	time)
-		echo $(acpi | cut -d " " -f 5 | tr -d ",")
+		echo $(acpi | grep "Battery 0" | cut -d " " -f 5 | tr -d ",")
 		exit
 		;;
 	status)
-		echo $(acpi | cut -d " " -f 3 | tr -d ",")
+		echo $(acpi | grep "Battery 0" | cut -d " " -f 3 | tr -d ",")
 		exit
 		;;
 	help)
