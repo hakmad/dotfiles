@@ -20,11 +20,11 @@ battery() {
 
 # Get network information and create popups.
 network() {
-	CURRENT=$(iwgetid -r)
+	CURRENT=$(network.sh)
 	PREVIOUS=$(cat /tmp/network)
 
 	if [[ "$CURRENT" != "$PREVIOUS" ]]; then
-		popup.sh -d 3 -m "$(network.sh)" -y 50 &
+		popup.sh -d 3 -m "Network: $CURRENT" -y 50 &
 
 		echo "$CURRENT" > /tmp/network
 	fi
