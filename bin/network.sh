@@ -8,7 +8,7 @@
 NETWORK=$(iwgetid -r)
 
 if [[ -z $NETWORK ]]; then
-	echo "Not connected to a network"
+	echo "None"
 else
-	echo "Connected to $NETWORK"
+	echo "$NETWORK"
 fi
