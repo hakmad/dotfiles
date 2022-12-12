@@ -63,4 +63,4 @@ super + v
 super + b
 	popup.sh -d 3 -m "Battery: $(battery.sh status), $(battery.sh percentage) ($(battery.sh time))"
 super + n
-	popup.sh -m "$(network.sh)"
+	popup.sh -m "Network: $(network.sh)"
