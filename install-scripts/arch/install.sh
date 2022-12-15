@@ -25,6 +25,9 @@ ROOT=$(fdisk /dev/$DEVICE -l | awk '/Linux/ {print $1}')
 mkfs.fat -F 32 $ESP
 mkfs.ext4 $ROOT
 
+# Label device.
+e2label $ROOT "Arch Linux"
+
 # Mount partitions.
 mount $ROOT /mnt
 mkdir /mnt/boot
@@ -76,7 +79,7 @@ rm -f /mnt/boot/loader/entries/arch.conf
 echo -e "title\tArch Linux" >> /mnt/boot/loader/entries/arch.conf
 echo -e "linux\t/vmlinuz-linux" >> /mnt/boot/loader/entries/arch.conf
 echo -e "initrd\t/initramfs-linux.img" >> /mnt/boot/loader/entries/arch.conf
-echo -e "options\troot=$ROOT rw" >> /mnt/boot/loader/entries/arch.conf
+echo -e "options\troot=\"LABEL=Arch Linux\" rw" >> /mnt/boot/loader/entries/arch.conf
 
 # Installation complete.
 echo "Setup complete. Please reboot!"
