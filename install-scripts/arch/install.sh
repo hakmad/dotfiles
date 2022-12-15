@@ -81,5 +81,8 @@ echo -e "linux\t/vmlinuz-linux" >> /mnt/boot/loader/entries/arch.conf
 echo -e "initrd\t/initramfs-linux.img" >> /mnt/boot/loader/entries/arch.conf
 echo -e "options\troot=\"LABEL=Arch Linux\" rw" >> /mnt/boot/loader/entries/arch.conf
 
+# Add new bootloader to UEFI firmware.
+efibootmgr --create --disk /dev/$DEVICE --part 1 --label "Linux Boot Manager" --loader "\EFI\systemd\systemd-bootx64.efi"
+
 # Installation complete.
 echo "Setup complete. Please reboot!"
