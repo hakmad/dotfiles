@@ -13,12 +13,8 @@ read -rp "URL: " URL
 read -rp "Artist: " ARTIST
 read -rp "Title: " TITLE
 
-# Construct filename.
-FILENAME="$ARTIST-$TITLE"
-echo "Saving file as $FILENAME.mp3"
-
 # Download file.
-yt-dlp --extract-audio --audio-format mp3 --output "$FILENAME".%\(ext\)s "$URL" \
+yt-dlp --extract-audio --audio-format mp3 --output %\(id\)s.%\(ext\)s "$URL" \
 	--postprocessor-args "ffmpeg:-metadata artist=\"$ARTIST\" -metadata title=\"$TITLE\""
 
 # Find music directory.
@@ -30,11 +26,11 @@ fi
 
 # Move file to music directory.
 mkdir -p "$DOWNLOADS_DIR"
-mv "$FILENAME.mp3" "$DOWNLOADS_DIR"
+mv *.mp3 "$DOWNLOADS_DIR"
 
 # On Android, ask MediaStore to rescan music directory.
 if [[ -a $ANDROID_ROOT ]]; then
 	termux-media-scan "$DOWNLOADS_DIR"
 fi
 
-echo "Successfully downloaded $FILENAME using youtube-dl"
+echo "Successfully downloaded track using youtube-dl."
