@@ -9,9 +9,9 @@
 set -e
 
 # Use `read` to get input variables.
-read -rp "URL: " URL
-read -rp "Artist: " ARTIST
-read -rp "Title: " TITLE
+read -rep "URL: " URL
+read -rep "Artist: " ARTIST
+read -rep "Title: " TITLE
 
 # Download file.
 yt-dlp --extract-audio --audio-format mp3 --output %\(id\)s.%\(ext\)s "$URL" \
