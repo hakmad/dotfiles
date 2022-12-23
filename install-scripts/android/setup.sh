@@ -2,6 +2,9 @@
 
 # Setup script for Android (Termux).
 
+# Create downloads directory.
+mkdir downloads
+
 # Set up Termux storage.
 termux-setup-storage
 
@@ -14,6 +17,12 @@ pkg install ffmpeg git python vim man openssh termux-api
 # Install youtube-dl through pip.
 pip install --upgrade pip
 pip install yt-dlp
+
+# Create SSH keys.
+ssh-keygen
+
+# Wait till user uploads SSH key to GitHub.
+read -p "Upload SSH key to GitHub, then press any key to continue..."
 
 # Clone and push dotfiles.
 git clone git@github.com:hakmad/dotfiles ~/.dotfiles
