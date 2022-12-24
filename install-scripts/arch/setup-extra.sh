@@ -5,6 +5,10 @@
 # Install extra desktop applications.
 sudo pacman -S --noconfirm obs-studio shotcut krita blender mpv
 
+# Enable Syncthing service.
+systemctl start syncthing.service --uesr
+systemctl enable syncthing.service --user
+
 # Install TeX live.
 curl -L -O https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 tar -xf install-tl-unx.tar.gz
