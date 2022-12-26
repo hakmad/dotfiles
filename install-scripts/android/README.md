@@ -23,3 +23,5 @@ To setup a new Termux installation, run the following:
 chmod +x setup.sh
 ./setup.sh
 ```
+
+During setup, ensure to upload the newly generated SSH key to GitHub.
