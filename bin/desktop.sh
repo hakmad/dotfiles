@@ -3,9 +3,9 @@
 # Script for interacting with BSPWM desktops.
 # 
 # The usage of this script is as follows:
-# 	workspace.sh goto [desktop]	Switch to [desktop].
-# 	workspace.sh move [desktop]	Move the currently focused node to [desktop].
-# 	workspace.sh help		Show this help.
+# 	desktop.sh goto [desktop]	Switch to [desktop].
+# 	desktop.sh move [desktop]	Move the currently focused node to [desktop].
+# 	desktop.sh help			Show this help.
 # 
 # where [desktop] is the desktop number to go/switch to.
 
@@ -19,12 +19,12 @@ fi
 case $1 in
 	goto)
 		bspc desktop -f "$2"
-		popup.sh -m "Workspace $2"
+		popup.sh -m "Desktop $2"
 		exit
 		;;
 	move)
 		bspc node -d "$2"
-		popup.sh -m "Moved to workspace $2"
+		popup.sh -m "Moved to desktop $2"
 		exit
 		;;
 	help)
