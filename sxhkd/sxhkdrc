@@ -18,7 +18,7 @@ super + {h,j,k,l}
 super + shift + {h,j,k,l}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 super + w
-	popup.sh -m "Desktop $(bspc query -D -d focused --names)"
+	desktop.sh current
 super + {1-9,0}
 	desktop.sh goto "{1-9,10}"
 super + shift + {1-9,0}
