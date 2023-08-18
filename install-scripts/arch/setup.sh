@@ -20,7 +20,9 @@ DOTFILES_LOCATION="$HOME/.dotfiles"
 for package in $(find $DOTFILES_LOCATION -mindepth 1 -maxdepth 1 -type d \
 	-not \( -name .git \
 	-or -name install-scripts \
+	-or -name wallpaper \
 	-or -name misc \)); do
+	echo $package
 	$HOME/.dotfiles/bin/push-dotfiles.sh ${package#$DOTFILES_LOCATION/}
 done
 
@@ -41,7 +43,7 @@ sudo pacman -Syu --noconfirm
 sudo timedatectl set-timezone Europe/London
 
 # Install X and video drivers.
-sudo pacman -S --noconfirm xorg xorg-xinit xf86-video-intel xf86-video-fbdev mesa
+sudo pacman -S --noconfirm xorg xorg-xinit mesa vulkan-intel nvidia
 
 # Install audio and setup alsa.
 sudo pacman -S --noconfirm alsa-utils alsa-lib pulseaudio pulseaudio-alsa
