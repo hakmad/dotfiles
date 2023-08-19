@@ -5,6 +5,7 @@
 # System variables.
 HOSTNAME="laptop"
 USER="hakmad"
+DEVICE="nvme0n1"
 
 # Stop the script if there are errors.
 set -e
@@ -15,14 +16,14 @@ loadkeys uk
 # Use NTP.
 timedatectl set-ntp true
 
-# Partition and format /dev/sda.
-fdisk /dev/sda
-ESP=$(fdisk /dev/sda -l | awk '/EFI/ {print $1}')
-ROOT=$(fdisk /dev/sda -l | awk '/Linux/ {print $1}')
+# Partition device.
+fdisk /dev/$DEVICE
+ESP=$(fdisk /dev/$DEVICE -l | awk '/EFI/ {print $1}' | tail -n 1)
+ROOT=$(fdisk /dev/$DEVICE -l | awk '/Linux/ {print $1}')
+
+# Format device.
+mkfs.fat -F 32 $ESP
 mkfs.ext4 $ROOT
-if [[ $ROOT == "/dev/sda2" ]]; then
-	mkfs.fat -F 32 $ESP
-fi
 
 # Mount partitions.
 mount $ROOT /mnt
