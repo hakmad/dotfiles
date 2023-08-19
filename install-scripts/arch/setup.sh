@@ -65,12 +65,15 @@ install_aur lemonbar-xft-git
 sudo pacman -S --noconfirm alacritty qutebrowser firefox zathura zathura-pdf-mupdf feh keepassxc syncthing
 
 # Install miscellaneous utilities.
-sudo pacman -S --noconfirm acpi tree ntfs-3g htop wireless_tools yt-dlp jq bash-completion xsel xdotool xclip openssh
+sudo pacman -S --noconfirm acpi tree ntfs-3g htop wireless_tools yt-dlp jq bash-completion xsel xdotool xclip openssh light
 
 # Install programming languages.
 sudo pacman -S --noconfirm python python-pip go
 
 # Extra things.
+# Add user to light group.
+sudo usermod -a -G video $USER
+
 # Remove fsck hooks.
 sudo mkinitcpio -p linux
 
