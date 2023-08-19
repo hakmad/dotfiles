@@ -5,5 +5,5 @@
 # The usage of this script is as follows:
 # 	get-backlight.sh
 
-BACKLIGHT=$(xbacklight -get | cut -d "." -f 1)
+BACKLIGHT=$(light -G | cut -d "." -f 1)
 echo "Backlight is at $BACKLIGHT%"

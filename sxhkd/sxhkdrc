@@ -38,7 +38,7 @@ super + Delete
 
 # Brightness.
 XF86MonBrightness{Up,Down}
-	xbacklight {-inc,-dec} 2; \
+	light {-A,-U} 2; \
 	popup.sh -m "$(get-backlight.sh)"
 
 # Audio
