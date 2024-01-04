@@ -1,12 +1,55 @@
-[colors.bright]
-black = "#525252"
-blue = "#3971ed"
-cyan = "#39c5ed"
-green = "#198844"
-magenta = "#a36ac7"
-red = "#cc342b"
-white = "#f7f7f7"
-yellow = "#fba922"
+# ~/.config/alacritty/alacritty.toml
+# Configuration file for alacritty.
+
+# Environment variables for alacritty.
+[env]
+WINIT_HIDPI_FACTOR = "1"
+WINIT_X11_SCALE_FACTOR = "1"
+
+# Cursor settings.
+[cursor]
+unfocused_hollow = true
+
+[cursor.style]
+blinking = "Off"
+shape = "Block"
+
+# Window settings.
+[window]
+dynamic_padding = false
+
+[window.dimensions]
+columns = 86
+lines = 24
+
+[window.padding]
+x = 25
+y = 25
+
+# Font settings.
+[font]
+size = 9
+
+[font.normal]
+family = "Dina"
+style = "Regular"
+
+[font.bold]
+family = "Dina"
+style = "Bold"
+
+[font.italic]
+family = "Dina"
+style = "Italic"
+
+[font.bold_italic]
+family = "Dina"
+style = "Bold Italic"
+
+# Colour settings.
+[colors.primary]
+background = "#101010"
+foreground = "#b9b9b9"
 
 [colors.normal]
 black = "#101010"
@@ -18,47 +61,12 @@ red = "#cc342b"
 white = "#b9b9b9"
 yellow = "#fba922"
 
-[colors.primary]
-background = "#101010"
-foreground = "#b9b9b9"
-
-[cursor]
-unfocused_hollow = true
-
-[cursor.style]
-blinking = "Off"
-shape = "Block"
-
-[env]
-WINIT_HIDPI_FACTOR = "1"
-WINIT_X11_SCALE_FACTOR = "1"
-
-[font]
-size = 9
-
-[font.bold]
-family = "Dina"
-style = "Bold"
-
-[font.bold_italic]
-family = "Dina"
-style = "Bold Italic"
-
-[font.italic]
-family = "Dina"
-style = "Italic"
-
-[font.normal]
-family = "Dina"
-style = "Regular"
-
-[window]
-dynamic_padding = false
-
-[window.dimensions]
-columns = 86
-lines = 24
-
-[window.padding]
-x = 25
-y = 25
+[colors.bright]
+black = "#525252"
+blue = "#3971ed"
+cyan = "#39c5ed"
+green = "#198844"
+magenta = "#a36ac7"
+red = "#cc342b"
+white = "#f7f7f7"
+yellow = "#fba922"
