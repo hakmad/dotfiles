@@ -5,6 +5,7 @@
 # The usage of this script is as follows:
 # 	desktop.sh goto [desktop]	Switch to [desktop].
 # 	desktop.sh move [desktop]	Move the currently focused node to [desktop].
+# 	desktop.sh current		List the currently focused desktop.
 # 	desktop.sh help			Show this help.
 # 
 # where [desktop] is the desktop number to go/switch to.
@@ -27,8 +28,12 @@ case $1 in
 		popup.sh -m "Moved to desktop $2"
 		exit
 		;;
+	current)
+		popup.sh -m "Desktop $(bspc query -D -d focused --names)"
+		exit
+		;;
 	help)
-		head ${HOME}/.bin/desktop.sh -n 10 | tail -n 8 | sed "s/# //"
+		head ${HOME}/.bin/desktop.sh -n 11 | tail -n 9 | sed "s/# //"
 		exit
 		;;
 	*)
