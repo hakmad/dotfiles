@@ -26,7 +26,7 @@ fi
 
 # Move file to music directory.
 mkdir -p "$DOWNLOADS_DIR"
-mv *.mp3 "$DOWNLOADS_DIR"
+mv -- *.mp3 "$DOWNLOADS_DIR"
 
 # On Android, ask MediaStore to rescan music directory.
 if [[ -a $ANDROID_ROOT ]]; then
