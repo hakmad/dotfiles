@@ -20,3 +20,5 @@ colorscheme greyscale
 " Key mappings.
 map <F7> :prev<CR>
 map <F8> :n<CR>
+
+autocmd FileType tex setlocal shiftwidth=2 softtabstop=2 expandtab
