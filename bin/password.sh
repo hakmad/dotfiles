@@ -6,7 +6,7 @@
 set -e
 
 # Location for passwords DB.
-DB="$HOME/media/passwords/passwords.kdbx"
+DB="$HOME/.passwords/passwords.kdbx"
 
 # Get password from user.
 PASSWORD=$(echo " " | menu.sh -mask -p "Password:")
