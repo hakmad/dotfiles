@@ -17,7 +17,7 @@ CPU=$(lscpu | sed -nr "/Model name/ s/.*:\s*(.*) @ .*/\1/p")
 USED_RAM=$(free -h --si | awk '/Mem/ {print $3}')
 TOTAL_RAM=$(free -h --si | awk '/Mem/ {print $2}')
 
-ROOT_DISK=$(lsblk -l | grep "/" | grep -v "/boot" | cut -d " " -f 1)
+ROOT_DISK=$(lsblk -l | grep "/$" | cut -d " " -f 1)
 USED_DISK=$(df -h | grep $ROOT_DISK | awk '{print $3}')
 TOTAL_DISK=$(df -h | grep $ROOT_DISK | awk '{print $2}')
 
