@@ -11,3 +11,6 @@ set recolor-keephue 	true
 
 # Disable sandbox.
 set sandbox		none
+
+# Set database backend.
+set database		sqlite
