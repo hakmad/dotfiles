@@ -53,7 +53,7 @@ set -e
 
 # Install fonts.
 sudo pacman -S --noconfirm noto-fonts noto-fonts-extra noto-fonts-emoji noto-fonts-cjk gnu-free-fonts ttf-liberation
-install_aur dina-font 
+install_aur dina-font-otb
 
 # Install desktop utilities.
 sudo pacman -S --noconfirm bspwm sxhkd picom scrot slock xss-lock
