@@ -16,7 +16,7 @@ read -rep "Artist: " ARTIST
 read -rep "Title: " TITLE
 
 # Edit tags.
-ffmpeg -i $FILE -metadata artist="$ARTIST" -metadata title="$TITLE" temp.m4a
+ffmpeg -hide_banner -loglevel error -i $FILE -metadata artist="$ARTIST" -metadata title="$TITLE" temp.m4a
 
 # Rewrite old file.
 mv temp.m4a $FILE
