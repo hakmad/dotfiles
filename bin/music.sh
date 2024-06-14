@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Script to download MP3 files with youtube-dl and move them to a location.
+# Script to download M4A files with youtube-dl and move them to a location.
 # 
 # The usage of this script is as follows:
-# 	mp3.sh
+# 	music.sh
 
 # Stop the script if there are errors.
 set -e
@@ -14,7 +14,7 @@ read -rep "Artist: " ARTIST
 read -rep "Title: " TITLE
 
 # Download file.
-yt-dlp --extract-audio --audio-format mp3 --output %\(id\)s.%\(ext\)s "$URL" \
+yt-dlp --format m4a --output %\(id\)s.%\(ext\)s "$URL" \
 	--postprocessor-args "ffmpeg:-metadata artist=\"$ARTIST\" -metadata title=\"$TITLE\""
 
 # Find music directory.
@@ -26,7 +26,7 @@ fi
 
 # Move file to music directory.
 mkdir -p "$DOWNLOADS_DIR"
-mv -- *.mp3 "$DOWNLOADS_DIR"
+mv -- *.m4a "$DOWNLOADS_DIR"
 
 # On Android, ask MediaStore to rescan music directory.
 if [[ -a $ANDROID_ROOT ]]; then
