@@ -16,3 +16,6 @@ set textwidth=79
 
 " Colourscheme.
 colorscheme greyscale
+
+" LaTeX tab sizes.
+autocmd FileType tex setlocal shiftwidth=2 softtabstop=2 expandtab
