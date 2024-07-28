@@ -23,6 +23,10 @@ bspc config presel_feedback_color 	$FOREGROUND
 bspc rule -a floating 			state=floating
 bspc rule -a feh 			state=floating
 
+# BSPWM mouse configurations.
+bspc config pointer_action1		move
+bspc config pointer_action2		resize_corner
+
 # Setup monitors and desktops.
 bspc monitor -d 1 2 3 4 5 6 7 8 9 10
 
