@@ -12,10 +12,9 @@ termux-setup-storage
 pkg upgrade
 
 # Install programs.
-pkg install ffmpeg git python vim man openssh termux-api
+pkg install ffmpeg git python vim man openssh termux-api bash-completion
 
 # Install youtube-dl through pip.
-pip install --upgrade pip
 pip install yt-dlp
 
 # Create SSH keys.
