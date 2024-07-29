@@ -20,7 +20,11 @@ pip install yt-dlp
 # Create SSH keys.
 ssh-keygen
 
-# Wait till user uploads SSH key to GitHub.
+# Clear screen and display SSH key.
+clear
+cat ~/.ssh/id_ed25519.pub
+
+# Wait until user uploads SSH key to GitHub.
 read -p "Upload SSH key to GitHub, then press any key to continue..."
 
 # Clone and push dotfiles.
