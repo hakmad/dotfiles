@@ -20,8 +20,7 @@ pip install yt-dlp
 # Create SSH keys.
 ssh-keygen
 
-# Clear screen and display SSH key.
-clear
+# Display SSH key.
 cat ~/.ssh/id_ed25519.pub
 
 # Wait until user uploads SSH key to GitHub.
