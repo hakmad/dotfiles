@@ -21,9 +21,16 @@ source style.sh
 # Basic variables.
 DURATION=1
 MESSAGE=" "
+PROCESS_LOCATION="/tmp/popups/"
+PROCESS_NAME=""
+KILL_PROCESSES=false
+PROCESSES_TO_KILL=""
 
 # MESSAGE needs to be prefixed with an empty space for padding
 # (otherwise it looks a bit odd).
+
+# Create location for popups directory.
+mkdir -p $PROCESS_LOCATION
 
 # Get command line arguments.
 while [[ $1 != "" ]]; do
@@ -45,6 +52,15 @@ while [[ $1 != "" ]]; do
 			shift
 			Y=$1
 			;;
+		-p | --process-name)
+			shift
+			PROCESS_NAME=$1
+			;;
+		-k | --kill-processes)
+			shift
+			PROCESSES_TO_KILL=$1
+			KILL_PROCESSES=true
+			;;
 	esac
 	shift
 done
@@ -58,7 +74,21 @@ fi
 # Move popup to the left of the screen.
 X=$((SCREEN_WIDTH-X-WIDTH))
 
+# Kill previous processes.
+if [[ $PROCESS_NAME != "" ]]; then
+	kill -9 $(< $PROCESS_LOCATION$PROCESS_NAME)
+fi
+
+# Kill other processes.
+if [[ $KILL_PROCESSES ]]; then
+	# Iterate through each PID file (may give process names as a wildcard).
+	for pid_file in $PROCESS_LOCATION$PROCESSES_TO_KILL; do
+		kill -9 $(< $pid_file)
+	done
+fi
+
 # Run popup.
 (echo "$MESSAGE"; sleep "$DURATION") | lemonbar -d -b \
 	-g ${WIDTH}x${HEIGHT}+${X}+${Y} \
-	-F $FOREGROUND -B $BACKGROUND -f "$FONT" -o 1
+	-F $FOREGROUND -B $BACKGROUND -f "$FONT" -o 1 &
+	[[ $PROCESS_NAME != "" ]] && echo "$!" > "$PROCESS_LOCATION$PROCESS_NAME" 
