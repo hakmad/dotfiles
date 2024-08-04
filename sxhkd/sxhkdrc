@@ -45,7 +45,7 @@ super + Delete
 # Brightness.
 XF86MonBrightness{Up,Down}
 	backlight.sh {increase,decrease}; \
-	popup.sh -m "Backlight: $(backlight.sh current)"
+	popup.sh -m "Backlight: $(backlight.sh current)" -p "popup_backlight" -k "popup_*"
 
 # Audio.
 XF86Audio{Raise,Lower}Volume
@@ -57,12 +57,12 @@ XF86AudioMute
 
 # Display information.
 super + x
-	popup.sh -m "Backlight: $(backlight.sh current)"
+	popup.sh -m "Backlight: $(backlight.sh current)" -p "popup_backlight" -k "popup_*"
 super + c
-	popup.sh -d 5 -m "$(date "+%a %d/%m/%Y %H:%M")"
+	popup.sh -d 5 -m "$(date "+%a %d/%m/%Y %H:%M")" -p "popup_date" -k "popup_*"
 super + v
-	popup.sh -m "Audio: $(audio.sh status), $(audio.sh volume)"
+	popup.sh -m "Audio: $(audio.sh status), $(audio.sh volume)" -p "popup_audio" -k "popup_*"
 super + b
-	popup.sh -d 3 -m "Battery: $(battery.sh status), $(battery.sh percentage) ($(battery.sh time))"
+	popup.sh -d 3 -m "Battery: $(battery.sh status), $(battery.sh percentage) ($(battery.sh time))" -p "popup_battery" -k "popup_*"
 super + n
-	popup.sh -m "Network: $(network.sh)"
+	popup.sh -m "Network: $(network.sh)" -p "popup_network" -k "popup_*"

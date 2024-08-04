@@ -20,16 +20,16 @@ fi
 case $1 in
 	goto)
 		bspc desktop -f "$2"
-		popup.sh -m "Desktop $2"
+		popup.sh -m "Desktop $2" -p "popup_desktop" -k "popup_*"
 		exit
 		;;
 	move)
 		bspc node -d "$2"
-		popup.sh -m "Moved to desktop $2"
+		popup.sh -m "Moved to desktop $2" -p "popup_desktop" -k "popup_*"
 		exit
 		;;
 	current)
-		popup.sh -m "Desktop $(bspc query -D -d focused --names)"
+		popup.sh -m "Desktop $(bspc query -D -d focused --names)" -p "popup_desktop" -k "popup_*"
 		exit
 		;;
 	help)
