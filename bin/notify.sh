@@ -9,12 +9,22 @@ battery() {
 	PERCENTAGE=$(battery.sh percentage | sed "s/\%//")
 	STATUS=$(battery.sh status)
 
-	if [[ $PERCENTAGE == 100 ]] && [[ $STATUS == "Full" ]]; then
-		popup.sh -d 5 -m "Unplug laptop - Battery full" -y 50 &
-	elif [[ $PERCENTAGE -ge 98 ]] && [[ $STATUS == "Charging" ]]; then
-		popup.sh -d 5 -m "Unplug laptop - Battery high" -y 50 &
-	elif [[ $PERCENTAGE -lt 10 ]] && [[ $STATUS == "Discharging" ]]; then
-		popup.sh -d 5 -m "Plug in laptop - Battery low" -y 50 &
+	# Create popups.
+	if [[ ! -f /tmp/popups/notif_battery ]]; then
+		if [[ $PERCENTAGE -ge 95 ]] && [[ $STATUS == "Charging" ]]; then
+			popup.sh -d infinity -m "Unplug laptop - Battery high" -y 50 -p "notif_battery" &
+		elif [[ $PERCENTAGE -lt 10 ]] && [[ $STATUS == "Discharging" ]]; then
+			popup.sh -d infinity -m "Plug in laptop - Battery low" -y 50 -p "notif_battery" &
+		fi
+	fi
+
+	# Kill popups.
+	if [[ -f /tmp/popups/notif_battery ]]; then
+		if { [[ $PERCENTAGE -lt 90 ]] && [[ $STATUS == "Charging" ]] } || \
+		{ [[ $PERCENTAGE -ge 10 ]] && [[ $STATUS == "Discharging" ]] }; then
+			kill -9 $(< /tmp/popups/notif_battery)
+			rm /tmp/popups/notif_battery
+		fi
 	fi
 }
 
