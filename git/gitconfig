@@ -5,3 +5,7 @@
 [user]
 	name = hakmad
 	email = hakmad@fastmail.com 
+
+# Miscellaneous settings.
+[init]
+	defaultBranch = main
