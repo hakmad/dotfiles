@@ -9,7 +9,7 @@ set -e
 DB="$HOME/.passwords/passwords.kdbx"
 
 # Get password from user.
-PASSWORD=$(echo " " | menu.sh -mask -p "Password:")
+PASSWORD=$(echo " " | menu.sh -l 0 -mask -p "Password:")
 
 # List choices from passwords DB and copy selected choice to clipboard.
 CHOICES=$(printf "%s\n\r" "$PASSWORD" | keepassxc-cli ls "$DB" -q)
