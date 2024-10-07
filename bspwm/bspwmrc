@@ -21,7 +21,7 @@ bspc config presel_feedback_color 	$FOREGROUND
 
 # BSPWM rules for windows.
 bspc rule -a floating 			state=floating
-bspc rule -a feh 			state=floating
+bspc rule -a feh 			    state=floating
 
 # BSPWM mouse configurations.
 bspc config pointer_action1		move
@@ -36,7 +36,6 @@ numlockx &
 
 notify.sh &
 
-picom &
 sxhkd &
 
 feh --bg-fill $HOME/media/images/misc/wallpaper.jpg & 
