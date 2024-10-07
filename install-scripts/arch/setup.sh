@@ -56,7 +56,7 @@ sudo pacman -S --noconfirm noto-fonts noto-fonts-extra noto-fonts-emoji noto-fon
 install_aur dina-font-otb
 
 # Install desktop utilities.
-sudo pacman -S --noconfirm bspwm sxhkd picom scrot slock xss-lock
+sudo pacman -S --noconfirm bspwm sxhkd scrot slock xss-lock
 install_aur pod2man
 install_aur dmenu2
 install_aur lemonbar-xft-git
