@@ -7,8 +7,8 @@
 source style.sh
 
 # Set screen resolution and DPI.
-xrandr -s 1920x1080
-xrandr --dpi 96
+#xrandr -s 1920x1080
+#xrandr --dpi 96
 
 # Basic BSPWM configurations.
 bspc config window_gap			0
