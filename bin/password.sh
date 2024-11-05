@@ -13,8 +13,12 @@ PASSWORD=$(echo " " | menu.sh -l 0 -mask -p "Password:")
 
 # List choices from passwords DB and copy selected choice to clipboard.
 CHOICES=$(printf "%s\n\r" "$PASSWORD" | keepassxc-cli ls "$DB" -q)
-CHOICE=$(printf "%s" "$CHOICES" | menu.sh)
+CHOICE=$(printf "%s" "$CHOICES" | menu.sh -p "Choice:")
+
+# List attributes.
+ATTRIBUTES="Password\nUsername"
+ATTRIBUTE=$(echo -e $ATTRIBUTES | menu.sh -p "Attribute:")
 
 # Get password from DB and copy to clipboard.
-printf "%s\n\r" "$PASSWORD" | keepassxc-cli clip -q "$DB" "$CHOICE"
+printf "%s\n\r" "$PASSWORD" | keepassxc-cli clip -q "$DB" "$CHOICE" -a "$ATTRIBUTE"
 popup.sh -m "Password cleared from clipboard" -d 3
