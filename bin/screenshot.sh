@@ -12,6 +12,9 @@
 # Basic variables.
 SCREENSHOT_DIR="$HOME/media/images/screenshots/"
 
+# Create screenshot directory if it doesn't exist.
+mkdir -p $SCREENSHOT_DIR
+
 # If no argument supplied, exit.
 if [[ -z $1 ]]; then
 	echo "Invalid arguments supplied! Exiting."
