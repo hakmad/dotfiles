@@ -6,7 +6,7 @@
 install_aur() {
 	git clone https://aur.archlinux.org/$1
 	cd $1
-	makepkg -si --noconfirm --skipinteg
+	makepkg -si --noconfirm
 	cd -
 	rm -rf $1
 }
@@ -20,7 +20,6 @@ DOTFILES_LOCATION="$HOME/.dotfiles"
 for package in $(find $DOTFILES_LOCATION -mindepth 1 -maxdepth 1 -type d \
 	-not \( -name .git \
 	-or -name install-scripts \
-	-or -name wallpaper \
 	-or -name misc \)); do
 	echo $package
 	$HOME/.dotfiles/bin/push-dotfiles.sh ${package#$DOTFILES_LOCATION/}
@@ -65,7 +64,7 @@ install_aur lemonbar-xft-git
 sudo pacman -S --noconfirm alacritty qutebrowser firefox zathura zathura-pdf-mupdf feh keepassxc syncthing
 
 # Install miscellaneous utilities.
-sudo pacman -S --noconfirm acpi tree ntfs-3g htop wireless_tools yt-dlp jq bash-completion xsel xdotool xclip openssh
+sudo pacman -S --noconfirm acpi tree ntfs-3g htop wireless_tools yt-dlp jq bash-completion xsel xdotool xclip openssh zip unzip
 install_aur light
 
 # Install programming languages.
@@ -82,6 +81,7 @@ sudo mkinitcpio -p linux
 ssh-keygen
 
 # Set qutebrowser as the default browser.
+unset BROWSER
 xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop
 
 # Setup complete.
