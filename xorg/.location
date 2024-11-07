@@ -1,1 +1,2 @@
 TARGET=/etc/X11/xorg.conf.d/
+RUN_AS="sudo"

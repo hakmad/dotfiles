@@ -31,11 +31,12 @@ else
 fi
 
 # Create directories.
-mkdir -p "$TARGET"
+$RUN_AS mkdir -p "$TARGET"
+echo "Created directory $TARGET"
 
 find "$ORIGIN" -mindepth 1 -type d | while read -r dir; do
 	dir=${dir##"$ORIGIN"}
-	mkdir -p "$TARGET$dir"
+	$RUN_AS mkdir -p "$TARGET$dir"
 	echo "Created directory $TARGETS$dir"
 done
 
@@ -43,14 +44,13 @@ done
 find "$ORIGIN" -mindepth 1 -type f -not -name .location | while read -r file; do
 	file=${file##"$ORIGIN"}
 
-	if ln -s -f "$ORIGIN$file" "$TARGET$file" ; then
+	if $RUN_AS ln -s -f "$ORIGIN$file" "$TARGET$file" ; then
 		echo "Linked $ORIGIN$file -> $TARGET$file"
-	elif sudo ln -s -f "$ORIGIN$file" "$TARGET$file" ; then
-		echo "Linked $ORIGIN$file -> $TARGET$file (using sudo)"
-	elif sudo cp "$ORIGIN$file" "$TARGET$file" ; then
-		echo "Copied $ORIGIN$file -> $TARGET$file (using sudo)"
+	elif $RUN_AS cp "$ORIGIN$file" "$TARGET$file" ; then
+		echo "Copied $ORIGIN$file -> $TARGET$file"
 	else
 		echo "Failed to push $ORIGIN$file -> $TARGET$file"
+		exit 1
 	fi
 done
 
