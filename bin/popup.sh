@@ -80,7 +80,7 @@ if [[ $PROCESS_NAME != "" ]]; then
 fi
 
 # Kill other processes.
-if [[ $KILL_PROCESSES ]]; then
+if [[ $KILL_PROCESSES == true ]]; then
 	# Iterate through each PID file (may give process names as a wildcard).
 	for pid_file in $PROCESS_LOCATION$PROCESSES_TO_KILL; do
 		kill -9 $(< $pid_file)
