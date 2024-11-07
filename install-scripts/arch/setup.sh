@@ -43,7 +43,7 @@ sudo pacman -Syu --noconfirm
 sudo timedatectl set-timezone Europe/London
 
 # Install X and video drivers.
-sudo pacman -S --noconfirm xorg xorg-xinit mesa vulkan-intel nvidia
+sudo pacman -S --noconfirm xorg xorg-xinit mesa vulkan-intel
 
 # Install audio and setup alsa.
 sudo pacman -S --noconfirm alsa-utils alsa-lib pulseaudio pulseaudio-alsa
@@ -65,7 +65,8 @@ install_aur lemonbar-xft-git
 sudo pacman -S --noconfirm alacritty qutebrowser firefox zathura zathura-pdf-mupdf feh keepassxc syncthing
 
 # Install miscellaneous utilities.
-sudo pacman -S --noconfirm acpi tree ntfs-3g htop wireless_tools yt-dlp jq bash-completion xsel xdotool xclip openssh light
+sudo pacman -S --noconfirm acpi tree ntfs-3g htop wireless_tools yt-dlp jq bash-completion xsel xdotool xclip openssh
+install_aur light
 
 # Install programming languages.
 sudo pacman -S --noconfirm python python-pip go
