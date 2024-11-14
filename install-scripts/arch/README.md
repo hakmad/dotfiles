@@ -87,10 +87,13 @@ During the installation process, the installation script will prompt the user
 to use `fdisk` to partition the device. It is recommended to use UEFI with GPT
 for the root and boot partitions. See below for a recommended partition scheme:
 
-| Mount Point | Size | Type | Format |
+| Mount Point | Size | Type | Filesystem |
 | --- | --- | --- | --- |
 | `/boot` | 512 MiB | EFI System | FAT32 |
 | `/` | Remaining space on device | Linux Filesystem | `ext4` |
+
+Partition formatting is carried out automatically by the installation script
+and is listed here for reference.
 
 ## Setup
 
