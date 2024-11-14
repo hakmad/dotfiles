@@ -73,8 +73,8 @@ following:
 To begin an installation, run the following:
 
 ```
-chmod +x install.sh
-./install.sh
+# chmod +x install.sh
+# ./install.sh
 ```
 
 Note: when setting passwords, it is recommended to use simple passwords and
@@ -97,13 +97,13 @@ for the root and boot partitions. See below for a recommended partition scheme:
 To setup, reboot the computer, log in, and run the following:
 
 ```
-~/.dotfiles/install-scripts/arch/setup.sh
+$ ~/.dotfiles/install-scripts/arch/setup.sh
 ```
 
 Optionally and additionally, run the following:
 
 ```
-~/.dotfiles/install-scripts/arch/setup-extra.sh
+$ ~/.dotfiles/install-scripts/arch/setup-extra.sh
 ```
 
 Please note that this may take a while due to the larger sizes of the packages
