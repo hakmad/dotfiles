@@ -38,7 +38,7 @@ curl -L https://www.archlinux.org/mirrorlist/?country=GB > /etc/pacman.d/mirrorl
 sed -i "s/^#Server/Server/" /etc/pacman.d/mirrorlist
 
 # Install Arch base onto mountpoint.
-pacstrap /mnt base base-devel linux linux-firmware vi vim git man-pages man-db networkmanager
+pacstrap /mnt base base-devel linux linux-firmware vi vim git man-pages man-db networkmanager efibootmgr
 
 # Generate fstab file.
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -60,13 +60,9 @@ echo $HOSTNAME >> /mnt/etc/hostname
 echo -e "127.0.0.1\tlocalhost" >> /mnt/etc/hosts
 echo -e "::1\tlocalhost" >> /mnt/etc/hosts
 
-# Setup users.
-echo "Setting password for root user"
-arch-chroot /mnt passwd
+# Create users and setup sudoers file.
 arch-chroot /mnt useradd -m -G wheel $USER
-echo "Setting password for user $USER"
-arch-chroot /mnt passwd $USER
-arch-chroot /mnt visudo
+echo "%wheel ALL=(ALL:ALL) ALL" | EDITOR="tee -a" arch-chroot /mnt visudo
 
 # Clone dotfiles onto new system.
 arch-chroot /mnt git clone https://github.com/$USER/dotfiles /home/$USER/.dotfiles
@@ -76,13 +72,24 @@ arch-chroot /mnt chown -R $USER:$USER /home/$USER/.dotfiles
 arch-chroot /mnt bootctl install --path=/boot --no-variables
 echo -e "default\tarch.conf" > /mnt/boot/loader/loader.conf
 rm -f /mnt/boot/loader/entries/arch.conf
-echo -e "title\tArch Linux" >> /mnt/boot/loader/entries/arch.conf
-echo -e "linux\t/vmlinuz-linux" >> /mnt/boot/loader/entries/arch.conf
-echo -e "initrd\t/initramfs-linux.img" >> /mnt/boot/loader/entries/arch.conf
-echo -e "options\troot=\"LABEL=Arch Linux\" rw" >> /mnt/boot/loader/entries/arch.conf
+cat >file << EOL
+title   Arch Linux
+linux   /vmlinuz-linux
+initrd  /initramfs-linux.img
+options root="LABEL=Arch Linux" rw
+EOL
+
+# Delete old bootloader entry.
+efibootmgr --bootnum 0000 -delete-bootnum
 
 # Add new bootloader to UEFI firmware.
 efibootmgr --create --disk /dev/$DEVICE --part 1 --label "Linux Boot Manager" --loader "\EFI\systemd\systemd-bootx64.efi"
+
+# Set passwords.
+echo "Set password for root user"
+arch-chroot /mnt passwd
+echo "Set password for user $USER"
+arch-chroot /mnt passwd $USER
 
 # Installation complete.
 echo "Setup complete. Please reboot!"
