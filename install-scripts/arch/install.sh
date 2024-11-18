@@ -17,7 +17,21 @@ loadkeys uk
 timedatectl set-ntp true
 
 # Partition device.
-fdisk /dev/$DEVICE
+sfdisk --delete /dev/$DEVICE
+cat << EOF > partition-scheme
+label: gpt
+device: /dev/$DEVICE
+unit: sectors
+sector-size: 512
+
+/dev/$DEVICEp1 : start=2048, size=1048576, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B
+/dev/$DEVICEp2 : start=1050624, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4
+EOF
+
+sfdisk /dev/$DEVICE < partition-scheme
+rm partition-scheme
+
+# Get partitions.
 ESP=$(fdisk /dev/$DEVICE -l | awk '/EFI/ {print $1}' | tail -n 1)
 ROOT=$(fdisk /dev/$DEVICE -l | awk '/Linux/ {print $1}')
 
