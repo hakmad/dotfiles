@@ -52,7 +52,7 @@ curl -L https://www.archlinux.org/mirrorlist/?country=GB > /etc/pacman.d/mirrorl
 sed -i "s/^#Server/Server/" /etc/pacman.d/mirrorlist
 
 # Install Arch base onto mountpoint.
-pacstrap /mnt base base-devel linux linux-firmware vi vim git man-pages man-db networkmanager efibootmgr
+pacstrap /mnt base base-devel linux linux-firmware vi vim git man-pages man-db networkmanager efibootmgr acpi
 
 # Generate fstab file.
 genfstab -U /mnt >> /mnt/etc/fstab
