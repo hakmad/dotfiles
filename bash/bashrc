@@ -15,7 +15,7 @@ fi
 alias ls="ls "
 alias cp="cp -r"
 alias scp="scp -r"
-alias ls="ls --color=auto -v --group-directories-first -I 'System Volume Information' -I '\$RECYCLE.BIN'"
+alias ls="ls --color=auto -v --group-directories-first"
 alias du="du -h"
 alias df="df -h"
 alias tree="tree -v"
