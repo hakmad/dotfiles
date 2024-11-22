@@ -93,8 +93,9 @@ initrd  /initramfs-linux.img
 options root="LABEL=Arch Linux" rw
 EOL
 
-# Delete old bootloader entry.
-efibootmgr --bootnum 0000 -delete-bootnum
+# Delete old bootloader entries.
+efibootmgr --bootnum 0 -delete-bootnum
+efibootmgr --bootnum 1 -delete-bootnum
 
 # Add new bootloader to UEFI firmware.
 efibootmgr --create --disk /dev/$DEVICE --part 1 --label "Linux Boot Manager" --loader "\EFI\systemd\systemd-bootx64.efi"
