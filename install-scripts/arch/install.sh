@@ -37,7 +37,7 @@ ROOT=$(fdisk /dev/$DEVICE -l | awk '/Linux/ {print $1}')
 
 # Format device.
 mkfs.fat -F 32 $ESP
-mkfs.ext4 $ROOT
+mkfs.ext4 -F $ROOT
 
 # Label device.
 e2label $ROOT "Arch Linux"
@@ -86,7 +86,7 @@ arch-chroot /mnt chown -R $USER:$USER /home/$USER/.dotfiles
 arch-chroot /mnt bootctl install --path=/boot --no-variables
 echo -e "default\tarch.conf" > /mnt/boot/loader/loader.conf
 rm -f /mnt/boot/loader/entries/arch.conf
-cat >file << EOL
+cat > /mnt/boot/loader/entries/arch.conf << EOL
 title   Arch Linux
 linux   /vmlinuz-linux
 initrd  /initramfs-linux.img
