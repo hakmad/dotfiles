@@ -104,5 +104,9 @@ arch-chroot /mnt passwd
 echo "Set password for user $USER"
 arch-chroot /mnt passwd $USER
 
+# Unmount partitions.
+umount /mnt/boot
+umount /mnt
+
 # Installation complete.
 echo "Setup complete. Please reboot!"
