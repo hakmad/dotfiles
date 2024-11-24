@@ -82,8 +82,11 @@ echo "%wheel ALL=(ALL:ALL) ALL" | EDITOR="tee -a" arch-chroot /mnt visudo
 arch-chroot /mnt git clone https://github.com/$USER/dotfiles /home/$USER/.dotfiles
 arch-chroot /mnt chown -R $USER:$USER /home/$USER/.dotfiles
 
+# Delete old bootloader entries.
+efibootmgr --bootnum 0 --delete-bootnum
+
 # Install (temporary) bootloader.
-arch-chroot /mnt bootctl install --path=/boot --no-variables
+arch-chroot /mnt bootctl install --path=/boot
 echo -e "default\tarch.conf" > /mnt/boot/loader/loader.conf
 rm -f /mnt/boot/loader/entries/arch.conf
 cat > /mnt/boot/loader/entries/arch.conf << EOL
@@ -93,12 +96,6 @@ initrd  /initramfs-linux.img
 options root="LABEL=Arch Linux" rw
 EOL
 
-# Delete old bootloader entries.
-efibootmgr --bootnum 0 -delete-bootnum
-efibootmgr --bootnum 1 -delete-bootnum
-
-# Add new bootloader to UEFI firmware.
-efibootmgr --create --disk /dev/$DEVICE --part 1 --label "Linux Boot Manager" --loader "\EFI\systemd\systemd-bootx64.efi"
 
 # Set passwords.
 echo "Set password for root user"
