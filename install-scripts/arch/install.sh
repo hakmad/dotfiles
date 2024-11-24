@@ -83,7 +83,9 @@ arch-chroot /mnt git clone https://github.com/$USER/dotfiles /home/$USER/.dotfil
 arch-chroot /mnt chown -R $USER:$USER /home/$USER/.dotfiles
 
 # Delete old bootloader entries.
-efibootmgr --bootnum 0 --delete-bootnum
+if [[ $(efibootmgr | grep "Linux") ]]; then
+    efibootmgr --bootnum 0 --delete-bootnum
+fi
 
 # Install (temporary) bootloader.
 arch-chroot /mnt bootctl install --path=/boot
@@ -95,7 +97,6 @@ linux   /vmlinuz-linux
 initrd  /initramfs-linux.img
 options root="LABEL=Arch Linux" rw
 EOL
-
 
 # Set passwords.
 echo "Set password for root user"
