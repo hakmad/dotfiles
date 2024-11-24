@@ -20,15 +20,15 @@ fi
 # Check arguments and perform action.
 case $1 in
 	current)
-		echo "$(light -G | cut -d "." -f 1)%"
+        echo "$(brightnessctl | grep "Current" | awk '{ print $4 }' | sed 's/[)(]//g')"
 		exit
 		;;
 	increase)
-		light -A $STEP
+		brightnessctl set "+$STEP%"
 		exit
 		;;
 	decrease)
-		light -U $STEP
+		brightnessctl set "$STEP-%"
 		exit
 		;;
 	help)
