@@ -64,7 +64,7 @@ install_aur lemonbar-xft-git
 sudo pacman -S --noconfirm alacritty qutebrowser firefox zathura zathura-pdf-mupdf feh mpv keepassxc syncthing
 
 # Install miscellaneous utilities.
-sudo pacman -S --noconfirm tree ntfs-3g htop wireless_tools yt-dlp jq bash-completion xdotool xclip openssh zip unzip android-tools mediainfo brightnessctl
+sudo pacman -S --noconfirm tree ntfs-3g htop wireless_tools yt-dlp jq bash-completion xdotool xclip openssh zip unzip pz7ip android-tools mediainfo brightnessctl
 
 # Install programming languages.
 sudo pacman -S --noconfirm python python-pip go
