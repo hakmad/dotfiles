@@ -12,7 +12,7 @@ install_aur() {
 }
 
 # Install extra desktop applications.
-sudo pacman -S --noconfirm obs-studio shotcut gimp krita blender steam audacity virtualbox virtualbox-guest-utils virtualbox-guest-iso 
+sudo pacman -S --noconfirm obs-studio shotcut gimp krita blender steam audacity virtualbox virtualbox-guest-utils virtualbox-guest-iso virtualbox-host-modules-arch
 
 # Install additional packages from AUR.
 install_aur visual-studio-code-bin
