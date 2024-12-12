@@ -13,12 +13,10 @@ set number
 set incsearch
 set foldmethod=marker
 
+" Tab size.
 set tabstop=4
 set shiftwidth=4
 set expandtab
-
-" Colourscheme.
-colorscheme greyscale
 
 " LaTeX tab sizes.
 autocmd FileType tex setlocal shiftwidth=2 softtabstop=2 expandtab
