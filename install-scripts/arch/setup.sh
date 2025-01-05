@@ -61,7 +61,7 @@ install_aur dmenu2
 install_aur lemonbar-xft-git
 
 # Install desktop applications.
-sudo pacman -S --noconfirm alacritty qutebrowser firefox zathura zathura-pdf-mupdf feh mpv keepassxc syncthing dconf-editor
+sudo pacman -S --noconfirm alacritty qutebrowser firefox zathura zathura-pdf-mupdf feh mpv keepassxc dconf-editor
 
 # Install miscellaneous utilities.
 sudo pacman -S --noconfirm tree ntfs-3g htop wireless_tools yt-dlp jq bash-completion xdotool xclip openssh zip unzip pz7ip android-tools mediainfo brightnessctl
@@ -85,10 +85,6 @@ xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop
 
 # Set the size of the GTK file chooser.
 gsettings set org.gtk.Settings.FileChooser window-size "(600, 400)"
-
-# Enable syncthing systemd service.
-systemctl start syncthing.service --user
-systemctl enable syncthing.service --user
 
 # Setup complete.
 echo "Setup complete. Please reboot!"
