@@ -83,6 +83,9 @@ ssh-keygen
 unset BROWSER
 xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop
 
+# Set the size of the GTK file chooser.
+gsettings set org.gtk.Settings.FileChooser window-size "(600, 400)"
+
 # Enable syncthing systemd service.
 systemctl start syncthing.service --user
 systemctl enable syncthing.service --user
