@@ -61,7 +61,7 @@ install_aur dmenu2
 install_aur lemonbar-xft-git
 
 # Install desktop applications.
-sudo pacman -S --noconfirm alacritty qutebrowser firefox zathura zathura-pdf-mupdf feh mpv keepassxc dconf-editor
+sudo pacman -S --noconfirm alacritty qutebrowser firefox zathura zathura-pdf-mupdf feh mpv keepassxc
 
 # Install miscellaneous utilities.
 sudo pacman -S --noconfirm tree ntfs-3g htop wireless_tools yt-dlp jq bash-completion xdotool xclip openssh zip unzip pz7ip android-tools mediainfo brightnessctl
