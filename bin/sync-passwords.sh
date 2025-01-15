@@ -9,5 +9,5 @@ cloud_passwords="fastmail:passwords"
 rclone sync $cloud_passwords $local_passwords --update
 
 # Upload local file to the the cloud (skip if the cloud version is newer than
-# the local version
+# the local version).
 rclone sync $local_passwords $cloud_passwords --update
