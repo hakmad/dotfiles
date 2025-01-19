@@ -1,0 +1,10 @@
+[Unit]
+Description=Run todo notes synchronisation on boot and every 10 minutes afterwards
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=10min
+Unit=sync-todo.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,6 @@
+[Unit]
+Description=Synchronise todo notes with the cloud
+
+[Service]
+Type=oneshot
+ExecStart=/home/hakmad/.bin/sync-todo.sh
