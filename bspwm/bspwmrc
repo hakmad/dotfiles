@@ -41,7 +41,9 @@ notify.sh &
 
 sxhkd &
 
+wallpaper=$(find $HOME/media/images/wallpapers -type l | shuf -n 1)
 feh --bg-fill $HOME/media/images/misc/wallpaper.jpg & 
+
 xsetroot -cursor_name left_ptr &
 
 xss-lock -- slock
