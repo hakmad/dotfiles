@@ -3,9 +3,10 @@
 # Script for taking screenshots.
 # 
 # The usage of this script is as follows:
-# 	screenshot.sh all	Screenshot the entire screen.
-# 	screenshot.sh window	Screenshot the focused window.
-# 	screenshot.sh help	Show this help.
+# 	screenshot.sh all	    Screenshot the entire screen.
+# 	screenshot.sh window	    Screenshot the focused window.
+# 	screenshot.sh selection     Screenshot based on selection.
+# 	screenshot.sh help	    Show this help.
 # 
 # Screenshots are saved in ~/media/images/screenshots by default.
 
@@ -31,8 +32,12 @@ case $1 in
 		FILENAME="window_$(date "+%Y-%m-%d_%H-%M-%S").jpg"
 		scrot -u "$FILENAME" -q 100 -z
 		;;
+    selection)
+        FILENAME="selection_$(date "+%Y-%m-%d_%H-%M-%S").jpg"
+        scrot -s "$FILENAME" -q 100 -z
+        ;;
 	help)
-		head $HOME/.bin/screenshot.sh -n 10 | tail -n 8 | sed 's/# //g'
+		head $HOME/.bin/screenshot.sh -n 11 | tail -n 9 | sed 's/# //g'
 		exit
 		;;
 	*)

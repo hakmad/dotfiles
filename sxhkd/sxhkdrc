@@ -39,8 +39,8 @@ super + Delete
 	slock
 
 # Screenshot.
-{_,super} + Print
-	screenshot.sh {all,window}
+{_,super,shift} + Print
+	screenshot.sh {all,window,selection}
 
 # Brightness.
 XF86MonBrightness{Up,Down}
