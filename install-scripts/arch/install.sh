@@ -2,111 +2,293 @@
 
 # Script for installing Arch Linux.
 
-# System variables.
-HOSTNAME="laptop"
-USER="hakmad"
-DEVICE="nvme0n1"
+# Colours.
+C="\033[1m"
+NC="\033[0m"
 
-# Stop the script if there are errors.
-set -e
+# Defaults.
+default_user="hakmad"
+default_locale="GB"
+default_keyboard="uk"
+default_timezone="Europe/London" 
+default_hostname="laptop" 
+default_ntp=true
+default_packages=(base base-devel linux linux-firmware intel-ucode lvm2 networkmanager man-pages man-db texinfo vim git openssh acpi efibootmgr)
 
-# Load UK keyboard.
-loadkeys uk
-
-# Use NTP.
+# Setup NTP.
 timedatectl set-ntp true
 
+# Clear the screen and display initial prompt.
+clear
+echo -e "\n${C}Welcome to hakmad's Arch Linux installation script!${NC}\n"
+
+# Ask user to select device.
+echo -e "${C}Device Settings${NC}"
+while true; do
+	echo "Select device to install to: "
+	select device in $(lsblk -nd --output NAME); do
+		echo "Selected device: /dev/$device"
+		break
+	done
+	read -e -p "Are you sure? (type 'yes' in capital letters) "
+	if [[ $REPLY == "YES" ]]; then
+		break
+	fi
+done
+read -e -s -p "Enter LUKS password: " luks_password 
+while [[ -z $luks_password ]]; do
+	read -e -s -p "Enter LUKS password: " luks_password
+done
+
+# Ask user for user details.
+echo -e "\n${C}User Details${NC}"
+read -e -s -p "Enter root password: " root_password
+while [[ -z $root_password ]]; do
+	read -e -s -p "Enter root password: " root_password
+done
+read -e -p "Enter username: " -i $default_user user 
+while [[ -z $user_password ]]; do
+	read -e -s -p "Enter password for user $user: " user_password
+done
+
+# Ask user for locale settings.
+echo -e "\n${C}Locale Settings${NC}"
+read -e -p "Enter locale: " -i $default_locale locale 
+read -e -p "Enter keyboard layout: " -i $default_keyboard keyboard 
+read -e -p "Enter timezone: " -i $default_timezone timezone 
+
+# Ask user for network settings.
+echo -e "\n${C}Network Settings${NC}"
+read -e -p "Enter hostname: " -i $default_hostname hostname
+
+echo -e "\n${C}Packages${NC}"
+read -e -p "Packages to install: " -i "${default_packages[*]}" packages
+
+echo -e "\n${C}Device Settings${NC}"
+echo -e "\tDevice: $device"
+echo -e "\tLUKS password: ***"
+
+echo -e "\n${C}User Details${NC}"
+echo -e "\tRoot password: ***"
+echo -e "\tUser: $user"
+echo -e "\tUser password: ***"
+
+echo -e "\n${C}Locale Settings${NC}"
+echo -e "\tLocale: $locale"
+echo -e "\tKeyboard: $keyboard"
+
+echo -e "\n${C}Network Settings${NC}"
+echo -e "\tHostname: $hostname"
+
+echo -e "\n${C}Packages${NC}"
+echo -e "\t${packages[*]}"
+
+read -e -p "Start installation? (type 'yes' in capital letters) "
+case $REPLY in
+	"YES") ;;
+	*) echo "Installation aborted."; exit;;
+esac
+
+clear
+
+rm -f install.log 
+echo "Installation started!"
+
 # Partition device.
-sfdisk --delete /dev/$DEVICE
+printf "Partitioning device... "
+
+sfdisk --delete /dev/$device >> install.log 2>&1
 cat << EOF > partition-scheme
 label: gpt
-device: /dev/$DEVICE
-unit: sectors
-sector-size: 512
+device: /dev/$device
 
-/dev/$DEVICEp1 : start=2048, size=1048576, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B
-/dev/$DEVICEp2 : start=1050624, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4
+size=1G, type=uefi
+type=lvm
 EOF
 
-sfdisk /dev/$DEVICE < partition-scheme
+sfdisk /dev/$device < partition-scheme >> install.log 2>&1
 rm partition-scheme
+echo "Done!"
 
-# Get partitions.
-ESP=$(fdisk /dev/$DEVICE -l | awk '/EFI/ {print $1}' | tail -n 1)
-ROOT=$(fdisk /dev/$DEVICE -l | awk '/Linux/ {print $1}')
+# Setup LUKS.
+printf "Configuring LUKS... "
 
-# Format device.
-mkfs.fat -F 32 $ESP
-mkfs.ext4 -F $ROOT
+root_container=$(fdisk /dev/$device -l | awk '/LVM/ {print $1}')
+luks_mapper="cryptlvm"
+cryptsetup luksFormat $root_container <<< $luks_password >> install.log 2>&1
+cryptsetup open $root_container $luks_mapper <<< $luks_password >> install.log 2>&1
 
-# Label device.
-e2label $ROOT "Arch Linux"
+echo "Done!"
+
+# Setup LVM.
+printf "Configuring LVM... "
+
+lvm_group="volume"
+
+pvcreate /dev/mapper/$luks_mapper >> install.log 2>&1
+
+vgcreate $lvm_group /dev/mapper/$luks_mapper >> install.log 2>&1
+
+lvcreate -L 20G $lvm_group -n swap >> install.log 2>&1
+lvcreate -L 250G $lvm_group -n root >> install.log 2>&1
+lvcreate -l 100%FREE $lvm_group -n home >> install.log 2>&1
+
+lvreduce -L -256M $lvm_group/home >> install.log 2>&1
+
+echo "Done!"
+
+# Format partitions.
+printf "Formatting partitions... "
+
+boot=$(fdisk /dev/$device -l | awk '/EFI/ {print $1}')
+root=/dev/$lvm_group/root
+home=/dev/$lvm_group/home
+swap=/dev/$lvm_group/swap
+
+mkfs.fat -F 32 $boot >> install.log 2>&1
+
+mkfs.ext4 -F $root >> install.log 2>&1
+mkfs.ext4 -F $home >> install.log 2>&1
+
+mkswap $swap >> install.log 2>&1
+
+echo "Done!"
 
 # Mount partitions.
-mount $ROOT /mnt
-mkdir /mnt/boot
-mount $ESP /mnt/boot
+printf "Mounting partitions... "
+
+mount $root /mnt >> install.log 2>&1
+mount --mkdir $boot /mnt/boot >> install.log 2>&1
+mount --mkdir $home /mnt/home >> install.log 2>&1
+
+echo "Done!"
+
+# Enable swap.
+printf "Enabling swap... "
+
+swapon $swap >> install.log 2>&1
+
+echo "Done!"
+
+# Update and add new keyring.
+printf "Downloading latest keyring... "
+
+pacman -Sy --noconfirm >> install.log 2>&1
+pacman -S --noconfirm archlinux-keyring >> install.log 2>&1
+
+echo "Done!"
 
 # Get mirrorlist.
-curl -L https://www.archlinux.org/mirrorlist/?country=GB > /etc/pacman.d/mirrorlist
+printf "Downloading mirror list... "
+
+curl -L https://www.archlinux.org/mirrorlist/?country=${locale} > /etc/pacman.d/mirrorlist 2>> install.log
 sed -i "s/^#Server/Server/" /etc/pacman.d/mirrorlist
 
+echo "Done!"
+
+read -e -p "Continue? (type 'yes' in capital letters) "
+case $REPLY in
+	"YES") ;;
+	*) echo "Installation aborted."; exit;;
+esac
+
 # Install Arch base onto mountpoint.
-pacstrap /mnt base base-devel linux linux-firmware vi vim git man-pages man-db networkmanager efibootmgr acpi lvm2
+printf "Installing Arch Linux base... "
+
+pacstrap /mnt ${packages[*]} >> install.log 2>&1
+
+echo "Done!"
 
 # Generate fstab file.
+printf "Generating fstab file... "
+
 genfstab -U /mnt >> /mnt/etc/fstab
 
+echo "Done!"
+
 # Set time zone.
-arch-chroot /mnt ln -sf /usr/share/Europe/London /etc/localtime
+printf "Setting timezone... "
+
+arch-chroot /mnt ln -sf /usr/share/${timezone} /etc/localtime >> install.log 2>&1
+
+echo "Done!"
 
 # Generate locales.
-sed -i "s/^#en_US.UTF-8/en_US.UTF-8/" /mnt/etc/locale.gen
-sed -i "s/^#en_GB.UTF-8/en_GB.UTF-8/" /mnt/etc/locale.gen
-arch-chroot /mnt locale-gen
+printf "Generating locales... "
 
-# Set locales, keyboards and fonts.
+sed -i "s/^#en_US.UTF-8/en_US.UTF-8/" /mnt/etc/locale.gen
+sed -i "s/^#en_${locale}.UTF-8/en_${locale}.UTF-8/" /mnt/etc/locale.gen
+
+arch-chroot /mnt locale-gen >> install.log 2>&1
+
 echo "LANG=en_US.UTF-8" >> /mnt/etc/locale.conf
-echo "KEYMAP=uk" >> /mnt/etc/vconsole.conf
+echo "KEYMAP=$keyboard" >> /mnt/etc/vconsole.conf
+
+echo "Done!"
 
 # Set hostname and hosts.
-echo $HOSTNAME >> /mnt/etc/hostname
+printf "Setting hostname and hosts... "
+
+echo $hostname >> /mnt/etc/hostname
 echo -e "127.0.0.1\tlocalhost" >> /mnt/etc/hosts
 echo -e "::1\tlocalhost" >> /mnt/etc/hosts
 
-# Create users and setup sudoers file.
-arch-chroot /mnt useradd -m -G wheel $USER
-echo "%wheel ALL=(ALL:ALL) ALL" | EDITOR="tee -a" arch-chroot /mnt visudo
+echo "Done!"
+
+# Regenerate initramfs.
+printf "Regenerating initramfs..."
+
+hooks="HOOKS=(base udev autodetect microcode modconf kms keyboard keymap consolefont block encrypt lvm2 filesystems fsck)"
+sed -i "s/^HOOKS.*$/${hooks}/g" /mnt/etc/mkinitcpio.conf
+arch-chroot /mnt mkinitcpio -p linux >> install.log 2>&1
+
+echo "Done!"
+
+# Create users, set passwords and setup sudoers file.
+printf "Setting up users... "
+
+arch-chroot /mnt useradd -m -G wheel $user >> install.log 2>&1
+
+echo $root_password | arch-chroot /mnt passwd --stdin
+echo $user_password | arch-chroot /mnt passwd $user --stdin
+
+echo "%wheel ALL=(ALL:ALL) ALL" | EDITOR="tee -a" arch-chroot /mnt visudo >> install.log 2>&1
+
+echo "Done!"
 
 # Clone dotfiles onto new system.
-arch-chroot /mnt git clone https://github.com/$USER/dotfiles /home/$USER/.dotfiles
-arch-chroot /mnt chown -R $USER:$USER /home/$USER/.dotfiles
+printf "Cloning dotfiles... "
 
-# Delete old bootloader entries.
-if [[ $(efibootmgr | grep "Linux") ]]; then
-    efibootmgr --bootnum 0 --delete-bootnum
-fi
+arch-chroot /mnt git clone https://github.com/$user/dotfiles /home/$user/.dotfiles >> install.log 2>&1
+arch-chroot /mnt chown -R $user:$user /home/$user/.dotfiles >> install.log 2>&1
 
-# Install (temporary) bootloader.
-arch-chroot /mnt bootctl install --path=/boot
-echo -e "default\tarch.conf" > /mnt/boot/loader/loader.conf
+echo "Done!"
+
+# Install bootloader.
+printf "Installing bootloader... "
+
+while [[ $(efibootmgr | grep "Linux") ]]; do
+	bootnum=$(efibootmgr | grep "Linux" | head -n 1 | cut -d " " -f 1 | tr -d A-Za-z | tr -d "*")
+	efibootmgr --bootnum $bootnum --delete-bootnum >> install.log 2&>1
+done
+
+arch-chroot /mnt bootctl install --path=/boot >> install.log 2>&1
+cat > /mnt/boot/loader/loader.conf << EOL
+default	arch
+timeout	10
+EOL
+
+uuid=$(blkid $root_container -s UUID -o value)
+
 rm -f /mnt/boot/loader/entries/arch.conf
 cat > /mnt/boot/loader/entries/arch.conf << EOL
 title   Arch Linux
 linux   /vmlinuz-linux
 initrd  /initramfs-linux.img
-options root="LABEL=Arch Linux" rw
+options cryptdevice=UUID=${uuid}:cryptlvm root=/dev/$lvm_group/root rw
 EOL
 
-# Set passwords.
-echo "Set password for root user"
-arch-chroot /mnt passwd
-echo "Set password for user $USER"
-arch-chroot /mnt passwd $USER
-
-# Unmount partitions.
-umount /mnt/boot
-umount /mnt
+efibootmgr -c -d /dev/$device -l "\EFI\systemd\systemd-bootx64.efi" -L "Linux Boot Manager" --u >> install.log 2>&1
 
 # Installation complete.
-echo "Setup complete. Please reboot!"
+echo "Installation complete. Please reboot! :)"
