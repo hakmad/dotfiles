@@ -6,13 +6,18 @@
 install_aur() {
 	git clone https://aur.archlinux.org/$1
 	cd $1
-	makepkg -si --noconfirm
+    makepkg -si --noconfirm
 	cd -
 	rm -rf $1
 }
 
 # Stop the script if there are errors.
 set -e
+
+# Update dotfiles remote.
+cd $HOME/.dotfiles
+git remote set-url origin git@github.com:hakmad/dotfiles
+cd -
 
 # Push dotfiles.
 DOTFILES_LOCATION="$HOME/.dotfiles"
@@ -64,7 +69,7 @@ install_aur lemonbar-xft-git
 sudo pacman -S --noconfirm alacritty qutebrowser firefox zathura zathura-pdf-mupdf feh mpv keepassxc vlc
 
 # Install miscellaneous utilities.
-sudo pacman -S --noconfirm tree ntfs-3g htop wireless_tools yt-dlp jq bash-completion xclip openssh zip unzip pz7ip mediainfo brightnessctl
+sudo pacman -S --noconfirm tree ntfs-3g htop wireless_tools yt-dlp jq bash-completion xclip openssh zip unzip p7zip mediainfo brightnessctl
 
 # Install programming languages.
 sudo pacman -S --noconfirm python python-pip go
