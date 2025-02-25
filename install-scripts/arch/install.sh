@@ -7,13 +7,13 @@ C="\033[1m"
 NC="\033[0m"
 
 # Defaults.
-default_user="hakmad"
-default_locale="GB"
-default_keyboard="uk"
-default_timezone="Europe/London" 
-default_hostname="laptop" 
-default_ntp=true
-default_packages=(base base-devel linux linux-firmware intel-ucode lvm2 networkmanager man-pages man-db texinfo vim git openssh acpi efibootmgr)
+user="hakmad"
+locale="GB"
+keyboard="uk"
+timezone="Europe/London" 
+hostname="laptop" 
+ntp=true
+packages=(base base-devel linux linux-firmware intel-ucode lvm2 networkmanager man-pages man-db texinfo vim git openssh acpi efibootmgr)
 
 # Setup NTP.
 timedatectl set-ntp true
@@ -46,23 +46,23 @@ read -e -s -p "Enter root password: " root_password
 while [[ -z $root_password ]]; do
 	read -e -s -p "Enter root password: " root_password
 done
-read -e -p "Enter username: " -i $default_user user 
+read -e -p "Enter username: " -i $user user 
 while [[ -z $user_password ]]; do
 	read -e -s -p "Enter password for user $user: " user_password
 done
 
 # Ask user for locale settings.
 echo -e "\n${C}Locale Settings${NC}"
-read -e -p "Enter locale: " -i $default_locale locale 
-read -e -p "Enter keyboard layout: " -i $default_keyboard keyboard 
-read -e -p "Enter timezone: " -i $default_timezone timezone 
+read -e -p "Enter locale: " -i $locale locale 
+read -e -p "Enter keyboard layout: " -i $keyboard keyboard 
+read -e -p "Enter timezone: " -i $timezone timezone 
 
 # Ask user for network settings.
 echo -e "\n${C}Network Settings${NC}"
-read -e -p "Enter hostname: " -i $default_hostname hostname
+read -e -p "Enter hostname: " -i $hostname hostname
 
 echo -e "\n${C}Packages${NC}"
-read -e -p "Packages to install: " -i "${default_packages[*]}" packages
+read -e -p "Packages to install: " -i "${packages[*]}" packages
 
 echo -e "\n${C}Device Settings${NC}"
 echo -e "\tDevice: $device"
@@ -81,7 +81,7 @@ echo -e "\n${C}Network Settings${NC}"
 echo -e "\tHostname: $hostname"
 
 echo -e "\n${C}Packages${NC}"
-echo -e "\t${packages[*]}"
+echo -e "\t${packages[*]}\n"
 
 read -e -p "Start installation? (type 'yes' in capital letters) "
 case $REPLY in
