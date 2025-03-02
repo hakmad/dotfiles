@@ -7,7 +7,7 @@ set -e
 
 # Location for passwords DB and keyfile.
 DB="$HOME/.passwords/passwords.kdbx"
-KEYFILE="$HOME/.secrets/keyfile.key"
+KEYFILE="$HOME/.secrets/keyfile"
 
 # Get password from user.
 PASSWORD=$(echo " " | menu.sh -l 0 -mask -p "Password:")
