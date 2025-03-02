@@ -27,15 +27,15 @@ luks_password=""
 root_password=""
 user_password=""
 
+# Helper function to log something.
+log () {
+    echo "[$(date '+%Y/%m/%d %T')] $1" >> $install_logfile
+}
+
 # Helper function to echo something and log it to the logfile.
 echo_log() {
     echo "$1"
     log "$1"
-}
-
-# Helper function to log something.
-log () {
-    echo "[$(date '+%Y/%m/%d %T')] $1" >> $install_logfile
 }
 
 # Helper function for setting secrets (e.g. passwords).
