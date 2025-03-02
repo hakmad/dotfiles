@@ -318,7 +318,7 @@ setup_hostname() {
 regenerate_initramfs() {
     echo_log "Regenerating initramfs..."
     
-    hooks="HOOKS=(base udev autodetect microcode modconf kms keyboard keymap consolefont block encrypt lvm2 filesystems fsck)"
+    hooks="HOOKS=(base systemd autodetect microcode modconf kms keyboard sd-vconsole block sd-encrypt lvm2 filesystems fsck)"
     sed -i "s/^HOOKS.*$/${hooks}/g" /mnt/etc/mkinitcpio.conf
     arch-chroot /mnt mkinitcpio -p linux >> install.log 2>&1
 }
@@ -362,7 +362,7 @@ EOL
 title   Arch Linux
 linux   /vmlinuz-linux
 initrd  /initramfs-linux.img
-options cryptdevice=UUID=${uuid}:cryptlvm root=/dev/$lvm_group/root rw
+options rd.luks.name=${uuid}=cryptlvm root=/dev/$lvm_group/root rd.luks.options=password-echo=no ro quiet
 EOL
     
     efibootmgr -c -d /dev/$device -l "\EFI\systemd\systemd-bootx64.efi" -L "Linux Boot Manager" --u >> install.log 2>&1
