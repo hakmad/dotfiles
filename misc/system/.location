@@ -1,2 +1,0 @@
-TARGET=/etc/
-RUN_AS="sudo"
