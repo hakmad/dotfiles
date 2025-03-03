@@ -28,7 +28,7 @@ root_password=""
 user_password=""
 
 # Helper function to log something.
-log () {
+log() {
     echo "[$(date '+%Y/%m/%d %T')] $1" >> $install_logfile
 }
 
@@ -195,7 +195,7 @@ j
 partition_device() {
     echo_log "Partitioning device"
     
-    sfdisk --delete /dev/$device >> install.log 2>&1
+    sfdisk --delete /dev/$device >> $install_logfile 2>&1
     cat << EOF > partition-scheme
 label: gpt
 device: /dev/$device
@@ -213,8 +213,8 @@ setup_luks() {
     
     root_container=$(fdisk /dev/$device -l | awk '/LVM/ {print $1}')
     luks_mapper="cryptlvm"
-    cryptsetup luksFormat $root_container <<< $luks_password >> install.log 2>&1
-    cryptsetup open $root_container $luks_mapper <<< $luks_password >> install.log 2>&1
+    cryptsetup luksFormat $root_container <<< $luks_password >> $install_logfile 2>&1
+    cryptsetup open $root_container $luks_mapper <<< $luks_password >> $install_logfile 2>&1
 }
 
 setup_lvm() {
@@ -222,15 +222,15 @@ setup_lvm() {
 
     lvm_group="volume"
 
-    pvcreate /dev/mapper/$luks_mapper >> install.log 2>&1
+    pvcreate /dev/mapper/$luks_mapper >> $install_logfile 2>&1
 
-    vgcreate $lvm_group /dev/mapper/$luks_mapper >> install.log 2>&1
+    vgcreate $lvm_group /dev/mapper/$luks_mapper >> $install_logfile 2>&1
 
-    lvcreate -L 20G $lvm_group -n swap >> install.log 2>&1
-    lvcreate -L 250G $lvm_group -n root >> install.log 2>&1
-    lvcreate -l 100%FREE $lvm_group -n home >> install.log 2>&1
+    lvcreate -L 20G $lvm_group -n swap >> $install_logfile 2>&1
+    lvcreate -L 250G $lvm_group -n root >> $install_logfile 2>&1
+    lvcreate -l 100%FREE $lvm_group -n home >> $install_logfile 2>&1
 
-    lvreduce -L -256M $lvm_group/home >> install.log 2>&1
+    lvreduce -L -256M $lvm_group/home >> $install_logfile 2>&1
 }
 
 format_partitions() { 
@@ -241,46 +241,46 @@ format_partitions() {
     home=/dev/$lvm_group/home
     swap=/dev/$lvm_group/swap
 
-    mkfs.fat -F 32 $boot >> install.log 2>&1
+    mkfs.fat -F 32 $boot >> $install_logfile 2>&1
 
-    mkfs.ext4 -F $root >> install.log 2>&1
-    mkfs.ext4 -F $home >> install.log 2>&1
+    mkfs.ext4 -F $root >> $install_logfile 2>&1
+    mkfs.ext4 -F $home >> $install_logfile 2>&1
 
-    mkswap $swap >> install.log 2>&1
+    mkswap $swap >> $install_logfile 2>&1
 }
 
 mount_partitions() {
     echo_log "Mounting partitions... "
 
-    mount $root /mnt >> install.log 2>&1
-    mount --mkdir $boot /mnt/boot >> install.log 2>&1
-    mount --mkdir $home /mnt/home >> install.log 2>&1
+    mount $root /mnt >> $install_logfile 2>&1
+    mount --mkdir $boot /mnt/boot >> $install_logfile 2>&1
+    mount --mkdir $home /mnt/home >> $install_logfile 2>&1
 }
 
 enable_swap() {
     echo_log "Enabling swap... "
 
-    swapon $swap >> install.log 2>&1
+    swapon $swap >> $install_logfile 2>&1
 }
 
 update_keyring() {
     echo_log "Downloading latest keyring... "
 
-    pacman -Sy --noconfirm >> install.log 2>&1
-    pacman -S --noconfirm archlinux-keyring >> install.log 2>&1
+    pacman -Sy --noconfirm >> $install_logfile 2>&1
+    pacman -S --noconfirm archlinux-keyring >> $install_logfile 2>&1
 }
 
 download_mirror_list() {
     echo_log "Downloading mirror list... "
     
-    curl -L https://www.archlinux.org/mirrorlist/?country=${locale} > /etc/pacman.d/mirrorlist 2>> install.log
+    curl -L https://www.archlinux.org/mirrorlist/?country=${locale} > /etc/pacman.d/mirrorlist 2>> $install_logfile
     sed -i "s/^#Server/Server/" /etc/pacman.d/mirrorlist
 }
 
 run_pacstrap() {
     echo_log "Installing Arch Linux base... "
     
-    pacstrap /mnt ${packages[*]} >> install.log 2>&1
+    pacstrap /mnt ${packages[*]} >> $install_logfile 2>&1
 }
 
 generate_fstab() {
@@ -292,7 +292,7 @@ generate_fstab() {
 setup_timezone() {
     echo_log "Setting timezone... "
     
-    arch-chroot /mnt ln -sf /usr/share/${timezone} /etc/localtime >> install.log 2>&1
+    arch-chroot /mnt ln -sf /usr/share/${timezone} /etc/localtime >> $install_logfile 2>&1
 }
 
 generate_locales(){
@@ -301,7 +301,7 @@ generate_locales(){
     sed -i "s/^#en_US.UTF-8/en_US.UTF-8/" /mnt/etc/locale.gen
     sed -i "s/^#en_${locale}.UTF-8/en_${locale}.UTF-8/" /mnt/etc/locale.gen
     
-    arch-chroot /mnt locale-gen >> install.log 2>&1
+    arch-chroot /mnt locale-gen >> $install_logfile 2>&1
     
     echo "LANG=en_US.UTF-8" >> /mnt/etc/locale.conf
     echo "KEYMAP=$keyboard" >> /mnt/etc/vconsole.conf
@@ -320,25 +320,25 @@ regenerate_initramfs() {
     
     hooks="HOOKS=(base systemd autodetect microcode modconf kms keyboard sd-vconsole block sd-encrypt lvm2 filesystems fsck)"
     sed -i "s/^HOOKS.*$/${hooks}/g" /mnt/etc/mkinitcpio.conf
-    arch-chroot /mnt mkinitcpio -p linux >> install.log 2>&1
+    arch-chroot /mnt mkinitcpio -p linux >> $install_logfile 2>&1
 }
 
 setup_users() {
     echo_log "Setting up users... "
     
-    arch-chroot /mnt useradd -m -G wheel $user >> install.log 2>&1
+    arch-chroot /mnt useradd -m -G wheel $user >> $install_logfile 2>&1
     
     echo $root_password | arch-chroot /mnt passwd --stdin
     echo $user_password | arch-chroot /mnt passwd $user --stdin
     
-    echo "%wheel ALL=(ALL:ALL) ALL" | EDITOR="tee -a" arch-chroot /mnt visudo >> install.log 2>&1
+    echo "%wheel ALL=(ALL:ALL) ALL" | EDITOR="tee -a" arch-chroot /mnt visudo >> $install_logfile 2>&1
 }    
 
 clone_dotfiles() {
     echo_log "Cloning dotfiles... "
     
-    arch-chroot /mnt git clone https://github.com/$user/dotfiles /home/$user/.dotfiles >> install.log 2>&1
-    arch-chroot /mnt chown -R $user:$user /home/$user/.dotfiles >> install.log 2>&1
+    arch-chroot /mnt git clone https://github.com/$user/dotfiles /home/$user/.dotfiles >> $install_logfile 2>&1
+    arch-chroot /mnt chown -R $user:$user /home/$user/.dotfiles >> $install_logfile 2>&1
 }
 
 install_bootloader() {
@@ -346,10 +346,10 @@ install_bootloader() {
     
     while [[ $(efibootmgr | grep "Linux") ]]; do
     	bootnum=$(efibootmgr | grep "Linux" | head -n 1 | cut -d " " -f 1 | tr -d A-Za-z | tr -d "*")
-    	efibootmgr --bootnum $bootnum --delete-bootnum >> install.log 2&>1
+    	efibootmgr --bootnum $bootnum --delete-bootnum >> $install_logfile 2&>1
     done
     
-    arch-chroot /mnt bootctl install --path=/boot >> install.log 2>&1
+    arch-chroot /mnt bootctl install --path=/boot >> $install_logfile 2>&1
     cat > /mnt/boot/loader/loader.conf << EOL
 default	arch
 timeout	10
@@ -365,7 +365,7 @@ initrd  /initramfs-linux.img
 options rd.luks.name=${uuid}=cryptlvm root=/dev/$lvm_group/root rd.luks.options=password-echo=no ro quiet
 EOL
     
-    efibootmgr -c -d /dev/$device -l "\EFI\systemd\systemd-bootx64.efi" -L "Linux Boot Manager" --u >> install.log 2>&1
+    efibootmgr -c -d /dev/$device -l "\EFI\systemd\systemd-bootx64.efi" -L "Linux Boot Manager" --u >> $install_logfile 2>&1
 }
 
 setup_installation() {
@@ -428,7 +428,7 @@ run_installation() {
     install_bootloader
 }
 
-main () {
+main() {
     log "Install script started"
 
     # Clear the screen and display initial prompt.
