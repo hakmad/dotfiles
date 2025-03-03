@@ -150,7 +150,7 @@ set_packages() {
     echo -e "\n${C}Packages${NC}"
 
     # Ask user for packages.
-    read -e -p "Packages to install: " -i "${packages[*]}" packages
+    read -e -a packages -p "Packages to install: " -i "${packages[*]}"
 }
 
 show_device_settings() {
@@ -280,7 +280,7 @@ download_mirror_list() {
 run_pacstrap() {
     echo_log "Installing Arch Linux base... "
     
-    pacstrap /mnt ${packages[*]} >> $install_logfile 2>&1
+    pacstrap /mnt ${packages[@]} >> $install_logfile 2>&1
 }
 
 generate_fstab() {

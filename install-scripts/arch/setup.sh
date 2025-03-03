@@ -1,96 +1,319 @@
 #!/bin/bash
 
-# Setup script for Arch Linux.
+# Script for Arch Linux.
 
-# Function for installing packages from the AUR.
+# Colours.
+C="\033[1m"
+NC="\033[0m"
+
+# Logfile.
+setup_logfile="setup_$(date '+%Y-%m-%d_%H-%M-%S').log"
+
+# Variables.
+dotfiles_location=$HOME/.dotfiles
+dotfiles_remote_url="git@github.com:hakmad/dotfiles"
+timezone="Europe/London"
+ssh_type="ed25519"
+wifi_ssid=""
+wifi_password=""
+
+# Packages.
+xorg_packages=(xorg xorg-xinit mesa vulkan-intel)
+audio_packages=(alsa-utils alsa-lib pulseaudio pulseaudio-alsa)
+font_packages=(noto-fonts noto-fonts-extra noto-fonts-emoji noto-fonts-cjk gnu-free-fonts ttf-liberation)
+desktop_utilities=(bspwm sxhkd scrot picom slock xss-lock)
+desktop_applications=(emacs alacritty qutebrowser firefox zathura zathura-pdf-mupdf feh mpv keepassxc vlc obs-studio shotcut gimp krita blender steam audacity virtualbox virtualbox-guest-utils virtualbox-guest-iso virtualbox-host-modules-arch wireshark)
+misc_utilities=(tree ntfs-3g htop wireless_tools yt-dlp jq bash-completion xclip zip unzip p7zip mediainfo brightnessctl rclone poppler imagemagick)
+programming_packages=(python python-pip go)
+aur_packages=(dina-font-otb pod2man dmenu2 lemonbar-xft-git visual-studio-code-bin pandoc-bin)
+
+# Helper function to log something.
+log() {
+    echo "[$(date '+%Y/%m/%d %T')] $1" >> $setup_logfile
+}
+
+echo_log() {
+    echo "$1"
+    log "$1"
+}
+
+# Helper function for setting secrets (e.g. passwords).
+set_secret() {
+    description=$1
+
+    # Loop until user has created a password with at least one character
+    # and confirmed it by entering it twice.
+    while true; do
+        if [[ -z $secret ]]; then
+            read -e -s -p "Enter $description: " secret
+        else
+            read -e -s -p "Re-enter $description: " confirm_secret
+
+            if [[ $secret == $confirm_secret ]]; then
+                echo $secret
+                break
+            else
+                echo "$description does not match!" >&2
+                secret=""
+            fi
+        fi
+    done
+}
+
+# Helper function for installing packages from the AUR.
 install_aur() {
-	git clone https://aur.archlinux.org/$1
+    # Clone the repo.
+	git clone https://aur.archlinux.org/$1 >> $setup_logfile 2>&1
+
 	cd $1
-    makepkg -si --noconfirm
-	cd -
+
+    # Make package and install.
+    makepkg -s --noconfirm >> $setup_logfile 2>&1
+    sudo pacman -U $1*.zst --noconfirm >> $setup_logfile 2>&1
+
+	cd - 2>&1
+
+    # Delete files.
 	rm -rf $1
 }
 
-# Stop the script if there are errors.
-set -e
+set_dotfiles() {
+    echo -e "\n${C}Dotfiles${NC}"
 
-# Update dotfiles remote.
-cd $HOME/.dotfiles
-git remote set-url origin git@github.com:hakmad/dotfiles
-cd -
+    read -e -p "Enter dotfiles location: " -i $dotfiles_location dotfiles_location
+    read -e -p "Enter dotfiles remote URL: " -i $dotfiles_remote_url dotfiles_remote_url
+}
 
-# Push dotfiles.
-DOTFILES_LOCATION="$HOME/.dotfiles"
+set_timezone() {
+    echo -e "\n${C}Timezone${NC}"
 
-for package in $(find $DOTFILES_LOCATION -mindepth 1 -maxdepth 1 -type d \
-	-not \( -name .git \
-	-or -name install-scripts \
-	-or -name misc \)); do
-	echo $package
-	$HOME/.dotfiles/bin/push-dotfiles.sh ${package#$DOTFILES_LOCATION/}
-done
+    read -e -p "Enter timezone: " -i $timezone timezone
+}
 
-for package in $(find $DOTFILES_LOCATION/misc -mindepth 1 -maxdepth 1 -type d); do
-	$HOME/.dotfiles/bin/push-dotfiles.sh ${package#$DOTFILES_LOCATION/}
-done
+set_ssh_settings() {
+    echo -e "\n${C}SSH Settings${NC}"
 
-# Connect to the internet.
-sudo systemctl enable --now NetworkManager.service
-sleep 5
-sudo nmtui
-sleep 5
+    read -e -p "Enter SSH key type: " -i $ssh_type ssh_type
+}
 
-# Update packages, refresh package database.
-sudo pacman -Syu --noconfirm
+set_network() {
+    echo -e "\n${C}Network Settings${NC}"
 
-# Set time zone.
-sudo timedatectl set-timezone Europe/London
+    read -e -p "Enter Wi-Fi network SSID: " wifi_ssid
+    wifi_password=$(set_secret "Wi-Fi network password")
+}
 
-# Install X and video drivers.
-sudo pacman -S --noconfirm xorg xorg-xinit mesa vulkan-intel
+set_packages() {
+    echo -e "\n${C}Packages${NC}"
 
-# Install audio and setup alsa.
-sudo pacman -S --noconfirm alsa-utils alsa-lib pulseaudio pulseaudio-alsa
-set +e
-sudo alsactl init
-set -e
+    # Ask user for packages.
+    read -e -a xorg_packages -p "xorg packages to install: " -i "${xorg_packages[*]}"
+    read -e -a audio_packages -p "Audio packages to install: " -i "${audio_packages[*]}"
+    read -e -a font_packages -p "Font packages to install: " -i "${font_packages[*]}"
+    read -e -a desktop_utilities -p "Desktop utilities to install: " -i "${desktop_utilities[*]}"
+    read -e -a desktop_applications -p "Desktop applications to install: " -i "${desktop_applications[*]}"
+    read -e -a misc_utilities -p "Misc utilities to install: " -i "${misc_utilities[*]}"
+    read -e -a programming_packages -p "Programming packages to install: " -i "${programming_packages[*]}"
+    read -e -a aur_packages -p "AUR packages to install: " -i "${aur_packages[*]}"
+}
 
-# Install fonts.
-sudo pacman -S --noconfirm noto-fonts noto-fonts-extra noto-fonts-emoji noto-fonts-cjk gnu-free-fonts ttf-liberation
-install_aur dina-font-otb
+show_dotfiles() {
+    echo -e "\n${C}Dotfiles${NC}"
 
-# Install desktop utilities.
-sudo pacman -S --noconfirm bspwm sxhkd scrot picom slock xss-lock
-install_aur pod2man
-install_aur dmenu2
-install_aur lemonbar-xft-git
+    echo -e "\tDotfiles location: $dotfiles_location"
+    echo -e "\tDotfiles remote URL: $dotfiles_remote_url"
+}
 
-# Install desktop applications.
-sudo pacman -S --noconfirm alacritty qutebrowser firefox zathura zathura-pdf-mupdf feh mpv keepassxc vlc
+show_timezone() {
+    echo -e "\n${C}Timezone${NC}"
 
-# Install miscellaneous utilities.
-sudo pacman -S --noconfirm tree ntfs-3g htop wireless_tools yt-dlp jq bash-completion xclip openssh zip unzip p7zip mediainfo brightnessctl
+    echo -e "\tTimezone: $timezone"
+}
 
-# Install programming languages.
-sudo pacman -S --noconfirm python python-pip go
+show_ssh_settings() {
+    echo -e "\n${C}SSH Settings${NC}"
 
-# Extra things.
+    echo -e "\tSSH Key Type: $ssh_type"
+}
 
-# Regenerate initramfs.
-sudo mkinitcpio -p linux
+show_network() {
+    echo -e "\n${C}Network Settings${NC}"
 
-# Add user to light group.
-sudo usermod -a -G video $USER
+    echo -e "\tWi-Fi network SSID: $wifi_ssid"
+    echo -e "\tWi-Fi network Password: ***"
+}
 
-# Generate SSH keys for this machine.
-ssh-keygen
+show_packages() {
+    echo -e "\n${C}Packages${NC}"
 
-# Set qutebrowser as the default browser.
-unset BROWSER
-xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop
+    echo -e "\txorg packages to install: ${xorg_packages[@]}"
+    echo -e "\tAudio packages to install: ${audio_packages[@]}" 
+    echo -e "\tFont packages to install: ${font_packages[@]}"
+    echo -e "\tDesktop utilities to install: ${desktop_utilities[@]}"
+    echo -e "\tDesktop applications to install: ${desktop_applications[@]}"
+    echo -e "\tMisc utilities to install: ${misc_utilities[@]}"
+    echo -e "\tProgramming packages to install: ${programming_packages[@]}"
+    echo -e "\tAUR packages to install: ${aur_packages[@]}"
+}
 
-# Set the size of the GTK file chooser.
-gsettings set org.gtk.Settings.FileChooser window-size "(600, 400)"
+connect_to_internet() {
+    echo_log "Connecting to the internet..."
 
-# Setup complete.
-echo "Setup complete. Please reboot!"
+    sudo systemctl enable --now NetworkManager.service >> $setup_logfile 2>&1
+
+    sleep 2
+
+    nmcli connection delete "$wifi_ssid" >> $setup_logfile 2>&1
+    nmcli device wifi connect "$wifi_ssid" password "$wifi_password" >> $setup_logfile 2>&1
+
+    sleep 2
+
+    ping -c 4 archlinux.org >> $setup_logfile 2>&1
+
+    if [[ $? -ne 0 ]]; then
+        echo_log "Could not connect to internet, aborting installation :("
+    fi
+}
+
+update_dotfiles_remote() {
+    echo_log "Updating dotfiles remote..."
+
+    cd $dotfiles_location
+
+    # Update dotfiles remote.
+    git remote set-url origin $dotfiles_remote_url
+
+    cd - 2>&1
+}
+
+push_dotfiles() {
+    echo_log "Pushing dotfiles..."
+
+    for package in $(find $dotfiles_location -mindepth 1 -maxdepth 1 -type d \
+    	-not \( -name .git \
+    	-or -name install-scripts \
+    	-or -name misc \)); do
+    	$HOME/.dotfiles/bin/push-dotfiles.sh ${package#$dotfiles_location/} >> $setup_logfile 2>&1
+    done
+
+    # Push miscellaneous dotfiles.
+    for package in $(find $dotfiles_location/misc -mindepth 1 -maxdepth 1 -type d); do
+        $HOME/.dotfiles/bin/push-dotfiles.sh ${package#$dotfiles_location/} >> $setup_logfile 2>&1
+    done
+}
+
+install_packages() {
+    echo_log "Installing packages..."
+
+    echo_log "Installing xorg packages..."
+    sudo pacman -S --noconfirm ${xorg_packages[@]} >> $setup_logfile 2>&1
+
+    echo_log "Installing audio packages..."
+    sudo pacman -S --noconfirm ${audio_packages[@]} >> $setup_logfile 2>&1
+
+    echo_log "Installing font packages..."
+    sudo pacman -S --noconfirm ${font_packages[@]} >> $setup_logfile 2>&1
+
+    echo_log "Installing desktop utilities..."
+    sudo pacman -S --noconfirm ${desktop_utilities[@]} >> $setup_logfile 2>&1
+
+    echo_log "Installing desktop applications..."
+    sudo pacman -S --noconfirm ${desktop_applications[@]} >> $setup_logfile 2>&1
+
+    echo_log "Installing misc utilities..."
+    sudo pacman -S --noconfirm ${misc_utilities[@]} >> $setup_logfile 2>&1
+
+    echo_log "Installing programming packages..."
+    sudo pacman -S --noconfirm ${programming_packages[@]} >> $setup_logfile 2>&1
+
+    echo_log "Installing AUR packages..."
+    for package in ${aur_packages[@]}; do
+        log "Installing $package from the AUR..."
+        install_aur $package
+    done
+}
+
+setup_misc() {
+    echo_log "Running miscellaneous tasks..."
+    
+    # Set time zone.
+    sudo timedatectl set-timezone $timezone  >> $setup_logfile 2>&1
+    
+    # Start alsa.
+    sudo alsactl init >> $setup_logfile 2>&1
+    
+    
+    # Add user to groups.
+    sudo usermod -a -G video $USER >> $setup_logfile 2>&1
+    sudo usermod -a -G wireshark $USER >> $setup_logfile 2>&1
+    
+    # Generate SSH keys for this machine.
+    ssh-keygen -t "$ssh_type" -f "$HOME/.ssh/id_$ssh_type" -q -N "" >> $setup_logfile 2>&1
+    
+    # Set qutebrowser as the default browser.
+    unset BROWSER >> $setup_logfile 2>&1
+    xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop >> $setup_logfile 2>&1
+}
+
+setup_setup() {
+    set_dotfiles
+    set_timezone
+    set_ssh_settings
+    set_network
+    set_packages
+}
+
+show_setup_settings() {
+    # Display setup settings.
+    clear
+    echo -e "\n${C}Setup Summary${NC}\n"
+
+    show_dotfiles
+    show_timezone
+    show_ssh_settings
+    show_network
+    show_packages
+    
+    echo
+}
+
+run_setup() {
+    clear
+
+    echo_log "Setup started!"
+
+#    connect_to_internet
+#    update_dotfiles_remote
+#    push_dotfiles
+    install_packages
+#    setup_misc
+}
+
+main() {
+    log "Setup script started"
+
+    # Clear the screen and display initial prompt.
+    clear
+    echo -e "${C}Welcome to hakmad's Arch Linux setup script!${NC}\n"
+
+    # Setup setup.
+    log "Setting up setup..."
+    setup_setup
+
+    # Show setup settings.
+    show_setup_settings
+
+    # Ask user to confirm they want to start the setup.
+    read -e -p "Start setup? (type 'yes' in capital letters) "
+    case $REPLY in
+        "YES") ;;
+        *) echo_log "Setup aborted :("; exit;;
+    esac
+
+    run_setup
+
+    # Setup complete.
+    echo_log "Setup complete, please reboot! :)"
+}
+
+main
