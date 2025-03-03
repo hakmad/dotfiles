@@ -352,7 +352,10 @@ install_bootloader() {
     arch-chroot /mnt bootctl install --path=/boot >> $install_logfile 2>&1
     cat > /mnt/boot/loader/loader.conf << EOL
 default	arch
-timeout	10
+timeout	0
+editor  false
+auto-entries    false
+auto-firmware   false
 EOL
     
     uuid=$(blkid $root_container -s UUID -o value)

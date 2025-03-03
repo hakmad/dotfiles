@@ -1,2 +1,0 @@
-TARGET=/boot/loader/
-RUN_AS="sudo"
