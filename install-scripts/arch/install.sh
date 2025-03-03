@@ -414,12 +414,6 @@ run_installation() {
     update_keyring
     download_mirror_list
 
-    read -e -p "Continue? (type 'yes' in capital letters) "
-    case $REPLY in
-    	"YES") ;;
-    	*) echo_log "Installation aborted :("; exit;;
-    esac
-
     run_pacstrap
     generate_fstab
     setup_timezone
