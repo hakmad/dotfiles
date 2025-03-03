@@ -3,14 +3,15 @@
 # Script for pushing dotfiles to their location.
 # 
 # The usage of this script is as follows:
-# 	push-dotfiles.sh [package]
+# 	push-dotfiles.sh [package] [origin]
 # 
-# where [package] is the name of a directory in ~/.dotfiles.
-# It contains a file called .location which specifies where
-# the dotfiles should be pushed to.
+# where [package] is the name of a directory containing dotfiles 
+# and [origin] is the dotfiles are located (defaults to ~/.dotfiles).
+# The directory of the package contains a file named .location which
+# specifies where the dotfiles should be pushed to.
 
 show_help() {
-	head "$HOME/.bin/push-dotfiles.sh" -n 10 | tail -n 8 | sed "s/# //"
+	head "$HOME/.bin/push-dotfiles.sh" -n 11 | tail -n 9 | sed "s/# //"
 }
 
 if [[ $1 == "-h" ]] || [[ $1 == "--help" ]]; then
@@ -20,7 +21,11 @@ fi
 
 # Basic variables.
 PACKAGE=$1
-ORIGIN="$HOME/.dotfiles/$PACKAGE/"
+if [[ -z $2 ]]; then
+    ORIGIN="$HOME/.dotfiles/$PACKAGE/"
+else
+    ORIGIN=$2/$PACKAGE
+fi
 
 # Check if necessary files/folders exist.
 if [[ -d $ORIGIN ]] && [[ -f "$ORIGIN/.location" ]]; then
@@ -31,12 +36,12 @@ else
 fi
 
 # Create directories.
-$RUN_AS mkdir -p "$TARGET"
+mkdir -p "$TARGET"
 echo "Created directory $TARGET"
 
 find "$ORIGIN" -mindepth 1 -type d | while read -r dir; do
 	dir=${dir##"$ORIGIN"}
-	$RUN_AS mkdir -p "$TARGET$dir"
+	mkdir -p "$TARGET$dir"
 	echo "Created directory $TARGETS$dir"
 done
 
@@ -44,9 +49,9 @@ done
 find "$ORIGIN" -mindepth 1 -type f -not -name .location | while read -r file; do
 	file=${file##"$ORIGIN"}
 
-	if $RUN_AS ln -s -f "$ORIGIN$file" "$TARGET$file" ; then
+	if ln -s -f "$ORIGIN$file" "$TARGET$file" ; then
 		echo "Linked $ORIGIN$file -> $TARGET$file"
-	elif $RUN_AS cp "$ORIGIN$file" "$TARGET$file" ; then
+	elif cp "$ORIGIN$file" "$TARGET$file" ; then
 		echo "Copied $ORIGIN$file -> $TARGET$file"
 	else
 		echo "Failed to push $ORIGIN$file -> $TARGET$file"
