@@ -67,7 +67,7 @@ install_aur() {
     package=$1
 
     # Clone the repo.
-	git clone https://aur.archlinux.org/$package >> $setup_logfile 2>&1
+	runuser -u $user -- git clone https://aur.archlinux.org/$package >> $setup_logfile 2>&1
 
 	cd $package
 
@@ -310,10 +310,10 @@ run_setup() {
 
     echo_log "Setup started!"
 
-#    connect_to_internet
-#    update_dotfiles_remote
-#    push_dotfiles
-#    install_packages
+    connect_to_internet
+    update_dotfiles_remote
+    push_dotfiles
+    install_packages
     setup_misc
 }
 
