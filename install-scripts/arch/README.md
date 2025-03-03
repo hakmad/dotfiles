@@ -81,32 +81,12 @@ Note: when setting passwords, it is recommended to use simple passwords and
 change them at a later stage. This is because the keyboard layout may not
 always be set correctly, which can lead to issues with logging in.
 
-### Partition Scheme
-
-During the installation process, the installation script will prompt the user
-to use `fdisk` to partition the device. It is recommended to use UEFI with GPT
-for the root and boot partitions. See below for a recommended partition scheme:
-
-| Mount Point | Size | Type | Filesystem |
-| --- | --- | --- | --- |
-| `/boot` | 512 MiB | EFI System | FAT32 |
-| `/` | Remaining space on device | Linux Filesystem | `ext4` |
-
-Partition formatting is carried out automatically by the installation script
-and is listed here for reference.
-
 ## Setup
 
 To setup, reboot the computer, log in, and run the following:
 
 ```
-$ ~/.dotfiles/install-scripts/arch/setup.sh
-```
-
-Optionally and additionally, run the following:
-
-```
-$ ~/.dotfiles/install-scripts/arch/setup-extra.sh
+$ sudo ~/.dotfiles/install-scripts/arch/setup.sh
 ```
 
 Please note that this may take a while due to the larger sizes of the packages
