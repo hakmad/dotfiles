@@ -10,7 +10,9 @@ NC="\033[0m"
 setup_logfile="setup_$(date '+%Y-%m-%d_%H-%M-%S').log"
 
 # Variables.
-dotfiles_location=$HOME/.dotfiles
+user="hakmad"
+user_home="/home/$user"
+dotfiles_location="$user_home/.dotfiles"
 dotfiles_remote_url="git@github.com:hakmad/dotfiles"
 timezone="Europe/London"
 ssh_type="ed25519"
@@ -22,7 +24,7 @@ xorg_packages=(xorg xorg-xinit mesa vulkan-intel)
 audio_packages=(alsa-utils alsa-lib pulseaudio pulseaudio-alsa)
 font_packages=(noto-fonts noto-fonts-extra noto-fonts-emoji noto-fonts-cjk gnu-free-fonts ttf-liberation)
 desktop_utilities=(bspwm sxhkd scrot picom slock xss-lock)
-desktop_applications=(emacs alacritty qutebrowser firefox zathura zathura-pdf-mupdf feh mpv keepassxc vlc obs-studio shotcut gimp krita blender steam audacity virtualbox virtualbox-guest-utils virtualbox-guest-iso virtualbox-host-modules-arch wireshark)
+desktop_applications=(emacs alacritty qutebrowser firefox zathura zathura-pdf-mupdf feh mpv keepassxc vlc obs-studio shotcut gimp krita blender steam audacity virtualbox virtualbox-guest-utils virtualbox-guest-iso virtualbox-host-modules-arch wireshark-qt)
 misc_utilities=(tree ntfs-3g htop wireless_tools yt-dlp jq bash-completion xclip zip unzip p7zip mediainfo brightnessctl rclone poppler imagemagick)
 programming_packages=(python python-pip go)
 aur_packages=(dina-font-otb pod2man dmenu2 lemonbar-xft-git visual-studio-code-bin pandoc-bin)
@@ -62,19 +64,32 @@ set_secret() {
 
 # Helper function for installing packages from the AUR.
 install_aur() {
-    # Clone the repo.
-	git clone https://aur.archlinux.org/$1 >> $setup_logfile 2>&1
+    package=$1
 
-	cd $1
+    # Clone the repo.
+	git clone https://aur.archlinux.org/$package >> $setup_logfile 2>&1
+
+	cd $package
 
     # Make package and install.
-    makepkg -s --noconfirm >> $setup_logfile 2>&1
-    sudo pacman -U $1*.zst --noconfirm >> $setup_logfile 2>&1
+    runuser -u $user makepkg -s --noconfirm >> $setup_logfile 2>&1
+    pacman -U $package*.zst --noconfirm >> $setup_logfile 2>&1
 
-	cd - 2>&1
+	cd - > /dev/null 2>&1
+    rm -rf $package
+}
 
-    # Delete files.
-	rm -rf $1
+check_root() {
+    if [[ $(id -u) -ne 0 ]]; then
+        echo "Please run this script as root!"
+        exit
+    fi
+}
+
+set_user() {
+    echo -e "\n${C}User${NC}"
+
+    read -e -p "Enter username: " -i $user user
 }
 
 set_dotfiles() {
@@ -115,6 +130,12 @@ set_packages() {
     read -e -a misc_utilities -p "Misc utilities to install: " -i "${misc_utilities[*]}"
     read -e -a programming_packages -p "Programming packages to install: " -i "${programming_packages[*]}"
     read -e -a aur_packages -p "AUR packages to install: " -i "${aur_packages[*]}"
+}
+
+show_user() {
+    echo -e "\n${C}User${NC}"
+
+    echo -e "\tUser: $user"
 }
 
 show_dotfiles() {
@@ -159,19 +180,20 @@ show_packages() {
 connect_to_internet() {
     echo_log "Connecting to the internet..."
 
-    sudo systemctl enable --now NetworkManager.service >> $setup_logfile 2>&1
+    systemctl enable --now NetworkManager.service >> $setup_logfile 2>&1
 
-    sleep 2
+    sleep 5
 
     nmcli connection delete "$wifi_ssid" >> $setup_logfile 2>&1
     nmcli device wifi connect "$wifi_ssid" password "$wifi_password" >> $setup_logfile 2>&1
 
-    sleep 2
+    sleep 5
 
     ping -c 4 archlinux.org >> $setup_logfile 2>&1
 
     if [[ $? -ne 0 ]]; then
         echo_log "Could not connect to internet, aborting installation :("
+        exit
     fi
 }
 
@@ -183,48 +205,53 @@ update_dotfiles_remote() {
     # Update dotfiles remote.
     git remote set-url origin $dotfiles_remote_url
 
-    cd - 2>&1
+    cd - > /dev/null 2>&1
 }
 
 push_dotfiles() {
     echo_log "Pushing dotfiles..."
 
-    for package in $(find $dotfiles_location -mindepth 1 -maxdepth 1 -type d \
-    	-not \( -name .git \
-    	-or -name install-scripts \
-    	-or -name misc \)); do
-    	$HOME/.dotfiles/bin/push-dotfiles.sh ${package#$dotfiles_location/} >> $setup_logfile 2>&1
+    user_dotfiles=$(find $dotfiles_location -mindepth 1 -maxdepth 1 -type d \
+        -not \( -name .git -or -name install-scripts \
+        -or -name etc -or -name xorg \))
+
+    for dir in $user_dotfiles; do
+        package=${dir#$dotfiles_location/}
+    	runuser -u $user $dotfiles_location/bin/push-dotfiles.sh $package >> $setup_logfile 2>&1
     done
 
-    # Push miscellaneous dotfiles.
-    for package in $(find $dotfiles_location/misc -mindepth 1 -maxdepth 1 -type d); do
-        $HOME/.dotfiles/bin/push-dotfiles.sh ${package#$dotfiles_location/} >> $setup_logfile 2>&1
+    system_dotfiles=(etc xorg)
+    for package in $system_dotfiles; do
+        $dotfiles_location/bin/push-dotfiles.sh $package $dotfiles_location >> $setup_logfile 2>&1
     done
 }
 
 install_packages() {
     echo_log "Installing packages..."
 
+    echo_log "Updating pacman databases..."
+    pacman -Sy >> $setup_logfile 2>&1
+
     echo_log "Installing xorg packages..."
-    sudo pacman -S --noconfirm ${xorg_packages[@]} >> $setup_logfile 2>&1
+    pacman -S --noconfirm ${xorg_packages[@]} >> $setup_logfile 2>&1
 
     echo_log "Installing audio packages..."
-    sudo pacman -S --noconfirm ${audio_packages[@]} >> $setup_logfile 2>&1
+    pacman -S --noconfirm ${audio_packages[@]} >> $setup_logfile 2>&1
 
     echo_log "Installing font packages..."
-    sudo pacman -S --noconfirm ${font_packages[@]} >> $setup_logfile 2>&1
+    pacman -S --noconfirm ${font_packages[@]} >> $setup_logfile 2>&1
 
     echo_log "Installing desktop utilities..."
-    sudo pacman -S --noconfirm ${desktop_utilities[@]} >> $setup_logfile 2>&1
+    pacman -S --noconfirm ${desktop_utilities[@]} >> $setup_logfile 2>&1
 
     echo_log "Installing desktop applications..."
-    sudo pacman -S --noconfirm ${desktop_applications[@]} >> $setup_logfile 2>&1
+    pacman -S --noconfirm ${desktop_applications[@]} >> $setup_logfile 2>&1
 
     echo_log "Installing misc utilities..."
-    sudo pacman -S --noconfirm ${misc_utilities[@]} >> $setup_logfile 2>&1
+    pacman -S --noconfirm ${misc_utilities[@]} >> $setup_logfile 2>&1
 
     echo_log "Installing programming packages..."
-    sudo pacman -S --noconfirm ${programming_packages[@]} >> $setup_logfile 2>&1
+    pacman -S --noconfirm ${programming_packages[@]} >> $setup_logfile 2>&1
 
     echo_log "Installing AUR packages..."
     for package in ${aur_packages[@]}; do
@@ -237,25 +264,25 @@ setup_misc() {
     echo_log "Running miscellaneous tasks..."
     
     # Set time zone.
-    sudo timedatectl set-timezone $timezone  >> $setup_logfile 2>&1
+    timedatectl set-timezone $timezone  >> $setup_logfile 2>&1
     
     # Start alsa.
-    sudo alsactl init >> $setup_logfile 2>&1
-    
+    alsactl init >> $setup_logfile 2>&1
     
     # Add user to groups.
-    sudo usermod -a -G video $USER >> $setup_logfile 2>&1
-    sudo usermod -a -G wireshark $USER >> $setup_logfile 2>&1
+    usermod -a -G video $user >> $setup_logfile 2>&1
+    usermod -a -G wireshark $user >> $setup_logfile 2>&1
     
     # Generate SSH keys for this machine.
-    ssh-keygen -t "$ssh_type" -f "$HOME/.ssh/id_$ssh_type" -q -N "" >> $setup_logfile 2>&1
+    rm -rf $user_home/.ssh
+    runuser -u $user ssh-keygen -q -N '' -t $ssh_type -f $user_home/.ssh/id_$ssh_type >> $setup_logfile 2>&1
     
     # Set qutebrowser as the default browser.
-    unset BROWSER >> $setup_logfile 2>&1
-    xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop >> $setup_logfile 2>&1
+    runuser -u $user xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop >> $setup_logfile 2>&1
 }
 
 setup_setup() {
+    set_user
     set_dotfiles
     set_timezone
     set_ssh_settings
@@ -268,6 +295,7 @@ show_setup_settings() {
     clear
     echo -e "\n${C}Setup Summary${NC}\n"
 
+    show_user
     show_dotfiles
     show_timezone
     show_ssh_settings
@@ -282,14 +310,16 @@ run_setup() {
 
     echo_log "Setup started!"
 
-#    connect_to_internet
-#    update_dotfiles_remote
-#    push_dotfiles
+    connect_to_internet
+    update_dotfiles_remote
+    push_dotfiles
     install_packages
-#    setup_misc
+    setup_misc
 }
 
 main() {
+    check_root
+
     log "Setup script started"
 
     # Clear the screen and display initial prompt.
