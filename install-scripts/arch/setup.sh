@@ -72,7 +72,7 @@ install_aur() {
 	cd $package
 
     # Make package and install.
-    runuser -u $user makepkg -s --noconfirm >> $setup_logfile 2>&1
+    runuser -u $user -- makepkg -s --noconfirm >> $setup_logfile 2>&1
     pacman -U $package*.zst --noconfirm >> $setup_logfile 2>&1
 
 	cd - > /dev/null 2>&1
@@ -217,7 +217,7 @@ push_dotfiles() {
 
     for dir in $user_dotfiles; do
         package=${dir#$dotfiles_location/}
-    	runuser -u $user $dotfiles_location/bin/push-dotfiles.sh $package >> $setup_logfile 2>&1
+    	runuser -u $user -- $dotfiles_location/bin/push-dotfiles.sh $package >> $setup_logfile 2>&1
     done
 
     system_dotfiles=(etc xorg)
@@ -275,10 +275,10 @@ setup_misc() {
     
     # Generate SSH keys for this machine.
     rm -rf $user_home/.ssh
-    runuser -u $user ssh-keygen -q -N '' -t $ssh_type -f $user_home/.ssh/id_$ssh_type >> $setup_logfile 2>&1
+    runuser -u $user -- ssh-keygen -q -N '' -t $ssh_type -f $user_home/.ssh/id_$ssh_type >> $setup_logfile 2>&1
     
     # Set qutebrowser as the default browser.
-    runuser -u $user xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop >> $setup_logfile 2>&1
+    runuser -u $user -- xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop >> $setup_logfile 2>&1
 }
 
 setup_setup() {
@@ -310,10 +310,10 @@ run_setup() {
 
     echo_log "Setup started!"
 
-    connect_to_internet
-    update_dotfiles_remote
-    push_dotfiles
-    install_packages
+#    connect_to_internet
+#    update_dotfiles_remote
+#    push_dotfiles
+#    install_packages
     setup_misc
 }
 
