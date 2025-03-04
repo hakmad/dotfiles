@@ -14,6 +14,7 @@ user="hakmad"
 user_home="/home/$user"
 dotfiles_location="$user_home/.dotfiles"
 dotfiles_remote_url="git@github.com:hakmad/dotfiles"
+keymap="uk"
 timezone="Europe/London"
 ssh_type="ed25519"
 wifi_ssid=""
@@ -24,7 +25,7 @@ xorg_packages=(xorg xorg-xinit mesa vulkan-intel)
 audio_packages=(alsa-utils alsa-lib pulseaudio pulseaudio-alsa)
 font_packages=(noto-fonts noto-fonts-extra noto-fonts-emoji noto-fonts-cjk gnu-free-fonts ttf-liberation)
 desktop_utilities=(bspwm sxhkd scrot picom slock xss-lock)
-desktop_applications=(emacs alacritty qutebrowser firefox zathura zathura-pdf-mupdf feh mpv keepassxc vlc obs-studio shotcut gimp krita blender steam audacity virtualbox virtualbox-guest-utils virtualbox-guest-iso virtualbox-host-modules-arch wireshark-qtlibreoffice-fresh)
+desktop_applications=(emacs alacritty qutebrowser firefox zathura zathura-pdf-mupdf feh mpv keepassxc vlc obs-studio shotcut gimp krita blender steam audacity virtualbox virtualbox-guest-utils virtualbox-guest-iso virtualbox-host-modules-arch wireshark-qt libreoffice-fresh)
 misc_utilities=(tree ntfs-3g htop wireless_tools yt-dlp jq bash-completion xclip zip unzip p7zip mediainfo brightnessctl rclone poppler imagemagick)
 programming_packages=(python python-pip go)
 aur_packages=(dina-font-otb pod2man dmenu2 lemonbar-xft-git visual-studio-code-bin pandoc-bin)
@@ -99,9 +100,10 @@ set_dotfiles() {
     read -e -p "Enter dotfiles remote URL: " -i $dotfiles_remote_url dotfiles_remote_url
 }
 
-set_timezone() {
-    echo -e "\n${C}Timezone${NC}"
+set_locale() {
+    echo -e "\n${C}Locale${NC}"
 
+    read -e -p "Enter keymap: " -i $keymap keymap
     read -e -p "Enter timezone: " -i $timezone timezone
 }
 
@@ -145,9 +147,10 @@ show_dotfiles() {
     echo -e "\tDotfiles remote URL: $dotfiles_remote_url"
 }
 
-show_timezone() {
-    echo -e "\n${C}Timezone${NC}"
+show_locale() {
+    echo -e "\n${C}Locale${NC}"
 
+    echo -e "\tKeymap: $keymap"
     echo -e "\tTimezone: $timezone"
 }
 
@@ -263,6 +266,9 @@ install_packages() {
 setup_misc() {
     echo_log "Running miscellaneous tasks..."
     
+    # Set keymap.
+    localectl set-keymap uk >> $setup_logfile 2>&1
+    
     # Set time zone.
     timedatectl set-timezone $timezone  >> $setup_logfile 2>&1
     
@@ -284,7 +290,7 @@ setup_misc() {
 setup_setup() {
     set_user
     set_dotfiles
-    set_timezone
+    set_locale
     set_ssh_settings
     set_network
     set_packages
@@ -297,7 +303,7 @@ show_setup_settings() {
 
     show_user
     show_dotfiles
-    show_timezone
+    show_locale
     show_ssh_settings
     show_network
     show_packages
