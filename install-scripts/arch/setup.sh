@@ -224,7 +224,7 @@ push_dotfiles() {
     done
 
     system_dotfiles=(etc xorg)
-    for package in $system_dotfiles; do
+    for package in ${system_dotfiles[@]}; do
         $dotfiles_location/bin/push-dotfiles.sh $package $dotfiles_location >> $setup_logfile 2>&1
     done
 }
