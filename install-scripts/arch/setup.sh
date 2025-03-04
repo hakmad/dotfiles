@@ -284,6 +284,7 @@ setup_misc() {
     runuser -u $user -- ssh-keygen -q -N '' -t $ssh_type -f $user_home/.ssh/id_$ssh_type >> $setup_logfile 2>&1
     
     # Set qutebrowser as the default browser.
+    runuser -u $user -- unset BROWSER
     runuser -u $user -- xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop >> $setup_logfile 2>&1
 }
 
