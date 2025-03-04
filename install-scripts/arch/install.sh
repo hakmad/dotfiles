@@ -365,7 +365,7 @@ EOL
 title   Arch Linux
 linux   /vmlinuz-linux
 initrd  /initramfs-linux.img
-options rd.luks.name=${uuid}=cryptlvm root=/dev/$lvm_group/root rd.luks.options=password-echo=no ro quiet
+options rd.luks.name=${uuid}=cryptlvm root=/dev/$lvm_group/root rd.luks.options=password-echo=no rw quiet
 EOL
     
     efibootmgr -c -d /dev/$device -l "\EFI\systemd\systemd-bootx64.efi" -L "Linux Boot Manager" --u >> $install_logfile 2>&1
