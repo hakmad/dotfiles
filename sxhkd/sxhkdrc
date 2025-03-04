@@ -39,7 +39,7 @@ super + Delete
 	slock
 
 # Screenshot.
-{_,super,shift} + Print
+{_,super,alt} + Print
 	screenshot.sh {all,window,selection}
 
 # Brightness.
