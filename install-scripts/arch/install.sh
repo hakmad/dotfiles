@@ -191,7 +191,7 @@ show_packages() {
     echo -e "\n${C}Packages${NC}"
     echo -e "\t${packages}\n"
 }
-j
+
 partition_device() {
     echo_log "Partitioning device"
     
