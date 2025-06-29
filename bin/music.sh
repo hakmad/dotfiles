@@ -14,7 +14,7 @@ read -rep "Artist: " ARTIST
 read -rep "Title: " TITLE
 
 # Download file.
-yt-dlp --format m4a --output %\(id\)s.%\(ext\)s "$URL" \
+yt-dlp --extract-audio --audio-format m4a --output %\(id\)s.%\(ext\)s "$URL" \
 	--postprocessor-args "ffmpeg:-metadata artist=\"$ARTIST\" -metadata title=\"$TITLE\""
 
 # Find music directory.
