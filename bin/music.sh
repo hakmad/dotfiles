@@ -15,7 +15,8 @@ read -rep "Title: " TITLE
 
 # Download file.
 yt-dlp --extract-audio --audio-format m4a --output %\(id\)s.%\(ext\)s "$URL" \
-	--postprocessor-args "ffmpeg:-metadata artist=\"$ARTIST\" -metadata title=\"$TITLE\""
+	--postprocessor-args "ffmpeg:-metadata artist=\"$ARTIST\" -metadata title=\"$TITLE\"" \
+    --no-playlist
 
 # Find music directory.
 if [[ -z $ANDROID_ROOT ]]; then
