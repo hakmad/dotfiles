@@ -8,6 +8,9 @@
 # Stop the script if there are errors.
 set -e
 
+# Set downloads directory for music.
+DOWNLOADS_DIR="$HOME/media/music/"
+
 # Use `read` to get input variables.
 read -rep "URL: " URL
 read -rep "Artist: " ARTIST
@@ -18,20 +21,8 @@ yt-dlp --extract-audio --audio-format m4a --output %\(id\)s.%\(ext\)s "$URL" \
 	--postprocessor-args "ffmpeg:-metadata artist=\"$ARTIST\" -metadata title=\"$TITLE\"" \
     --no-playlist
 
-# Find music directory.
-if [[ -z $ANDROID_ROOT ]]; then
-	DOWNLOADS_DIR="$HOME/media/music/"
-else
-	DOWNLOADS_DIR="$HOME/storage/music/"
-fi
-
 # Move file to music directory.
 mkdir -p "$DOWNLOADS_DIR"
 mv -- *.m4a "$DOWNLOADS_DIR"
-
-# On Android, ask MediaStore to rescan music directory.
-if [[ -a $ANDROID_ROOT ]]; then
-	termux-media-scan "$DOWNLOADS_DIR"
-fi
 
 echo "Successfully downloaded track using youtube-dl."

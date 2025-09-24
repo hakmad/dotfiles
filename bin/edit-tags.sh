@@ -21,9 +21,4 @@ ffmpeg -hide_banner -loglevel error -i $FILE -metadata artist="$ARTIST" -metadat
 # Rewrite old file.
 mv temp.m4a $FILE
 
-# On Android, ask MediaStore to rescan music directory.
-if [[ -a $ANDROID_ROOT ]]; then
-	termux-media-scan $FILE
-fi
-
 echo "Successfully edited tags for $FILE"
