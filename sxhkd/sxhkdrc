@@ -32,7 +32,7 @@ control + alt + Delete
 super + Return
 	alacritty
 super + shift + Return
-    emacsclient -c "~/todo/inbox.org" "~/todo/todo.org"
+    emacsclient -c "~/todo/todo.org"
 super + space
 	run.sh
 super + shift + space
