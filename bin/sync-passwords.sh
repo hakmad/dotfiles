@@ -4,7 +4,7 @@
 passwords_file="passwords.kdbx"
 local_passwords="$HOME/.passwords/"
 cloud_passwords="fastmail:passwords"
-backup_dir="$HOME/.backups/passwords/$(date -I)/"
+backup_dir="$HOME/media/backups/passwords/$(date -I)/"
 
 # Check if a backup has been made today.
 if [[ ! -f $backup_dir$passwords_file ]]; then
