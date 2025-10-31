@@ -25,7 +25,7 @@ xorg_packages=(xorg xorg-xinit mesa vulkan-intel)
 audio_packages=(alsa-utils alsa-lib pulseaudio pulseaudio-alsa)
 font_packages=(noto-fonts noto-fonts-extra noto-fonts-emoji noto-fonts-cjk gnu-free-fonts ttf-liberation)
 desktop_utilities=(bspwm sxhkd scrot picom slock xss-lock)
-desktop_applications=(emacs alacritty firefox zathura zathura-pdf-mupdf feh mpv keepassxc vlc obs-studio shotcut gimp krita blender steam audacity virtualbox virtualbox-guest-utils virtualbox-guest-iso virtualbox-host-modules-arch wireshark-qt libreoffice-fresh)
+desktop_applications=(emacs alacritty qutebrowser firefox zathura zathura-pdf-mupdf feh mpv keepassxc vlc obs-studio shotcut gimp krita blender steam audacity virtualbox virtualbox-guest-utils virtualbox-guest-iso virtualbox-host-modules-arch wireshark-qt libreoffice-fresh)
 misc_utilities=(tree ntfs-3g htop wireless_tools yt-dlp jq bash-completion xclip zip unzip p7zip mediainfo brightnessctl rclone poppler imagemagick)
 programming_packages=(python python-pip go)
 aur_packages=(dina-font pod2man dmenu2 lemonbar-xft-git visual-studio-code-bin pandoc-bin)
@@ -285,7 +285,7 @@ setup_misc() {
     
     # Set Firefox as the default browser.
     runuser -u $user -- unset BROWSER
-    runuser -u $user -- xdg-settings set default-web-browser firefox.desktop >> $setup_logfile 2>&1
+    runuser -u $user -- xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop >> $setup_logfile 2>&1
 }
 
 setup_setup() {
