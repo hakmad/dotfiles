@@ -10,7 +10,7 @@ backup_dir="$HOME/media/backups/todo/$(date -I)/"
 # (Also the backup option doesn't always seem to work...)
 # Check if a backup has been made today.
 if [[ ! -f $backup_dir$todo_file ]]; then
-    # Create a new backup directory and copy the todo file there.
+    # Create a new backup directory and copy the todo files there.
     mkdir -p $backup_dir
     cp -r $local_todo/. $backup_dir
 
