@@ -26,7 +26,7 @@ audio_packages=(alsa-utils alsa-lib pulseaudio pulseaudio-alsa)
 font_packages=(noto-fonts noto-fonts-extra noto-fonts-emoji noto-fonts-cjk gnu-free-fonts ttf-liberation)
 desktop_utilities=(bspwm sxhkd scrot picom slock xss-lock)
 desktop_applications=(emacs alacritty qutebrowser firefox zathura zathura-pdf-mupdf feh mpv keepassxc vlc obs-studio shotcut gimp krita blender steam audacity virtualbox virtualbox-guest-utils virtualbox-guest-iso virtualbox-host-modules-arch wireshark-qt libreoffice-fresh)
-misc_utilities=(tree ntfs-3g htop wireless_tools yt-dlp jq bash-completion xclip zip unzip p7zip mediainfo brightnessctl rclone poppler imagemagick)
+misc_utilities=(tree ntfs-3g htop wireless_tools yt-dlp jq bash-completion xclip zip unzip p7zip mediainfo brightnessctl rclone poppler imagemagick texlive usbmuxd libimobiledevice)
 programming_packages=(python python-pip go)
 aur_packages=(dina-font pod2man dmenu2 lemonbar-xft-git visual-studio-code-bin pandoc-bin)
 
