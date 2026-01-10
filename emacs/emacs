@@ -1,0 +1,70 @@
+;; Emacs configuration file.
+
+;; Disable startup message.
+(setq inhibit-startup-message t)
+
+;; Hide menu bar, scroll bar and tool bar.
+(scroll-bar-mode -1)
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(tooltip-mode -1)
+
+;; Set margin size and colour - this is only for "GUI" Emacs.
+(fringe-mode 25)
+
+;;(set-face-attribute 'fringe nil
+;;                    :background (face-background 'default)
+;;                    :foreground (face-foreground 'default))
+
+;; Disable the bell completely.
+(setq ring-bell-function 'ignore)
+
+;; Set the cursor.
+(blink-cursor-mode 0)
+(setq visible-cursor nil)
+
+;; Editor settings.
+(global-visual-line-mode 1)
+
+;; Setup package manager.
+(require 'package)
+
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+			 ("elpa" . "https://elpa.gnu.org/packages/")))
+
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
+
+;; Download Evil
+(unless (package-installed-p 'evil)
+  (package-install 'evil))
+
+;; Enable Evil
+(require 'evil)
+(evil-mode 1)
+
+;; Define some keys.
+(evil-define-key 'normal org-mode-map (kbd "<tab>") #'org-cycle)
+
+;; org mode key bindings.
+(global-set-key (kbd "C-c a") #'org-agenda)
+(global-set-key (kbd "C-c c") #'org-capture)
+
+;; org mode settings.
+(setq org-directory "~/todo/")
+(setq org-default-notes-file (concat org-directory "todo.org"))
+(setq org-agenda-files (list "todo.org"))
+
+;; org mode templates.
+(setq org-capture-templates
+      '(("i" "Inbox" entry (file+headline "todo.org" "Inbox")
+	 "** %?"
+	 :empty-lines 1
+	 )
+	("t" "Task" entry (file+headline "todo.org" "Tasks")
+	 "** TODO %?\n%U"
+	 :empty-lines 1
+	 )
+	)
+      )
