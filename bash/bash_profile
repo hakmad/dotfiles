@@ -5,7 +5,11 @@
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
 # Export environment variables.
+# Standard environment variables.
 export PATH="${PATH}:/usr/local/texlive/2024/bin/x86_64-linux:${HOME}/.bin:${HOME}/.local/bin"
+
+# User environment variables.
+export LEDGER_FILE="$HOME/media/documents/finance/ledger/personal.journal"
 
 # Default programs.
 export PAGER=less
@@ -23,4 +27,5 @@ shopt -s no_empty_cmd_completion
 shopt -s histappend
 
 # Run startx silently.
+# This MUST be the last thing in this file - anything after this will not be run on startup.
 [[ $(fgconsole 2>/dev/null) == 1 ]] && startx -- vt1 &> /dev/null
