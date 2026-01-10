@@ -1,0 +1,9 @@
+[Unit]
+Description=Make a backup of the ledger file
+
+[Service]
+Type=oneshot
+ExecStart=/home/hakmad/.bin/backup-ledger.sh
+
+[Install]
+WantedBy=default.target
