@@ -6,10 +6,10 @@
 
 # Export environment variables.
 # Standard environment variables.
-export PATH="${PATH}:/usr/local/texlive/2024/bin/x86_64-linux:${HOME}/.bin:${HOME}/.local/bin"
+export PATH="${PATH}:${HOME}/.bin"
 
 # User environment variables.
-export LEDGER_FILE="$HOME/media/documents/finance/ledger/personal.journal"
+export LEDGER_FILE="${HOME}/media/documents/finance/ledger/personal.journal"
 
 # Default programs.
 export PAGER=less
