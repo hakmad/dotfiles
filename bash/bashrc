@@ -5,11 +5,7 @@
 [[ $- != *i* ]] && return
 
 # Autocompletion scripts.
-if [[ -z $ANDROID_ROOT ]]; then
-	source /usr/share/bash-completion/bash_completion
-else
-	source /data/data/com.termux/files/usr/share/bash-completion/bash_completion
-fi
+source /usr/share/bash-completion/bash_completion
 
 # Aliases.
 alias ls="ls "
