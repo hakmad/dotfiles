@@ -89,7 +89,7 @@ check_root() {
     fi
 }
 
-set_network() {
+setup_network() {
     echo -e "\n${C}Network Settings${NC}"
 
     read -e -p "Enter Wi-Fi network SSID: " wifi_ssid
@@ -200,32 +200,7 @@ setup_misc() {
     runuser -u $user -- ssh-keygen -q -N '' -t $ssh_type -f $user_home/.ssh/id_$ssh_type >> $setup_logfile 2>&1
     
     # Set qutebrowser as the default browser.
-    runuser -u $user -- unset BROWSER
     runuser -u $user -- xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop >> $setup_logfile 2>&1
-}
-
-setup_setup() {
-    set_user
-    set_dotfiles
-    set_locale
-    set_ssh_settings
-    set_network
-    set_packages
-}
-
-show_setup_settings() {
-    # Display setup settings.
-    clear
-    echo -e "\n${C}Setup Summary${NC}\n"
-
-    show_user
-    show_dotfiles
-    show_locale
-    show_ssh_settings
-    show_network
-    show_packages
-    
-    echo
 }
 
 run_setup() {
@@ -249,14 +224,12 @@ main() {
     clear
     echo -e "${C}Welcome to hakmad's Arch Linux setup script!${NC}\n"
 
-    # Setup setup.
-    log "Setting up setup..."
-    setup_setup
-
-    # Show setup settings.
-    show_setup_settings
+    # Setup network.
+    log "Setting up network..."
+    setup_network
 
     # Ask user to confirm they want to start the setup.
+    echo -e "\n${C}Initialisation Complete${NC}"
     read -e -p "Start setup? (type 'yes' in capital letters) "
     case $REPLY in
         "YES") ;;
