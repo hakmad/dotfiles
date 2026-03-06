@@ -22,11 +22,13 @@ bspc config presel_feedback_color 	$FOREGROUND
 # BSPWM rules for windows.
 bspc rule -a floating 			state=floating
 bspc rule -a feh 			    state=floating
-#bspc rule -a Alacritty          state=pseudo_tiled
 
 # BSPWM mouse configurations.
 bspc config pointer_action1		move
 bspc config pointer_action2		resize_corner
+
+# ICCCM window size hints for floating windows.
+bspc config honor_size_hints    floating
 
 # Setup monitors and desktops.
 bspc monitor -d 1 2 3 4 5 6 7 8 9 10
