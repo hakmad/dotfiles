@@ -10,19 +10,18 @@ NC="\033[0m"
 install_logfile="install_$(date '+%Y-%m-%d_%H-%M-%S').log"
 
 # Defaults.
+hostname="laptop"
+user="hakmad"
 efi_size="1G"
 swap_size="20G"
-root_size="250G"
-home_size="100%FREE"
-user="hakmad"
+root_size="100%FREE"
+shrink_size="256M"
 locale="GB"
 keyboard="uk"
 timezone="Europe/London" 
-hostname="laptop" 
-ntp=true
-packages=(base base-devel linux linux-firmware intel-ucode lvm2 networkmanager man-pages man-db texinfo vim git openssh acpi efibootmgr)
+packages=(base base-devel linux linux-firmware intel-ucode nvidia-open lvm2 networkmanager man-pages man-db texinfo vim git openssh acpi efibootmgr)
 
-# Secrets.
+# User set variables (secrets, etc.).
 luks_password=""
 root_password=""
 user_password=""
@@ -88,108 +87,14 @@ set_luks_settings() {
     luks_password=$(set_secret "LUKS password")
 }
 
-set_partition_layout() {
-    echo -e "\n${C}Partition Layout${NC}"
-
-    # Loop until user is satisfied with layout.
-    while true; do
-        # Display layout.
-        echo -e "This script installs Arch Linux with the following partition layout:\n"
-        echo -e "EFI\tLVM/LUKS"
-        echo -e ":swap:root:home\n$efi_size:$swap_size:$root_size:$home_size" | column -t -s ":"
-        echo
-
-        # Ask user to confirm.
-        read -e -p "Use this layout? (Y/n) " -i "y"
-        case $REPLY in
-            [Nn]*)
-                # Ask user to set new partition sizes.
-                read -e -p "Enter EFI partition size: " -i $efi_size efi_size
-                read -e -p "Enter swap partition size: " -i $swap_size swap_size
-                read -e -p "Enter root partition size: " -i $root_size root_size
-                read -e -p "Enter home partition size: " -i $home_size home_size
-                break
-                ;;
-            [Yy]*)
-                break
-                ;;
-            *)
-                ;;
-        esac
-    done
-}
-
 set_user_details() {
     echo -e "\n${C}Users${NC}"
 
     # Ask user for root password.
     root_password=$(set_secret "root password")
 
-    # Ask user for standard user details.
-    read -e -p "Enter username: " -i $user user 
+    # Ask user for standard user password.
     user_password=$(set_secret "user password")
-}
-
-set_locale_settings() {
-    echo -e "\n${C}Locale Settings${NC}"
-
-    # Ask user for locale settings.
-    read -e -p "Enter locale: " -i $locale locale 
-    read -e -p "Enter keyboard layout: " -i $keyboard keyboard 
-    read -e -p "Enter timezone: " -i $timezone timezone 
-}
-
-set_network_settings() {
-    echo -e "\n${C}Network Settings${NC}"
-
-    # Ask user for network settings.
-    read -e -p "Enter hostname: " -i $hostname hostname
-}
-
-set_packages() {
-    echo -e "\n${C}Packages${NC}"
-
-    # Ask user for packages.
-    read -e -a packages -p "Packages to install: " -i "${packages[*]}"
-}
-
-show_device_settings() {
-    echo -e "\n${C}Device Settings${NC}"
-    echo -e "\tDevice: $device"
-}
-
-show_luks_settings() {
-    echo -e "\n${C}LUKS Settings${NC}"
-    echo -e "\tLUKS password: ***"
-}
-
-show_partition_layout() {
-    echo -e "\n${C}Partition Layout${NC}"
-    echo -e "\tEFI\tLVM/LUKS"
-    echo -e "\t:swap:root:home\n\t$efi_size:$swap_size:$root_size:$home_size" | column -t -s ":"
-}
-
-show_user_details() {
-    echo -e "\n${C}User Details${NC}"
-    echo -e "\tRoot password: ***"
-    echo -e "\tUser: $user"
-    echo -e "\tUser password: ***"
-}
-
-show_locale_settings() {
-    echo -e "\n${C}Locale Settings${NC}"
-    echo -e "\tLocale: $locale"
-    echo -e "\tKeyboard: $keyboard"
-}
-
-show_network_settings() {
-    echo -e "\n${C}Network Settings${NC}"
-    echo -e "\tHostname: $hostname"
-}
-
-show_packages() {
-    echo -e "\n${C}Packages${NC}"
-    echo -e "\t${packages}\n"
 }
 
 partition_device() {
@@ -200,7 +105,7 @@ partition_device() {
 label: gpt
 device: /dev/$device
 
-size=1G, type=uefi
+size=$efi_size, type=uefi
 type=lvm
 EOF
     
@@ -226,11 +131,10 @@ setup_lvm() {
 
     vgcreate $lvm_group /dev/mapper/$luks_mapper >> $install_logfile 2>&1
 
-    lvcreate -L 20G $lvm_group -n swap >> $install_logfile 2>&1
-    lvcreate -L 250G $lvm_group -n root >> $install_logfile 2>&1
-    lvcreate -l 100%FREE $lvm_group -n home >> $install_logfile 2>&1
+    lvcreate -L $efi_size $lvm_group -n swap >> $install_logfile 2>&1
+    lvcreate -l $root_size $lvm_group -n root >> $install_logfile 2>&1
 
-    lvreduce -L -256M $lvm_group/home >> $install_logfile 2>&1
+    lvreduce -L -$shrink_size $lvm_group/root >> $install_logfile 2>&1
 }
 
 format_partitions() { 
@@ -238,13 +142,11 @@ format_partitions() {
 
     boot=$(fdisk /dev/$device -l | awk '/EFI/ {print $1}')
     root=/dev/$lvm_group/root
-    home=/dev/$lvm_group/home
     swap=/dev/$lvm_group/swap
 
     mkfs.fat -F 32 $boot >> $install_logfile 2>&1
 
     mkfs.ext4 -F $root >> $install_logfile 2>&1
-    mkfs.ext4 -F $home >> $install_logfile 2>&1
 
     mkswap $swap >> $install_logfile 2>&1
 }
@@ -254,7 +156,6 @@ mount_partitions() {
 
     mount $root /mnt >> $install_logfile 2>&1
     mount --mkdir $boot /mnt/boot >> $install_logfile 2>&1
-    mount --mkdir $home /mnt/home >> $install_logfile 2>&1
 }
 
 enable_swap() {
@@ -374,29 +275,7 @@ EOL
 setup_installation() {
     set_device_settings
     set_luks_settings
-    set_partition_layout
     set_user_details
-    set_locale_settings
-    set_network_settings
-    set_packages
-}
-
-show_installation_settings() {
-    # Display installation settings.
-    clear
-    echo -e "\n${C}Installation Summary${NC}\n"
-
-    # Display individual sections.
-    show_device_settings
-    show_luks_settings
-    show_partition_layout
-    show_user_details
-    show_locale_settings
-    show_network_settings
-    show_packages
-
-    # Print newline.
-    echo 
 }
 
 run_installation() {
@@ -439,10 +318,8 @@ main() {
     setup_installation
     log "Installation setup complete"
     
-    # Show installation settings.
-    show_installation_settings
-
     # Ask user to confirm they want to start the installation.
+    echo -e "\n${C}Setup Complete${NC}"
     read -e -p "Start installation? (type 'yes' in capital letters) "
     case $REPLY in
     	"YES") ;;

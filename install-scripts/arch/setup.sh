@@ -9,7 +9,7 @@ NC="\033[0m"
 # Logfile.
 setup_logfile="setup_$(date '+%Y-%m-%d_%H-%M-%S').log"
 
-# Variables.
+# Defaults.
 user="hakmad"
 user_home="/home/$user"
 dotfiles_location="$user_home/.dotfiles"
@@ -17,11 +17,13 @@ dotfiles_remote_url="git@github.com:hakmad/dotfiles"
 keymap="uk"
 timezone="Europe/London"
 ssh_type="ed25519"
+
+# User set variables (Wi-Fi, etc.).
 wifi_ssid=""
 wifi_password=""
 
 # Packages.
-xorg_packages=(xorg xorg-xinit mesa vulkan-intel)
+xorg_packages=(xorg xorg-xinit mesa vulkan-intel nvidia-open nvidia-utils nvidia-settings)
 audio_packages=(alsa-utils alsa-lib pulseaudio pulseaudio-alsa)
 font_packages=(noto-fonts noto-fonts-extra noto-fonts-emoji noto-fonts-cjk gnu-free-fonts ttf-liberation)
 desktop_utilities=(bspwm sxhkd scrot picom slock xss-lock)
@@ -87,97 +89,11 @@ check_root() {
     fi
 }
 
-set_user() {
-    echo -e "\n${C}User${NC}"
-
-    read -e -p "Enter username: " -i $user user
-}
-
-set_dotfiles() {
-    echo -e "\n${C}Dotfiles${NC}"
-
-    read -e -p "Enter dotfiles location: " -i $dotfiles_location dotfiles_location
-    read -e -p "Enter dotfiles remote URL: " -i $dotfiles_remote_url dotfiles_remote_url
-}
-
-set_locale() {
-    echo -e "\n${C}Locale${NC}"
-
-    read -e -p "Enter keymap: " -i $keymap keymap
-    read -e -p "Enter timezone: " -i $timezone timezone
-}
-
-set_ssh_settings() {
-    echo -e "\n${C}SSH Settings${NC}"
-
-    read -e -p "Enter SSH key type: " -i $ssh_type ssh_type
-}
-
 set_network() {
     echo -e "\n${C}Network Settings${NC}"
 
     read -e -p "Enter Wi-Fi network SSID: " wifi_ssid
     wifi_password=$(set_secret "Wi-Fi network password")
-}
-
-set_packages() {
-    echo -e "\n${C}Packages${NC}"
-
-    # Ask user for packages.
-    read -e -a xorg_packages -p "xorg packages to install: " -i "${xorg_packages[*]}"
-    read -e -a audio_packages -p "Audio packages to install: " -i "${audio_packages[*]}"
-    read -e -a font_packages -p "Font packages to install: " -i "${font_packages[*]}"
-    read -e -a desktop_utilities -p "Desktop utilities to install: " -i "${desktop_utilities[*]}"
-    read -e -a desktop_applications -p "Desktop applications to install: " -i "${desktop_applications[*]}"
-    read -e -a misc_utilities -p "Misc utilities to install: " -i "${misc_utilities[*]}"
-    read -e -a programming_packages -p "Programming packages to install: " -i "${programming_packages[*]}"
-    read -e -a aur_packages -p "AUR packages to install: " -i "${aur_packages[*]}"
-}
-
-show_user() {
-    echo -e "\n${C}User${NC}"
-
-    echo -e "\tUser: $user"
-}
-
-show_dotfiles() {
-    echo -e "\n${C}Dotfiles${NC}"
-
-    echo -e "\tDotfiles location: $dotfiles_location"
-    echo -e "\tDotfiles remote URL: $dotfiles_remote_url"
-}
-
-show_locale() {
-    echo -e "\n${C}Locale${NC}"
-
-    echo -e "\tKeymap: $keymap"
-    echo -e "\tTimezone: $timezone"
-}
-
-show_ssh_settings() {
-    echo -e "\n${C}SSH Settings${NC}"
-
-    echo -e "\tSSH Key Type: $ssh_type"
-}
-
-show_network() {
-    echo -e "\n${C}Network Settings${NC}"
-
-    echo -e "\tWi-Fi network SSID: $wifi_ssid"
-    echo -e "\tWi-Fi network Password: ***"
-}
-
-show_packages() {
-    echo -e "\n${C}Packages${NC}"
-
-    echo -e "\txorg packages to install: ${xorg_packages[@]}"
-    echo -e "\tAudio packages to install: ${audio_packages[@]}" 
-    echo -e "\tFont packages to install: ${font_packages[@]}"
-    echo -e "\tDesktop utilities to install: ${desktop_utilities[@]}"
-    echo -e "\tDesktop applications to install: ${desktop_applications[@]}"
-    echo -e "\tMisc utilities to install: ${misc_utilities[@]}"
-    echo -e "\tProgramming packages to install: ${programming_packages[@]}"
-    echo -e "\tAUR packages to install: ${aur_packages[@]}"
 }
 
 connect_to_internet() {
@@ -283,7 +199,7 @@ setup_misc() {
     rm -rf $user_home/.ssh
     runuser -u $user -- ssh-keygen -q -N '' -t $ssh_type -f $user_home/.ssh/id_$ssh_type >> $setup_logfile 2>&1
     
-    # Set Firefox as the default browser.
+    # Set qutebrowser as the default browser.
     runuser -u $user -- unset BROWSER
     runuser -u $user -- xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop >> $setup_logfile 2>&1
 }
