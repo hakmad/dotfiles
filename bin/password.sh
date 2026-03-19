@@ -20,5 +20,5 @@ ATTRIBUTES="Password\nUsername"
 ATTRIBUTE=$(echo -e $ATTRIBUTES | menu.sh -p "Attribute:")
 
 # Get password from DB and copy to clipboard.
-printf "%s\n\r" "$PASSWORD" | keepassxc-cli clip -q "$DB" "$CHOICE" -a "$ATTRIBUTE" -k $KEYFILE
+printf "%s\n\r" "$PASSWORD" | keepassxc-cli clip -q "$DB" "$CHOICE" -a "$ATTRIBUTE"
 popup.sh -m "Password cleared from clipboard" -d 3
