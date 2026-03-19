@@ -7,13 +7,12 @@ set -e
 
 # Location for passwords DB and keyfile.
 DB="$HOME/.passwords/passwords.kdbx"
-KEYFILE="$HOME/.secrets/keyfile"
 
 # Get password from user.
 PASSWORD=$(echo " " | menu.sh -l 0 -mask -p "Password:")
 
 # List choices from passwords DB and copy selected choice to clipboard.
-CHOICES=$(printf "%s\n\r" "$PASSWORD" | keepassxc-cli ls "$DB" -q -k $KEYFILE)
+CHOICES=$(printf "%s\n\r" "$PASSWORD" | keepassxc-cli ls "$DB" -q)
 CHOICE=$(printf "%s" "$CHOICES" | menu.sh -p "Choice:")
 
 # List attributes.
